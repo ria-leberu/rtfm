@@ -46,49 +46,51 @@ tables = require('tables')
 res = require('resources')
 texts = require('texts')
 config = require('config')
-chat = require('chat')
+--chat = require('chat')
+
+default_settings = T{}
+default_settings.font_size = 11
+default_settings.font = 'Arial Black'
+default_settings.bg_alpha = 255
+default_settings.pos_x = 400
+default_settings.pos_y = 700
 
 
-
-default_settings = {
-  bg = {
-    alpha = 100
-  },
-  padding = 3
-}
-
-
-
---Startup
 settings = config.load(default_settings)
-mobmove_box = texts.new(settings)
-str = 'Recent Mob Moves: \n${most_recent_move|move1}\n${second_recent_move|move2}\n${third_recent_move|move3}'
+
+recent_move_table = {'---', '---', '---', '---'}
+
+mobmove_box = texts.new("mobmove_box")
+str = 'Recent Mob Moves: \n${third_recent_move|---}\n${second_recent_move|---}\n${first_recent_move|---}\n\nIncoming Move:\n${incoming_move|---}'
+
+
+texts.size(mobmove_box, settings.font_size)
+texts.font(mobmove_box, settings.font)
+texts.bg_alpha(mobmove_box, settings.bg_alpha)
+texts.pos(mobmove_box, settings.pos_x, settings.pos_y)
+
+
 mobmove_box:text(str)
-mobmove_box:font("Arial Black")
-mobmove_box:size(12)
 mobmove_box:show()
 
 
-function mobmove_box_update()
-	
-	
-end
-
 windower.register_event('action', function(act)
-	recent_move_table = {}
+	
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	local param = act.param
 	local self = windower.ffxi.get_player()
-	local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
-	--if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
-	if actor.spawn_type == 16 then
-		if (act['category'] == 7) then
-			recent_move_table[#recent_move_table+1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
-			mobmove_box.most_recent_move = recent_move_table[#recent_move_table]
-			mobmove_box.second_recent_move = recent_move_table[#recent_move_table-1]
-			mobmove_box.third_recent_move = recent_move_table[#recent_move_table-2]
-			windower.add_to_chat(123, ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' ')
+	if actor.spawn_type == 16 then --check if actor is a monster(16)
+		if (act['category'] == 7) or (act['category'] == 8) then --
+			recent_move_table[4] = recent_move_table[3]
+			recent_move_table[3] = recent_move_table[2]
+			recent_move_table[2] = recent_move_table[1]
+			recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+			mobmove_box.incoming_move = recent_move_table[1]
+			mobmove_box.first_recent_move = recent_move_table[2]
+			mobmove_box.second_recent_move = recent_move_table[3]
+			mobmove_box.third_recent_move = recent_move_table[4]
+			windower.play_sound(windower.addon_path..'sounds_alert/default_alert.wav')
 		end
 	end
 end)
