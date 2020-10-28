@@ -42,11 +42,14 @@ _addon.version = '0.1.1'
 _addon.command = 'rtfm'
 _addon.commands = {'help'}
 
+res = require('resources')
 texts = require('texts')
 config = require('config')
+chat = require('chat')
 --require('sets')
 --res = require('resources')
 --chat = require('chat')
+
 
 default_settings = {
   bg = {
@@ -54,11 +57,28 @@ default_settings = {
   },
   padding = 3
 }
+
+
+
 --Startup
 settings = config.load(default_settings)
 text_box = texts.new(settings)
 
+
+
+function get_action_id(targets)
+    for i,v in pairs(targets) do
+        for i2,v2 in pairs(v['actions']) do
+            if v2['param'] then
+                return v2['param']
+            end
+        end
+    end
+end
+
 windower.register_event('action', function(action)
 	if (action['category'] == 7) then
-  
+		local action_id = get_action_id(action['targets'])
+		windower.add_to_chat(123,  action_id)
 	end
+end)
