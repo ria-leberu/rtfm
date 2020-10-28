@@ -62,22 +62,18 @@ default_settings = {
 
 --Startup
 settings = config.load(default_settings)
-text_box = texts.new(settings)
+mobmove_box = texts.new(settings)
+str = 'Recent Mob Moves: \n ${current_string}'
+mobmove_box:text(str)
+mobmove_box:font("Arial Black")
+mobmove_box:size(12)
+mobmove_box:show()
 
 
---[[
-function get_action_id(targets)
-    for i,v in pairs(targets) do
-        for i2,v2 in pairs(v['actions']) do
-            if v2['param'] then
-                return v2['param']
-            end
-        end
-    end
-end
-]]--
+
 
 windower.register_event('action', function(act)
+	local lines = L{}
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	local param = act.param
@@ -85,6 +81,7 @@ windower.register_event('action', function(act)
 	local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
 	if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
 		if (act['category'] == 7) then
+			mobmove_box.current_string = ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' '
 			windower.add_to_chat(123, ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' ')
 		end
 	end
