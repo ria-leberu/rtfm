@@ -46,10 +46,8 @@ res = require('resources')
 texts = require('texts')
 config = require('config')
 chat = require('chat')
---require('sets')
---res = require('resources')
---chat = require('chat')
 
+recent_move_table = {}
 
 default_settings = {
   bg = {
@@ -70,10 +68,12 @@ mobmove_box:size(12)
 mobmove_box:show()
 
 
-
+function mobmove_box_update()
+	
+	
+end
 
 windower.register_event('action', function(act)
-	local lines = L{}
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	local param = act.param
