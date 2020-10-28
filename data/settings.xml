@@ -39,6 +39,24 @@
             </stroke>
         </text>
     </global>
+    <finasteride>
+        <bg>
+            <alpha>100</alpha>
+        </bg>
+        <pos>
+            <x>1479</x>
+            <y>279</y>
+        </pos>
+    </finasteride>
+    <remdesivir>
+        <bg>
+            <alpha>100</alpha>
+        </bg>
+        <pos>
+            <x>1500</x>
+            <y>301</y>
+        </pos>
+    </remdesivir>
     <rialya>
         <pos>
             <x>1433</x>

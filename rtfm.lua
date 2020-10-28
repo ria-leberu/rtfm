@@ -42,16 +42,17 @@ _addon.version = '0.1.1'
 _addon.command = 'rtfm'
 _addon.commands = {'help'}
 
+tables = require('tables')
 res = require('resources')
 texts = require('texts')
 config = require('config')
 chat = require('chat')
 
-recent_move_table = {}
+
 
 default_settings = {
   bg = {
-    alpha = 25
+    alpha = 100
   },
   padding = 3
 }
@@ -61,7 +62,7 @@ default_settings = {
 --Startup
 settings = config.load(default_settings)
 mobmove_box = texts.new(settings)
-str = 'Recent Mob Moves: \n ${current_string}'
+str = 'Recent Mob Moves: \n${most_recent_move|move1}\n${second_recent_move|move2}\n${third_recent_move|move3}'
 mobmove_box:text(str)
 mobmove_box:font("Arial Black")
 mobmove_box:size(12)
@@ -74,14 +75,19 @@ function mobmove_box_update()
 end
 
 windower.register_event('action', function(act)
+	recent_move_table = {}
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	local param = act.param
 	local self = windower.ffxi.get_player()
 	local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
-	if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
+	--if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
+	if actor.spawn_type == 16 then
 		if (act['category'] == 7) then
-			mobmove_box.current_string = ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' '
+			recent_move_table[#recent_move_table+1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+			mobmove_box.most_recent_move = recent_move_table[#recent_move_table]
+			mobmove_box.second_recent_move = recent_move_table[#recent_move_table-1]
+			mobmove_box.third_recent_move = recent_move_table[#recent_move_table-2]
 			windower.add_to_chat(123, ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' ')
 		end
 	end
