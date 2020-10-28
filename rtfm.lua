@@ -85,7 +85,11 @@ windower.register_event('action', function(act)
 			recent_move_table[4] = recent_move_table[3]
 			recent_move_table[3] = recent_move_table[2]
 			recent_move_table[2] = recent_move_table[1]
-			recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+			if (act['category'] == 8) then
+				recent_move_table[1] = ('%s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en))
+			else
+				recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+			end
 			mobmove_box.incoming_move = recent_move_table[1]
 			mobmove_box.first_recent_move = recent_move_table[2]
 			mobmove_box.second_recent_move = recent_move_table[3]
