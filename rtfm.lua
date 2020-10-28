@@ -65,7 +65,7 @@ settings = config.load(default_settings)
 text_box = texts.new(settings)
 
 
-
+--[[
 function get_action_id(targets)
     for i,v in pairs(targets) do
         for i2,v2 in pairs(v['actions']) do
@@ -75,10 +75,17 @@ function get_action_id(targets)
         end
     end
 end
+]]--
 
-windower.register_event('action', function(action)
-	if (action['category'] == 7) then
-		local action_id = get_action_id(action['targets'])
-		windower.add_to_chat(123,  action_id)
+windower.register_event('action', function(act)
+	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
+	local targets = act.targets
+	local param = act.param
+	local self = windower.ffxi.get_player()
+	local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
+	if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
+		if (act['category'] == 7) then
+			windower.add_to_chat(123, ' '..actor.name.. ' : ' ..res.monster_abilities[targets[1].actions[1].param].en..' ')
+		end
 	end
 end)
