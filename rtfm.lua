@@ -76,21 +76,25 @@ windower.register_event('action', function(act)
 	local targets = act.targets
 	local param = act.param
 	local self = windower.ffxi.get_player()
-	if actor.spawn_type == 16 then --check if actor is an enemy (16)
-		if (act['category'] == 7) or (act['category'] == 8) then --
-			recent_move_table[4] = recent_move_table[3]
-			recent_move_table[3] = recent_move_table[2]
-			recent_move_table[2] = recent_move_table[1]
-			if (act['category'] == 8) then
-				recent_move_table[1] = ('%s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en))
-			else
-				recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+	if actor == nil then
+		return
+	else
+		if actor.spawn_type == 16 then --check if actor is an enemy (16)
+			if (act['category'] == 7) or (act['category'] == 8) then --
+				recent_move_table[4] = recent_move_table[3]
+				recent_move_table[3] = recent_move_table[2]
+				recent_move_table[2] = recent_move_table[1]
+				if (act['category'] == 8) then
+					recent_move_table[1] = ('%s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en))
+				else
+					recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+				end
+				mobmove_box.incoming_move = recent_move_table[1]
+				mobmove_box.first_recent_move = recent_move_table[2]
+				mobmove_box.second_recent_move = recent_move_table[3]
+				mobmove_box.third_recent_move = recent_move_table[4]
+				windower.play_sound(windower.addon_path..'sounds_alert/default_alert.wav')
 			end
-			mobmove_box.incoming_move = recent_move_table[1]
-			mobmove_box.first_recent_move = recent_move_table[2]
-			mobmove_box.second_recent_move = recent_move_table[3]
-			mobmove_box.third_recent_move = recent_move_table[4]
-			windower.play_sound(windower.addon_path..'sounds_alert/default_alert.wav')
-		end
+		
 	end
 end)
