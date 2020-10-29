@@ -63,24 +63,20 @@ recent_move_table = {'---', '---', '---', '---'}
 mobmove_box = texts.new("mobmove_box")
 str = 'Recent Mob Moves: \n${third_recent_move|---}\n${second_recent_move|---}\n${first_recent_move|---}\n\nIncoming Move:\n${incoming_move|---}'
 
-
 texts.size(mobmove_box, settings.font_size)
 texts.font(mobmove_box, settings.font)
 texts.bg_alpha(mobmove_box, settings.bg_alpha)
 texts.pos(mobmove_box, settings.pos_x, settings.pos_y)
 
-
 mobmove_box:text(str)
 mobmove_box:show()
 
-
 windower.register_event('action', function(act)
-	
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	local param = act.param
 	local self = windower.ffxi.get_player()
-	if actor.spawn_type == 16 then --check if actor is a monster(16)
+	if actor.spawn_type == 16 then --check if actor is an enemy (16)
 		if (act['category'] == 7) or (act['category'] == 8) then --
 			recent_move_table[4] = recent_move_table[3]
 			recent_move_table[3] = recent_move_table[2]
