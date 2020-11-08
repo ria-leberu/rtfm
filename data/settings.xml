@@ -4,7 +4,7 @@
         <bg_alpha>255</bg_alpha>
         <font>Arial Black</font>
         <font_size>11</font_size>
-        <pos_x>400</pos_x>
+        <pos_x>200</pos_x>
         <pos_y>700</pos_y>
     </global>
 </settings>
