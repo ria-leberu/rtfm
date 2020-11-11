@@ -49,8 +49,8 @@ config = require('config')
 --chat = require('chat')
 
 default_settings = T{}
-default_settings.font_size = 11
-default_settings.font = 'Arial Black'
+default_settings.font_size = 10
+default_settings.font = 'Verdana'
 default_settings.bg_alpha = 255
 default_settings.pos_x = 200
 default_settings.pos_y = 700
@@ -58,10 +58,10 @@ default_settings.pos_y = 700
 
 settings = config.load(default_settings)
 
-recent_move_table = {'---', '---', '---', '---'}
+recent_move_table = {'---', '---', '---', '---', '---', '---'}
 
 mobmove_box = texts.new("mobmove_box")
-str = 'Recent Mob Moves: \n${third_recent_move|---}\n${second_recent_move|---}\n${first_recent_move|---}\n\nIncoming Move:\n${incoming_move|---}'
+str = 'Recent Mob Moves: \n${fifth_recent_move|---}\n${fourth_recent_move|---}\n${third_recent_move|---}\n${second_recent_move|---}\n${first_recent_move|---}\n\nIncoming Move:\n${incoming_move|---}'
 
 texts.size(mobmove_box, settings.font_size)
 texts.font(mobmove_box, settings.font)
@@ -96,15 +96,16 @@ windower.register_event('action', function(act)
 			recent_move_table[3] = recent_move_table[2]
 			recent_move_table[2] = recent_move_table[1]
 			if (act['category'] == 7) then --check for monster ability 
-				recent_move_table[1] = ('%s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
+				recent_move_table[1] = ('%s : %s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en,windower.ffxi.get_mob_by_id(act.targets[1].id).name))
 			elseif (act['category'] == 8) then --check for monster spell success
-				recent_move_table[1] = ('%s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en))
-				
+				recent_move_table[1] = ('%s : %s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en,windower.ffxi.get_mob_by_id(act.targets[1].id).name))
 			end
 			mobmove_box.incoming_move = recent_move_table[1]
 			mobmove_box.first_recent_move = recent_move_table[2]
 			mobmove_box.second_recent_move = recent_move_table[3]
 			mobmove_box.third_recent_move = recent_move_table[4]
+			mobmove_box.fourth_recent_move = recent_move_table[5]
+			mobmove_box.fifth_recent_move = recent_move_table[6]
 			windower.play_sound(windower.addon_path..'sounds_alert/default_alert.wav')
 		end
 	end
