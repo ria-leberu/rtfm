@@ -73,32 +73,19 @@ mobmove_box:show()
 
 windower.register_event('action', function(act)
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
-	
 	local targets = act.targets
-	local param = act.param
-	local self = windower.ffxi.get_player()
-	if not actor or not targets then --If the actor or target table is nil, ignore the packet
-	elseif actor.spawn_type == 16 then --check if actor is an enemy (16)
-		if ((act['category'] == 7 and res.monster_abilities[targets[1].actions[1].param] == 28787)) or ((act['category'] == 8 and res.spells[targets[1].actions[1].param] == 28787)) then --check for ability and success
+	--local self = windower.ffxi.get_player()
+	if actor.spawn_type == 16 then --check if actor is an enemy (16)
+		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 then --check for spell/ability initiation
+			recent_move_table[6] = recent_move_table[5]
+			recent_move_table[5] = recent_move_table[4]
 			recent_move_table[4] = recent_move_table[3]
 			recent_move_table[3] = recent_move_table[2]
 			recent_move_table[2] = recent_move_table[1]
-			if (act['category'] == 7) then --check for monster ability 
-				recent_move_table[1] = ('%s : %s FAILED':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en))
-				
-			elseif (act['category'] == 8) then
-				recent_move_table[1] = ('%s : %s FAILED':format(actor.name,res.spells[targets[1].actions[1].param].en))
-				
-				
-			end
-		elseif (act['category'] == 7) or (act['category'] == 8) then --
-			recent_move_table[4] = recent_move_table[3]
-			recent_move_table[3] = recent_move_table[2]
-			recent_move_table[2] = recent_move_table[1]
-			if (act['category'] == 7) then --check for monster ability 
-				recent_move_table[1] = ('%s : %s : %s':format(actor.name,res.monster_abilities[targets[1].actions[1].param].en,windower.ffxi.get_mob_by_id(act.targets[1].id).name))
-			elseif (act['category'] == 8) then --check for monster spell success
-				recent_move_table[1] = ('%s : %s : %s':format(actor.name,res.spells[targets[1].actions[1].param].en,windower.ffxi.get_mob_by_id(act.targets[1].id).name))
+			if act['category'] == 7 then --check if monster is using tp move
+				recent_move_table[1] = ('%s -> %s -> %s':format(actor.name, res.monster_abilities[targets[1].actions[1].param].en, windower.ffxi.get_mob_by_id(act.targets[1].id).name))
+			elseif act['category'] == 8 then --check if monster is casting spell
+				recent_move_table[1] = ('%s -> %s -> %s':format(actor.name, res.spells[targets[1].actions[1].param].en, windower.ffxi.get_mob_by_id(act.targets[1].id).name))
 			end
 			mobmove_box.incoming_move = recent_move_table[1]
 			mobmove_box.first_recent_move = recent_move_table[2]
