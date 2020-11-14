@@ -46,9 +46,8 @@ tables = require('tables')
 res = require('resources')
 texts = require('texts')
 config = require('config')
---chat = require('chat')
 
-default_settings = T{}
+local default_settings = T{}
 default_settings.font_size = 10
 default_settings.font = 'Verdana'
 default_settings.bg_alpha = 255
@@ -71,12 +70,35 @@ texts.pos(mobmove_box, settings.pos_x, settings.pos_y)
 mobmove_box:text(str)
 mobmove_box:show()
 
+function help_commands()
+	print('RTFM COMMANDS')
+	print('rtfm alpha # : change transparency 0 to 255 (higher value = more opaque)')
+end
+
+
+windower.register_event('addon command', function (command, ...)
+	local params = {...}
+
+	if command == 'help' then
+		help_commands()
+
+	elseif command == 'alpha' then
+		settings.bg_alpha = tonumber(params[1])
+		settings:save()
+		texts.bg_alpha(mobmove_box, settings.bg_alpha)
+		print('alpha set to ' .. settings.bg_alpha)
+	else
+		help_commands()
+	end
+	
+
+end)
 windower.register_event('action', function(act)
 	local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 	local targets = act.targets
 	--local self = windower.ffxi.get_player()
 	if actor.spawn_type == 16 then --check if actor is an enemy (16)
-		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 then --check for spell/ability initiation
+		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 and windower.ffxi.get_mob_by_id(act.targets[1].id).in_alliance == true then --check for spell/ability initiation
 			recent_move_table[6] = recent_move_table[5]
 			recent_move_table[5] = recent_move_table[4]
 			recent_move_table[4] = recent_move_table[3]
