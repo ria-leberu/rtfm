@@ -8,6 +8,6 @@
         <pos_y>700</pos_y>
     </global>
     <rialya>
-        <bg_alpha>100</bg_alpha>
+        <bg_alpha>200</bg_alpha>
     </rialya>
 </settings>
