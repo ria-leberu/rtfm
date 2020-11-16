@@ -1,3 +1,5 @@
+![Demonstration Screenshot](rtfm_sample1.png?raw=true "Demo Screenshot 1")
+
 FFXI Windower Addon
 
 rtfm - Read The Freakin' Move
