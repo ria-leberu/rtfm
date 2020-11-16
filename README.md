@@ -1,4 +1,4 @@
-![Demonstration Screenshot](https://github.com/ria-leberu/rtfm/blob/main/rtfm_sample1.PNGraw=true "Demo Screenshot 1")
+![Demonstration Screenshot](https://raw.githubusercontent.com/ria-leberu/rtfm/main/rtfm_sample1.PNG "Demo Screenshot 1")
 
 FFXI Windower Addon
 
