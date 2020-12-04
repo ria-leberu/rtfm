@@ -98,7 +98,7 @@ windower.register_event('action', function(act)
 	local targets = act.targets
 	--local self = windower.ffxi.get_player()
 	if actor.spawn_type == 16 then --check if actor is an enemy (16)
-		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 and windower.ffxi.get_mob_by_id(act.targets[1].id).in_alliance == true then --check for spell/ability initiation
+		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 and (windower.ffxi.get_mob_by_id(act.targets[1].id).in_alliance == true or windower.ffxi.get_mob_by_id(act.targets[1].id).name == actor.name) then --check for spell/ability initiation
 			recent_move_table[6] = recent_move_table[5]
 			recent_move_table[5] = recent_move_table[4]
 			recent_move_table[4] = recent_move_table[3]
