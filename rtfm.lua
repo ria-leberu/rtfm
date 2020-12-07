@@ -87,7 +87,7 @@ function list_targets_string(array_targets)
 	for i,v in pairs(array_targets) do
 		table.insert(target_list,windower.ffxi.get_mob_by_id(v.id).name)
 	end
-	print(table.concat(target_list, ", "))
+	--print(table.concat(target_list, ", "))
 	return target_list
 end
 
@@ -112,23 +112,33 @@ windower.register_event('action', function(act)
 	local targets = act.targets
 	if actor.spawn_type == 16 then --check if actor is an enemy (16)
 		if (act['category'] == 7  or act['category'] == 8) and act['param'] == 24931 and (windower.ffxi.get_mob_by_id(act.targets[1].id).in_alliance == true or windower.ffxi.get_mob_by_id(act.targets[1].id).name == actor.name) then --check for spell/ability initiation
-			recent_move_table[6] = recent_move_table[5]
-			recent_move_table[5] = recent_move_table[4]
-			recent_move_table[4] = recent_move_table[3]
-			recent_move_table[3] = recent_move_table[2]
-			recent_move_table[2] = recent_move_table[1]
+			
 			if act['category'] == 7 then --check if monster is using tp move
 				recent_move_table[1] = ('%s -> %s \n (%s)':format(actor.name, res.monster_abilities[targets[1].actions[1].param].en, tostring(table.concat(list_targets_string(targets), ", "))))
 			elseif act['category'] == 8 then --check if monster is casting spell
 				recent_move_table[1] = ('%s -> %s \n (%s)':format(actor.name, res.spells[targets[1].actions[1].param].en, windower.ffxi.get_mob_by_id(act.targets[1].id).name))
 			end
 			mobmove_box.incoming_move = recent_move_table[1]
+			
+			sound_alert()
+		end
+		if (act['category'] == 11 or act['category'] == 4) and (windower.ffxi.get_mob_by_id(act.targets[1].id).in_alliance == true or windower.ffxi.get_mob_by_id(act.targets[1].id).name == actor.name) then
+			recent_move_table[6] = recent_move_table[5]
+			recent_move_table[5] = recent_move_table[4]
+			recent_move_table[4] = recent_move_table[3]
+			recent_move_table[3] = recent_move_table[2]
+			
+			if act['category'] == 11 then --check if monster finished tp move
+				recent_move_table[2] = ('%s -> %s \n (%s)':format(actor.name, res.monster_abilities[act.param].en, tostring(table.concat(list_targets_string(targets), ", "))))
+			elseif act['category'] == 4 then --check if monster finished casting spell
+				recent_move_table[2] = ('%s -> %s \n (%s)':format(actor.name, res.spells[act.param].en, tostring(table.concat(list_targets_string(targets), ", "))))
+			end
 			mobmove_box.first_recent_move = recent_move_table[2]
 			mobmove_box.second_recent_move = recent_move_table[3]
 			mobmove_box.third_recent_move = recent_move_table[4]
 			mobmove_box.fourth_recent_move = recent_move_table[5]
 			mobmove_box.fifth_recent_move = recent_move_table[6]
-			sound_alert()
+			
 		end
 	end
 end)
