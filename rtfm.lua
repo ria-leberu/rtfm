@@ -1,7 +1,7 @@
 addon.name     = 'rtfm'
 addon.author   = 'Rialia'
-addon.version  = '0.1.1'
-addon.desc     = 'Working version that logs and displays mob TP moves.'
+addon.version  = '0.1.2'
+addon.desc     = 'Displays and logs monster TP moves.'
 addon.commands = {'rtfm'}
 
 require('common')
@@ -13,8 +13,9 @@ print('[RTFM] Addon loaded.')
 -- State
 ------------------------------------------------------------
 local currentMove = nil
-local displayTime = 5
+local displayTime = 10
 local show_window = true
+local debug_log_all = false
 
 -- ImGui requires a mutable pointer for window visibility
 local state = {
@@ -30,7 +31,7 @@ local function strip_formatting(s)
 end
 
 ------------------------------------------------------------
--- Command: /rtfm test | /rtfm toggle
+-- /rtfm commands: test | toggle | log
 ------------------------------------------------------------
 ashita.events.register('command', 'rtfm_command', function(e)
     local args = e.command:args()
@@ -55,33 +56,36 @@ ashita.events.register('command', 'rtfm_command', function(e)
         return
     end
 
-    print('[RTFM] Usage: /rtfm test | /rtfm toggle')
+    if args[2] and args[2]:any('log') then
+        debug_log_all = not debug_log_all
+        print(string.format('[RTFM] Raw mode logging: %s', debug_log_all and 'ON' or 'OFF'))
+        e.blocked = true
+        return
+    end
+
+    print('[RTFM] Usage: /rtfm test | /rtfm toggle | /rtfm log')
     e.blocked = true
 end)
 
-ashita.events.register('text_in', 'rtfm_debug_direct', function(e)
+------------------------------------------------------------
+-- text_in: parse monster moves, optionally log all
+------------------------------------------------------------
+ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
-    if e.mode ~= 105 then return end
 
     local cleaned = strip_formatting(e.message):trim()
 
-    for i = 1, #cleaned do
-        io.write(string.format('%02X ', cleaned:byte(i)))
+    if debug_log_all then
+        print(string.format('[RTFM] [MODE %d] %s', e.mode, cleaned))
     end
-    print()
 
-    print('[RTFM DEBUG] CLEANED: "' .. cleaned .. '"')
+    -- Only handle known monster TP move messages
+    if e.mode ~= 105 then return end
 
-    -- Match: Frostmane readies Tail Swing.1
-    -- local monster, verb, move = cleaned:match('^(.-)%s+(%a+)%s+(.+)$')
     local monster, verb, move = cleaned:match('^(.+) (readies) (.+)%.%d$')
 
-
-
-    print(string.format('[RTFM MATCH DEBUG] monster=%s | verb=%s | move=%s',
-        tostring(monster), tostring(verb), tostring(move)))
-
     if monster and verb and move then
+        move = move:gsub('[%p%d%s]+$', '') -- remove trailing .1, etc.
         currentMove = {
             monster = monster,
             verb = verb,
@@ -100,10 +104,8 @@ ashita.events.register('text_in', 'rtfm_debug_direct', function(e)
     end
 end)
 
-
-
 ------------------------------------------------------------
--- Overlay: Draw the matched move
+-- Overlay: show move for N seconds
 ------------------------------------------------------------
 ashita.events.register('d3d_present', 'rtfm_present', function()
     if not show_window then return end
@@ -120,7 +122,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     end
 
     imgui.SetNextWindowBgAlpha(0.8)
-    imgui.SetNextWindowSize({300, 100}, ImGuiCond_FirstUseEver)
+    imgui.SetNextWindowSize({ 300, 100 }, ImGuiCond_FirstUseEver)
 
     local is_open = imgui.Begin('RTFM Overlay', state.is_open, bit.bor(
         ImGuiWindowFlags_NoResize,
