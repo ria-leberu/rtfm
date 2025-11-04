@@ -73,7 +73,10 @@ ashita.events.register('text_in', 'rtfm_debug_direct', function(e)
     print('[RTFM DEBUG] CLEANED: "' .. cleaned .. '"')
 
     -- Match: Frostmane readies Tail Swing.1
-    local monster, verb, move = cleaned:match('^(.-)%s+(%a+)%s+(.+)$')
+    -- local monster, verb, move = cleaned:match('^(.-)%s+(%a+)%s+(.+)$')
+    local monster, verb, move = cleaned:match('^(.+) (readies) (.+)%.%d$')
+
+
 
     print(string.format('[RTFM MATCH DEBUG] monster=%s | verb=%s | move=%s',
         tostring(monster), tostring(verb), tostring(move)))
