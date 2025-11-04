@@ -63,20 +63,41 @@ ashita.events.register('text_in', 'rtfm_debug_direct', function(e)
     if not e or e.injected or not e.message then return end
     if e.mode ~= 105 then return end
 
-    local raw = e.message
-    local cleaned = strip_formatting(raw):trim()
+    local cleaned = strip_formatting(e.message):trim()
+
+    for i = 1, #cleaned do
+        io.write(string.format('%02X ', cleaned:byte(i)))
+    end
+    print()
 
     print('[RTFM DEBUG] CLEANED: "' .. cleaned .. '"')
 
-    -- Set the full message directly for now
-    currentMove = {
-        monster = 'Unknown',
-        verb = 'says',
-        move = cleaned,
-        timestamp = os.time()
-    }
-    print('[RTFM] Overlay triggered with raw message.')
+    -- Match: Frostmane readies Tail Swing.1
+    local monster, verb, move = cleaned:match('^(.-)%s+(%a+)%s+(.+)$')
+
+    print(string.format('[RTFM MATCH DEBUG] monster=%s | verb=%s | move=%s',
+        tostring(monster), tostring(verb), tostring(move)))
+
+    if monster and verb and move then
+        currentMove = {
+            monster = monster,
+            verb = verb,
+            move = move,
+            timestamp = os.time()
+        }
+        print(string.format('[RTFM] Matched: %s %s %s', monster, verb, move))
+    else
+        currentMove = {
+            monster = 'Unknown',
+            verb = 'says',
+            move = cleaned,
+            timestamp = os.time()
+        }
+        print('[RTFM] Fallback to full message.')
+    end
 end)
+
+
 
 ------------------------------------------------------------
 -- Overlay: Draw the matched move
