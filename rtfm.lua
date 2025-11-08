@@ -1,11 +1,12 @@
 addon.name     = 'rtfm'
 addon.author   = 'Rialia'
-addon.version  = '0.2.0'
-addon.desc     = 'Displays and logs monster TP moves.'
+addon.version  = '0.2.1'
+addon.desc     = 'Displays and logs monster TP moves with descriptions.'
 addon.commands = {'rtfm'}
 
 require('common')
 local imgui = require('imgui')
+local moveData = require('moves')
 
 print('[RTFM] Addon loaded.')
 
@@ -108,31 +109,6 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
             move = move:gsub('[%p%d%s]+$', '')
             local id = create_id(monster, move)
 
-            -- Extract likely targets from following messages
-            targets = {}
-            local party = AshitaCore:GetMemoryManager():GetParty()
-
-            local known_names = {}
-            for i = 0, 17 do
-                if party:GetMemberIsActive(i) == 1 then
-                    local name = party:GetMemberName(i)
-                    if name and #name > 0 then
-                        known_names[name] = true
-                    end
-                end
-            end
-
-            for name in cleaned:gmatch('(%u[%a%-]+)') do
-                if name ~= monster and known_names[name] then
-                    table.insert(targets, name)
-                end
-            end
-
-            if #targets == 0 then
-                targets = { '???' }
-            end
-
-
             -- Remove matching readies
             for i = #pendingReadies, 1, -1 do
                 if pendingReadies[i].id == id then
@@ -146,7 +122,6 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
                 id        = id,
                 monster   = monster,
                 move      = move,
-                target    = targets,
                 timestamp = os.time()
             })
             print(string.format('[RTFM] USES detected → %s uses %s (%s)', monster, move, id))
@@ -186,7 +161,9 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         ImGuiWindowFlags_AlwaysAutoResize
     ))
 
+    --------------------------------------------------------
     -- Active "uses"
+    --------------------------------------------------------
     if #recentMoves == 0 then
         imgui.Text('No recent TP moves.')
     else
@@ -194,9 +171,13 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
             local move = recentMoves[i]
             local age = now_sec - move.timestamp
             local alpha = 1.0 - math.min(age / displayTime, 1.0)^2.5
-
             local color = {1.0, 0.3, 0.3, alpha}
-            local text = string.format('%s -> %s', move.monster, move.move)
+
+            local m_id = normalize(move.monster)
+            local a_id = normalize(move.move)
+            local desc = (moveData[m_id] and moveData[m_id][a_id]) or ''
+            local text = string.format('%s : %s', move.monster, move.move)
+            if desc ~= '' then text = text .. ' (' .. desc .. ')' end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
@@ -211,7 +192,9 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         end
     end
 
+    --------------------------------------------------------
     -- Pulsing "readies"
+    --------------------------------------------------------
     if #pendingReadies > 0 then
         imgui.Separator()
         imgui.Text('Readying...')
@@ -222,7 +205,12 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
             local pulse = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
             local alpha = 1.0 - math.min(age / readiesTimeout, 1.0)^2.5
             local color = {1.0, 1.0 * pulse, 0.3 * pulse, alpha}
+
+            local m_id = normalize(move.monster)
+            local a_id = normalize(move.move)
+            local desc = (moveData[m_id] and moveData[m_id][a_id]) or ''
             local text = string.format('%s readies %s', move.monster, move.move)
+            if desc ~= '' then text = text .. ' (' .. desc .. ')' end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
