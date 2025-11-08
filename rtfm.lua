@@ -1,6 +1,6 @@
 addon.name     = 'rtfm'
 addon.author   = 'Rialia'
-addon.version  = '0.1.3'
+addon.version  = '0.2.0'
 addon.desc     = 'Displays and logs monster TP moves.'
 addon.commands = {'rtfm'}
 
@@ -12,16 +12,13 @@ print('[RTFM] Addon loaded.')
 ------------------------------------------------------------
 -- State
 ------------------------------------------------------------
-local displayTime   = 60
-local show_window   = true
-local debug_log_all = false
-local recentMoves   = {}
-local maxMoves      = 5
-
--- ImGui requires a mutable pointer for window visibility
-local state = {
-    is_open = { true }
-}
+local displayTime     = 60
+local readiesTimeout  = 10
+local show_window     = true
+local debug_log_all   = false
+local recentMoves     = {}
+local pendingReadies  = {}
+local state           = { is_open = { true } }
 
 ------------------------------------------------------------
 -- Utility
@@ -31,33 +28,33 @@ local function strip_formatting(s)
     return s:gsub('[\31\30\127]', '')
 end
 
+local function normalize(s)
+    return (s or ''):lower():gsub('%s+', ''):gsub('[%p%d]+$', '')
+end
+
+local function create_id(monster, move)
+    return normalize(monster) .. ':' .. normalize(move)
+end
+
 ------------------------------------------------------------
--- /rtfm commands: test | toggle | log
+-- Commands
 ------------------------------------------------------------
 ashita.events.register('command', 'rtfm_command', function(e)
     local args = e.command:args()
     if #args == 0 or not args[1]:any('/rtfm') then return end
 
-    --------------------------------------------------------
-    -- /rtfm test : insert fake move
-    --------------------------------------------------------
     if args[2] and args[2]:any('test') then
-        local entry = {
+        table.insert(pendingReadies, {
+            id        = create_id('DebugMob', 'TestMove'),
             monster   = 'DebugMob',
-            verb      = 'readies',
             move      = 'TestMove',
             timestamp = os.time()
-        }
-        table.insert(recentMoves, entry)
-        if #recentMoves > maxMoves then table.remove(recentMoves, 1) end
+        })
         print('[RTFM] Test move added.')
         e.blocked = true
         return
     end
 
-    --------------------------------------------------------
-    -- /rtfm toggle : show / hide overlay
-    --------------------------------------------------------
     if args[2] and args[2]:any('toggle') then
         show_window = not show_window
         print(string.format('[RTFM] Window toggled: %s', show_window and 'ON' or 'OFF'))
@@ -65,9 +62,6 @@ ashita.events.register('command', 'rtfm_command', function(e)
         return
     end
 
-    --------------------------------------------------------
-    -- /rtfm log : toggle debug log output
-    --------------------------------------------------------
     if args[2] and args[2]:any('log') then
         debug_log_all = not debug_log_all
         print(string.format('[RTFM] Raw mode logging: %s', debug_log_all and 'ON' or 'OFF'))
@@ -75,67 +69,100 @@ ashita.events.register('command', 'rtfm_command', function(e)
         return
     end
 
-    print('[RTFM] Usage: /rtfm test | /rtfm toggle | /rtfm log')
+    print('[RTFM] Usage: /rtfm test | toggle | log')
     e.blocked = true
 end)
 
 ------------------------------------------------------------
--- text_in: parse monster moves, optionally log all
+-- text_in handler: readies / uses parser
 ------------------------------------------------------------
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
 
     local cleaned = strip_formatting(e.message):trim()
-
     if debug_log_all then
         print(string.format('[RTFM] [MODE %d] %s', e.mode, cleaned))
     end
 
-    -- Only handle known monster TP move messages
-    if e.mode ~= 105 then return end
+    local monster, move
 
-    local monster, verb, move = cleaned:match('^(.+) (readies) (.+)%.%d$')
+    if e.mode == 105 then
+        -- Handle "readies"
+        monster, move = cleaned:match('^(.+) readies (.+)%.%d$')
+        if monster and move then
+            move = move:gsub('[%p%d%s]+$', '')
+            local id = create_id(monster, move)
+            table.insert(pendingReadies, {
+                id        = id,
+                monster   = monster,
+                move      = move,
+                timestamp = os.time()
+            })
+            print(string.format('[RTFM] READIES detected → %s readies %s (%s)', monster, move, id))
+        end
 
-    local entry
-    if monster and verb and move then
-        move = move:gsub('[%p%d%s]+$', '') -- remove trailing .1, etc.
-        entry = {
-            monster   = monster,
-            verb      = verb,
-            move      = move,
-            timestamp = os.time()
-        }
-    else
-        entry = {
-            monster   = 'Unknown',
-            verb      = 'says',
-            move      = cleaned,
-            timestamp = os.time()
-        }
-        print('[RTFM] Fallback to full message.')
+    elseif e.mode == 32 or e.mode == 107 then
+        -- Handle "uses"
+        monster, move = cleaned:match('^(.+) uses ([^%.]+)')
+        if monster and move then
+            move = move:gsub('[%p%d%s]+$', '')
+            local id = create_id(monster, move)
+
+            -- Extract likely targets from following messages
+            local targets = {}
+            for name in cleaned:gmatch('(%u[%a%-]+)') do
+                if name ~= monster then
+                    table.insert(targets, name)
+                end
+            end
+            if #targets == 0 then targets = { '???' } end
+
+            -- Remove matching readies
+            for i = #pendingReadies, 1, -1 do
+                if pendingReadies[i].id == id then
+                    print(string.format('[RTFM] Matched and removed readies entry (%s)', id))
+                    table.remove(pendingReadies, i)
+                    break
+                end
+            end
+
+            table.insert(recentMoves, {
+                id        = id,
+                monster   = monster,
+                move      = move,
+                target    = targets,
+                timestamp = os.time()
+            })
+            print(string.format('[RTFM] USES detected → %s uses %s (%s)', monster, move, id))
+        end
     end
-
-    table.insert(recentMoves, entry)
-    if #recentMoves > maxMoves then table.remove(recentMoves, 1) end
 end)
 
 ------------------------------------------------------------
--- Overlay: show up to the last N moves for displayTime
+-- Overlay UI
 ------------------------------------------------------------
 ashita.events.register('d3d_present', 'rtfm_present', function()
     if not show_window then return end
 
-    local now = os.time()
+    local now = os.clock()
+    local now_sec = os.time()
 
-    -- prune expired entries
+    -- Cleanup expired uses
     for i = #recentMoves, 1, -1 do
-        if (now - recentMoves[i].timestamp) > displayTime then
+        if (now_sec - recentMoves[i].timestamp) > displayTime then
             table.remove(recentMoves, i)
         end
     end
 
+    -- Cleanup expired readies
+    for i = #pendingReadies, 1, -1 do
+        if (now_sec - pendingReadies[i].timestamp) > readiesTimeout then
+            table.remove(pendingReadies, i)
+        end
+    end
+
     imgui.SetNextWindowBgAlpha(0.8)
-    imgui.SetNextWindowSize({ 300, 100 + (#recentMoves * 40) }, ImGuiCond_FirstUseEver)
+    imgui.SetNextWindowSize({ 300, 120 + (#recentMoves * 40) }, ImGuiCond_FirstUseEver)
 
     local is_open = imgui.Begin('RTFM Overlay', state.is_open, bit.bor(
         ImGuiWindowFlags_NoResize,
@@ -144,22 +171,21 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         ImGuiWindowFlags_AlwaysAutoResize
     ))
 
+    -- Active "uses"
     if #recentMoves == 0 then
-        imgui.Text('Waiting for monster move...')
+        imgui.Text('No recent TP moves.')
     else
         for i = 1, #recentMoves do
             local move = recentMoves[i]
-            local age = now - move.timestamp
-            local life_ratio = math.min(age / displayTime, 1.0)
+            local age = now_sec - move.timestamp
+            local alpha = 1.0 - math.min(age / displayTime, 1.0)^2.5
 
-            -- fade stronger toward the end (ease-out curve)
-            local alpha = 1.0 - (life_ratio ^ 2.5)
+            local color = {1.0, 0.3, 0.3, alpha}
+            local target_str = table.concat(move.target or { '???' }, ', ')
+            local text = string.format('%s -> %s -> (%s)', move.monster, move.move, target_str)
 
-            -- Use a color fade (ImGuiCol_Text sets the color of text)
-            local text_color = {1.0, 1.0, 1.0, alpha} -- RGBA
-
-            imgui.PushStyleColor(ImGuiCol_Text, text_color)
-            imgui.Text(string.format('%s %s %s', move.monster, move.verb, move.move))
+            imgui.PushStyleColor(ImGuiCol_Text, color)
+            imgui.Text(text)
             imgui.PopStyleColor()
 
             imgui.SameLine()
@@ -171,6 +197,31 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         end
     end
 
+    -- Pulsing "readies"
+    if #pendingReadies > 0 then
+        imgui.Separator()
+        imgui.Text('Readying...')
+
+        for i = 1, #pendingReadies do
+            local move = pendingReadies[i]
+            local age = now_sec - move.timestamp
+            local pulse = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
+            local alpha = 1.0 - math.min(age / readiesTimeout, 1.0)^2.5
+            local color = {1.0, 1.0 * pulse, 0.3 * pulse, alpha}
+            local text = string.format('%s readies %s', move.monster, move.move)
+
+            imgui.PushStyleColor(ImGuiCol_Text, color)
+            imgui.Text(text)
+            imgui.PopStyleColor()
+
+            imgui.SameLine()
+            imgui.PushStyleColor(ImGuiCol_Text, {0.7, 0.7, 0.7, alpha * 0.8})
+            imgui.Text(string.format('(%.1fs ago)', age))
+            imgui.PopStyleColor()
+
+            if i < #pendingReadies then imgui.Separator() end
+        end
+    end
 
     imgui.End()
 end)
