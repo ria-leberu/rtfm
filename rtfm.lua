@@ -109,13 +109,29 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
             local id = create_id(monster, move)
 
             -- Extract likely targets from following messages
-            local targets = {}
+            targets = {}
+            local party = AshitaCore:GetMemoryManager():GetParty()
+
+            local known_names = {}
+            for i = 0, 17 do
+                if party:GetMemberIsActive(i) == 1 then
+                    local name = party:GetMemberName(i)
+                    if name and #name > 0 then
+                        known_names[name] = true
+                    end
+                end
+            end
+
             for name in cleaned:gmatch('(%u[%a%-]+)') do
-                if name ~= monster then
+                if name ~= monster and known_names[name] then
                     table.insert(targets, name)
                 end
             end
-            if #targets == 0 then targets = { '???' } end
+
+            if #targets == 0 then
+                targets = { '???' }
+            end
+
 
             -- Remove matching readies
             for i = #pendingReadies, 1, -1 do
@@ -162,12 +178,11 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     end
 
     imgui.SetNextWindowBgAlpha(0.8)
-    imgui.SetNextWindowSize({ 300, 120 + (#recentMoves * 40) }, ImGuiCond_FirstUseEver)
+    imgui.SetNextWindowSize({ 500, 120 + (#recentMoves * 40) }, ImGuiCond_FirstUseEver)
 
     local is_open = imgui.Begin('RTFM Overlay', state.is_open, bit.bor(
         ImGuiWindowFlags_NoResize,
         ImGuiWindowFlags_NoCollapse,
-        ImGuiWindowFlags_NoSavedSettings,
         ImGuiWindowFlags_AlwaysAutoResize
     ))
 
@@ -181,8 +196,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
             local alpha = 1.0 - math.min(age / displayTime, 1.0)^2.5
 
             local color = {1.0, 0.3, 0.3, alpha}
-            local target_str = table.concat(move.target or { '???' }, ', ')
-            local text = string.format('%s -> %s -> (%s)', move.monster, move.move, target_str)
+            local text = string.format('%s -> %s', move.monster, move.move)
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
