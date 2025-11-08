@@ -1,7 +1,7 @@
 addon.name     = 'rtfm'
 addon.author   = 'Rialia'
-addon.version  = '0.2.1'
-addon.desc     = 'Displays and logs monster TP moves with descriptions.'
+addon.version  = '0.3.2'
+addon.desc     = 'Displays and logs monster TP moves and spells.'
 addon.commands = {'rtfm'}
 
 require('common')
@@ -29,12 +29,37 @@ local function strip_formatting(s)
     return s:gsub('[\31\30\127]', '')
 end
 
+-- Normalize monster/move names for consistent matching
 local function normalize(s)
-    return (s or ''):lower():gsub('%s+', ''):gsub('[%p%d]+$', '')
+    if not s then return '' end
+    s = s:lower()
+    s = s:gsub('^the%s+', '')          -- remove leading "The "
+    s = s:gsub('%s+', '')              -- remove spaces
+    s = s:gsub('[%p%d]+$', '')         -- remove trailing punctuation/digits
+    return s
 end
 
 local function create_id(monster, move)
     return normalize(monster) .. ':' .. normalize(move)
+end
+
+local function lookup_desc(monster, move)
+    local m_id = normalize(monster)
+    local a_id = normalize(move)
+    return (moveData[m_id] and moveData[m_id][a_id])
+        or (moveData["default"] and moveData["default"][a_id])
+        or ''
+end
+
+-- Helper: try to find pending entry by exact or loose move match
+local function find_pending(id, move)
+    for i = #pendingReadies, 1, -1 do
+        if pendingReadies[i].id == id
+        or normalize(pendingReadies[i].move) == normalize(move) then
+            return i
+        end
+    end
+    return nil
 end
 
 ------------------------------------------------------------
@@ -49,6 +74,7 @@ ashita.events.register('command', 'rtfm_command', function(e)
             id        = create_id('DebugMob', 'TestMove'),
             monster   = 'DebugMob',
             move      = 'TestMove',
+            action    = 'casting',
             timestamp = os.time()
         })
         print('[RTFM] Test move added.')
@@ -75,7 +101,7 @@ ashita.events.register('command', 'rtfm_command', function(e)
 end)
 
 ------------------------------------------------------------
--- text_in handler: readies / uses parser
+-- text_in handler: readies / uses / casting / casts parser
 ------------------------------------------------------------
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
@@ -87,9 +113,11 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
 
     local monster, move
 
-    if e.mode == 105 then
-        -- Handle "readies"
-        monster, move = cleaned:match('^(.+) readies (.+)%.%d$')
+    --------------------------------------------------------
+    -- READIES
+    --------------------------------------------------------
+    if e.mode == 100 or e.mode == 105 then
+        monster, move = cleaned:match('^%s*(.-)%s+readies%s+([^%.]+)')
         if monster and move then
             move = move:gsub('[%p%d%s]+$', '')
             local id = create_id(monster, move)
@@ -97,34 +125,74 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
                 id        = id,
                 monster   = monster,
                 move      = move,
+                action    = 'readies',
                 timestamp = os.time()
             })
             print(string.format('[RTFM] READIES detected → %s readies %s (%s)', monster, move, id))
         end
+    end
 
-    elseif e.mode == 32 or e.mode == 107 then
-        -- Handle "uses"
-        monster, move = cleaned:match('^(.+) uses ([^%.]+)')
+    --------------------------------------------------------
+    -- CASTING
+    --------------------------------------------------------
+    if e.mode == 51 or e.mode == 52 then
+        monster, move = cleaned:match('^(.+)%s+starts casting%s+([^%.]+)')
+        if monster and move then
+            -- Skip if caster is in your party
+            local party = AshitaCore:GetMemoryManager():GetParty()
+            for i = 0, 17 do
+                if party:GetMemberIsActive(i) == 1 then
+                    local pname = party:GetMemberName(i)
+                    if pname and pname:lower() == monster:lower() then
+                        return
+                    end
+                end
+            end
+
+            move = move:gsub('[%p%d%s]+$', '')
+            local id = create_id(monster, move)
+            table.insert(pendingReadies, {
+                id        = id,
+                monster   = monster,
+                move      = move,
+                action    = 'casting',
+                timestamp = os.time()
+            })
+            print(string.format('[RTFM] CASTING detected → %s starts casting %s (%s)', monster, move, id))
+        end
+    end
+
+    --------------------------------------------------------
+    -- USES / CASTS
+    --------------------------------------------------------
+    if e.mode == 28 or e.mode == 30 or e.mode == 32 or e.mode == 104 then
+        local verb
+        monster, move = cleaned:match('^%s*(.-)%s+uses%s+([^%.]+)')
+        verb = 'uses'
+
+        if not (monster and move) then
+            monster, move = cleaned:match('^%s*(.-)%s+casts%s+([^%.]+)')
+            verb = 'casts'
+        end
+
         if monster and move then
             move = move:gsub('[%p%d%s]+$', '')
             local id = create_id(monster, move)
 
-            -- Remove matching readies
-            for i = #pendingReadies, 1, -1 do
-                if pendingReadies[i].id == id then
-                    print(string.format('[RTFM] Matched and removed readies entry (%s)', id))
-                    table.remove(pendingReadies, i)
-                    break
-                end
+            local idx = find_pending(id, move)
+            if idx then
+                print(string.format('[RTFM] Matched and removed pending entry (%s)', id))
+                table.remove(pendingReadies, idx)
             end
 
             table.insert(recentMoves, {
                 id        = id,
                 monster   = monster,
                 move      = move,
+                action    = verb,
                 timestamp = os.time()
             })
-            print(string.format('[RTFM] USES detected → %s uses %s (%s)', monster, move, id))
+            print(string.format('[RTFM] ACTION detected → %s %s %s (%s)', monster, verb, move, id))
         end
     end
 end)
@@ -138,14 +206,12 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     local now = os.clock()
     local now_sec = os.time()
 
-    -- Cleanup expired uses
+    -- Cleanup expired entries
     for i = #recentMoves, 1, -1 do
         if (now_sec - recentMoves[i].timestamp) > displayTime then
             table.remove(recentMoves, i)
         end
     end
-
-    -- Cleanup expired readies
     for i = #pendingReadies, 1, -1 do
         if (now_sec - pendingReadies[i].timestamp) > readiesTimeout then
             table.remove(pendingReadies, i)
@@ -162,21 +228,19 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     ))
 
     --------------------------------------------------------
-    -- Active "uses"
+    -- Recent "uses" / "casts"
     --------------------------------------------------------
     if #recentMoves == 0 then
-        imgui.Text('No recent TP moves.')
+        imgui.Text('No recent actions.')
     else
         for i = 1, #recentMoves do
             local move = recentMoves[i]
             local age = now_sec - move.timestamp
             local alpha = 1.0 - math.min(age / displayTime, 1.0)^2.5
-            local color = {1.0, 0.3, 0.3, alpha}
+            local color = (move.action == 'uses') and {1.0, 0.3, 0.3, alpha} or {0.8, 0.4, 1.0, alpha}
 
-            local m_id = normalize(move.monster)
-            local a_id = normalize(move.move)
-            local desc = (moveData[m_id] and moveData[m_id][a_id]) or ''
-            local text = string.format('%s : %s', move.monster, move.move)
+            local desc = lookup_desc(move.monster, move.move)
+            local text = string.format('%s -> %s', move.monster, move.move)
             if desc ~= '' then text = text .. ' (' .. desc .. ')' end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
@@ -193,23 +257,28 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     end
 
     --------------------------------------------------------
-    -- Pulsing "readies"
+    -- Pulsing "readies" / "casting"
     --------------------------------------------------------
     if #pendingReadies > 0 then
         imgui.Separator()
-        imgui.Text('Readying...')
+        imgui.Text('Preparing...')
 
         for i = 1, #pendingReadies do
             local move = pendingReadies[i]
             local age = now_sec - move.timestamp
             local pulse = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
             local alpha = 1.0 - math.min(age / readiesTimeout, 1.0)^2.5
-            local color = {1.0, 1.0 * pulse, 0.3 * pulse, alpha}
 
-            local m_id = normalize(move.monster)
-            local a_id = normalize(move.move)
-            local desc = (moveData[m_id] and moveData[m_id][a_id]) or ''
-            local text = string.format('%s readies %s', move.monster, move.move)
+            local color
+            if move.action == 'casting' then
+                color = {0.6, 0.6 * pulse, 1.0 * pulse, alpha}
+            else
+                color = {1.0, 1.0 * pulse, 0.3 * pulse, alpha}
+            end
+
+            local desc = lookup_desc(move.monster, move.move)
+            local verb = (move.action == 'casting') and 'starts casting' or 'readies'
+            local text = string.format('%s %s %s', move.monster, verb, move.move)
             if desc ~= '' then text = text .. ' (' .. desc .. ')' end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)

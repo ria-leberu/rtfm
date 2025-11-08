@@ -9,7 +9,7 @@ return {
         ["deadlyhold"]     = "Paralyze",
     },
     ["theaw'ghrah"] = {
-        ["actinicburst"]      = "",
+        ["actinicburst"]      = "Flash",
         ["coremeltdown"]      = "",
         ["hexidiscs"]         = "",
         ["damnationdive"]      = "",
