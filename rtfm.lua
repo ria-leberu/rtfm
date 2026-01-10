@@ -1,6 +1,6 @@
 addon.name     = 'rtfm'
 addon.author   = 'Rialia'
-addon.version  = '0.3.2'
+addon.version  = '0.3.7'
 addon.desc     = 'Displays and logs monster TP moves and spells.'
 addon.commands = {'rtfm'}
 
@@ -20,6 +20,14 @@ local debug_log_all   = false
 local recentMoves     = {}
 local pendingReadies  = {}
 local state           = { is_open = { true } }
+local lastMonster     = nil
+
+
+------------------------------------------------------------
+-- Memory Probe
+------------------------------------------------------------
+local mem_last_report = os.clock()
+local MEM_REPORT_INTERVAL = 60.0 -- seconds
 
 ------------------------------------------------------------
 -- Utility
@@ -33,9 +41,10 @@ end
 local function normalize(s)
     if not s then return '' end
     s = s:lower()
-    s = s:gsub('^the%s+', '')          -- remove leading "The "
-    s = s:gsub('%s+', '')              -- remove spaces
-    s = s:gsub('[%p%d]+$', '')         -- remove trailing punctuation/digits
+    s = s:gsub('^the%s+', '')      -- drop leading "The "
+    s = s:gsub("[’']", "")         -- drop apostrophes in names like Aw'aern
+    s = s:gsub('%s+', '')          -- drop spaces
+    s = s:gsub('[%p%d]+$', '')     -- drop trailing punctuation/digits
     return s
 end
 
@@ -51,6 +60,51 @@ local function lookup_desc(monster, move)
         or ''
 end
 
+-- Returns true if the given name belongs to a PC, trust, or allied unit (not a monster)
+local function is_player_or_trust(name)
+    if not name then return false end
+    local lname = name:lower()
+
+    local party = AshitaCore:GetMemoryManager():GetParty()
+    local ents  = AshitaCore:GetMemoryManager():GetEntity()
+
+    -- Your own character
+    local myname = party:GetMemberName(0)
+    if myname and myname:lower() == lname then
+        return true
+    end
+
+    -- Party and alliance members
+    for i = 0, 17 do
+        if party:GetMemberIsActive(i) == 1 then
+            local pname = party:GetMemberName(i)
+            if pname and pname:lower() == lname then
+                return true
+            end
+        end
+    end
+
+    -- Scan all entities for PC / Trust / Pet types
+    for i = 0, 2303 do
+        local ename = ents:GetName(i)
+        if ename and ename:lower() == lname then
+            local etype = ents:GetType(i)
+            -- 1 = PC, 2 = Trust, 5 = Pet (exclude all of these)
+            if etype == 1 or etype == 2 or etype == 5 then
+                return true
+            end
+        end
+    end
+
+    -- Heuristic fallback: player-style naming (capitalized, no spaces or apostrophes)
+    if name:match("^[A-Z][a-z]+$") then
+        return true
+    end
+
+    return false
+end
+
+
 -- Helper: try to find pending entry by exact or loose move match
 local function find_pending(id, move)
     for i = #pendingReadies, 1, -1 do
@@ -60,6 +114,15 @@ local function find_pending(id, move)
         end
     end
     return nil
+end
+
+local function recent_contains(id)
+    for i = 1, #recentMoves do
+        if recentMoves[i].id == id then
+            return true
+        end
+    end
+    return false
 end
 
 ------------------------------------------------------------
@@ -75,7 +138,9 @@ ashita.events.register('command', 'rtfm_command', function(e)
             monster   = 'DebugMob',
             move      = 'TestMove',
             action    = 'casting',
-            timestamp = os.time()
+            -- timestamp = os.time()
+            timestamp = os.clock()
+
         })
         print('[RTFM] Test move added.')
         e.blocked = true
@@ -101,7 +166,7 @@ ashita.events.register('command', 'rtfm_command', function(e)
 end)
 
 ------------------------------------------------------------
--- text_in handler: readies / uses / casting / casts parser
+-- text_in handler
 ------------------------------------------------------------
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
@@ -116,19 +181,23 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     --------------------------------------------------------
     -- READIES
     --------------------------------------------------------
-    if e.mode == 100 or e.mode == 105 then
+    if e.mode == 100 or e.mode == 105 or e.mode == 110 then
         monster, move = cleaned:match('^%s*(.-)%s+readies%s+([^%.]+)')
         if monster and move then
-            move = move:gsub('[%p%d%s]+$', '')
-            local id = create_id(monster, move)
-            table.insert(pendingReadies, {
-                id        = id,
-                monster   = monster,
-                move      = move,
-                action    = 'readies',
-                timestamp = os.time()
-            })
-            print(string.format('[RTFM] READIES detected → %s readies %s (%s)', monster, move, id))
+            if cleaned:lower():find('on ' .. monster:lower()) then return end -- self-cast guard
+            if not is_player_or_trust(monster) then
+                move = move:gsub('[%p%d%s]+$', '')
+                lastMonster = monster
+                local id = create_id(monster, move)
+                table.insert(pendingReadies, {
+                    id        = id,
+                    monster   = monster,
+                    move      = move,
+                    action    = 'readies',
+                    -- timestamp = os.time()
+                    timestamp = os.clock()
+                })
+            end
         end
     end
 
@@ -138,34 +207,30 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if e.mode == 51 or e.mode == 52 then
         monster, move = cleaned:match('^(.+)%s+starts casting%s+([^%.]+)')
         if monster and move then
-            -- Skip if caster is in your party
-            local party = AshitaCore:GetMemoryManager():GetParty()
-            for i = 0, 17 do
-                if party:GetMemberIsActive(i) == 1 then
-                    local pname = party:GetMemberName(i)
-                    if pname and pname:lower() == monster:lower() then
-                        return
-                    end
-                end
-            end
+            if cleaned:lower():find('on ' .. monster:lower()) then return end -- self-cast guard
+            if not is_player_or_trust(monster) then
+                move = move:gsub('[%p%d%s]+$', '')
+                lastMonster = monster
+                local id = create_id(monster, move)
+                table.insert(pendingReadies, {
+                    id        = id,
+                    monster   = monster,
+                    move      = move,
+                    action    = 'casting',
+                    -- timestamp = os.time()
+                    timestamp = os.clock()
 
-            move = move:gsub('[%p%d%s]+$', '')
-            local id = create_id(monster, move)
-            table.insert(pendingReadies, {
-                id        = id,
-                monster   = monster,
-                move      = move,
-                action    = 'casting',
-                timestamp = os.time()
-            })
-            print(string.format('[RTFM] CASTING detected → %s starts casting %s (%s)', monster, move, id))
+                })
+            end
         end
     end
 
     --------------------------------------------------------
     -- USES / CASTS
     --------------------------------------------------------
-    if e.mode == 28 or e.mode == 30 or e.mode == 32 or e.mode == 104 then
+    if e.mode == 28 or e.mode == 30 or e.mode == 31 or e.mode == 32 or
+    e.mode == 40 or e.mode == 104 or e.mode == 111 or e.mode == 112 then
+
         local verb
         monster, move = cleaned:match('^%s*(.-)%s+uses%s+([^%.]+)')
         verb = 'uses'
@@ -176,23 +241,67 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
         end
 
         if monster and move then
-            move = move:gsub('[%p%d%s]+$', '')
-            local id = create_id(monster, move)
+            if cleaned:lower():find('on ' .. monster:lower()) then return end -- self-cast guard
+            if not is_player_or_trust(monster) then
+                move = move:gsub('[%p%d%s]+$', '')
+                lastMonster = monster
+                local id = create_id(monster, move)
 
-            local idx = find_pending(id, move)
-            if idx then
-                print(string.format('[RTFM] Matched and removed pending entry (%s)', id))
-                table.remove(pendingReadies, idx)
+                local idx = find_pending(id, move)
+                if idx then
+                    table.remove(pendingReadies, idx)
+                end
+
+                if not recent_contains(id) then
+                    table.insert(recentMoves, {
+                        id        = id,
+                        monster   = monster,
+                        move      = move,
+                        action    = verb,
+                        -- timestamp = os.time()
+                        timestamp = os.clock()
+
+                    })
+                end
             end
+        end
+    end
 
-            table.insert(recentMoves, {
-                id        = id,
-                monster   = monster,
-                move      = move,
-                action    = verb,
-                timestamp = os.time()
-            })
-            print(string.format('[RTFM] ACTION detected → %s %s %s (%s)', monster, verb, move, id))
+    --------------------------------------------------------
+    -- FALLBACK: effect-only lines
+    --------------------------------------------------------
+    if e.mode == 27 or e.mode == 29 or e.mode == 121 then
+        local selfMonster, selfMove = cleaned:match('^%s*(.-)%s+uses%s+([^%.]+)')
+        if not (selfMonster and selfMove) then
+            selfMonster, selfMove = cleaned:match('^%s*(.-)%s+casts%s+([^%.]+)')
+        end
+
+        if not (selfMonster and selfMove) and lastMonster then
+            if cleaned:find('gains the effect of')
+            or cleaned:find('receives the effect of')
+            or cleaned:find('effects disappear') then
+                selfMonster = cleaned:match('^(The%s*.+?)%s') or lastMonster
+                selfMove = 'Status Effect'
+            end
+        end
+
+        if selfMonster and selfMove then
+            if cleaned:lower():find('on ' .. selfMonster:lower()) then return end -- self-cast guard
+            if not is_player_or_trust(selfMonster) then
+                selfMove = selfMove:gsub('[%p%d%s]+$', '')
+                local id = create_id(selfMonster, selfMove)
+                if not recent_contains(id) then
+                    table.insert(recentMoves, {
+                        id        = id,
+                        monster   = selfMonster,
+                        move      = selfMove,
+                        action    = 'uses',
+                        -- timestamp = os.time()
+                        timestamp = os.clock()
+
+                    })
+                end
+            end
         end
     end
 end)
@@ -201,10 +310,44 @@ end)
 -- Overlay UI
 ------------------------------------------------------------
 ashita.events.register('d3d_present', 'rtfm_present', function()
+
+    -- local now = os.clock()
+
+    --------------------------------------------------------
+    -- Memory probe (always runs)
+    --------------------------------------------------------
+    -- if (now - mem_last_report) >= MEM_REPORT_INTERVAL then
+    --     mem_last_report = now
+
+    -- local mem = addon.instance:get_memory_usage()
+    --     print(string.format(
+    --         '[RTFM] Memory usage: %.2f KB | recent=%d | pending=%d',
+    --         mem / 1024,
+    --         #recentMoves,
+    --         #pendingReadies
+    --     ))
+    -- end
+
+    --------------------------------------------------------
+    -- Cleanup (should also always run)
+    --------------------------------------------------------
+    -- for i = #recentMoves, 1, -1 do
+    --     if (now - recentMoves[i].timestamp) > displayTime then
+    --         table.remove(recentMoves, i)
+    --     end
+    -- end
+    -- for i = #pendingReadies, 1, -1 do
+    --     if (now - pendingReadies[i].timestamp) > readiesTimeout then
+    --         table.remove(pendingReadies, i)
+    --     end
+    -- end
+
     if not show_window then return end
 
     local now = os.clock()
-    local now_sec = os.time()
+    -- local now_sec = os.time()
+    local now_sec = os.clock()
+
 
     -- Cleanup expired entries
     for i = #recentMoves, 1, -1 do
