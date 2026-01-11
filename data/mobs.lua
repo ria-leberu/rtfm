@@ -1,21 +1,29 @@
 -- data/mobs.lua
--- Simple whitelist of mobs and their TP moves
+-- Curated mob TP move data
 
 local mobs = {
     ["The Moblin Topsman"] = {
-        moves = {
-            ["Crispy Candle"] = true,
-            ["Power Attack"] = true,
-        },
         nm = false,
+        moves = {
+            ["Crispy Candle"] = {
+                notes = "",
+            },
+            ["Power Attack"] = {
+                notes = "",
+            },
+        },
     },
 
     ["Mee Deggi the Punisher"] = {
-        moves = {
-            ["Bomb Toss"] = true,
-            ["Goblin Rush"] = true,
-        },
         nm = true,
+        moves = {
+            ["Bomb Toss"] = {
+                notes = "",
+            },
+            ["Goblin Rush"] = {
+                notes = "",
+            },
+        },
     },
 }
 
