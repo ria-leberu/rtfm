@@ -27,54 +27,53 @@ ashita.events.register('text_in', 'rtfm_text_in', function (e)
 
     local msg = strip_formatting(e.message):trim()
 
-    -- For now: only look at common "battle" modes used for readies lines.
-    -- We'll expand this list later once you're comfortable.
-    local is_readies_mode =
-        (e.mode == 100 or e.mode == 105 or e.mode == 110)
 
     -- Pattern: "<monster> readies <move>"
     -- Example: "Goblin Butcher readies Bomb Toss."
     -- Pattern: "<monster> readies <move>"
 
-    if is_readies_mode then
 
-        local monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
+    local monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
 
-        if monster and move then
-            move = move:gsub('[%p%d%s]+$', '')
+    if monster and move then
+        move = move:gsub('[%p%d%s]+$', '')
 
-            local mob_entry = mob_data[monster]
+        local mob_entry = mob_data[monster]
 
-            -- If not showing all mobs, and this mob isn't listed, stop
-            if not show_all_mobs and not mob_entry then
-                return
-            end
-
-            pending_move = {
-                mob = monster,
-                move = move,
-                time = os.clock(),
-                entry = mob_entry,
-            }
-
-            local tag
-            if mob_entry then
-                tag = mob_entry.nm and 'NM' or 'Mob'
-            else
-                tag = 'Unlisted'
-            end
-
-            print(string.format(
-                '[RTFM] %s | %s readies %s',
-                tag, monster, move
-            ))
-
+        -- If not showing all mobs, and this mob isn't listed, stop
+        if not show_all_mobs and not mob_entry then
             return
         end
+
+        pending_move = {
+            mob = monster,
+            move = move,
+            time = os.clock(),
+            entry = mob_entry,
+        }
+
+        local tag
+        if mob_entry then
+            tag = mob_entry.nm and 'NM' or 'Mob'
+        else
+            tag = 'Unlisted'
+        end
+
+        print(string.format(
+            '[RTFM] %s | %s readies %s',
+            tag, monster, move
+        ))
+
+        return
     end
 
     -- Pattern: "<monster> uses <move>"
-    local umob, umove = msg:match('^%s*(.-)%s+uses%s+([^%.]+)')
+    local umob, umove, target, dmg =
+        msg:match('^%s*(.-)%s+uses%s+([^%.]+)%.?%s*(.-)%s+takes%s+(%d+)%s+points%s+of%s+damage')
+    
+    if not umob then
+        umob, umove = msg:match('^%s*(.-)%s+uses%s+([^%.]+)')
+    end
 
     if umob and umove then
         umove = umove:gsub('[%p%d%s]+$', '')
@@ -91,6 +90,15 @@ ashita.events.register('text_in', 'rtfm_text_in', function (e)
                 entry = pending_move.entry,
             }
             pending_move = nil
+        end
+
+            -- If damage was embedded in the same line, capture it immediately
+        if active_move and target and dmg then
+            table.insert(active_move.hits, {
+                target = target,
+                damage = tonumber(dmg),
+            })
+            active_move.time = os.clock()
         end
 
         return
