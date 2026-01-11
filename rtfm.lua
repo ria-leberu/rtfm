@@ -29,16 +29,19 @@ ashita.events.register('text_in', 'rtfm_text_in', function (e)
 
     -- For now: only look at common "battle" modes used for readies lines.
     -- We'll expand this list later once you're comfortable.
-    if e.mode ~= 100 and e.mode ~= 105 and e.mode ~= 110 then
-        return
-    end
+    local is_readies_mode =
+        (e.mode == 100 or e.mode == 105 or e.mode == 110)
 
     -- Pattern: "<monster> readies <move>"
     -- Example: "Goblin Butcher readies Bomb Toss."
-    local monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
+    -- Pattern: "<monster> readies <move>"
 
-    if monster and move then
-        move = move:gsub('[%p%d%s]+$', '')
+    if is_readies_mode then
+
+        local monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
+
+        if monster and move then
+            move = move:gsub('[%p%d%s]+$', '')
 
             local mob_entry = mob_data[monster]
 
@@ -46,6 +49,13 @@ ashita.events.register('text_in', 'rtfm_text_in', function (e)
             if not show_all_mobs and not mob_entry then
                 return
             end
+
+            pending_move = {
+                mob = monster,
+                move = move,
+                time = os.clock(),
+                entry = mob_entry,
+            }
 
             local tag
             if mob_entry then
@@ -58,5 +68,73 @@ ashita.events.register('text_in', 'rtfm_text_in', function (e)
                 '[RTFM] %s | %s readies %s',
                 tag, monster, move
             ))
+
+            return
+        end
     end
+
+    -- Pattern: "<monster> uses <move>"
+    local umob, umove = msg:match('^%s*(.-)%s+uses%s+([^%.]+)')
+
+    if umob and umove then
+        umove = umove:gsub('[%p%d%s]+$', '')
+
+        if pending_move
+            and pending_move.mob == umob
+            and pending_move.move == umove
+        then
+            active_move = {
+                mob  = umob,
+                move = umove,
+                hits = {},
+                time = os.clock(),
+                entry = pending_move.entry,
+            }
+            pending_move = nil
+        end
+
+        return
+    end
+
+    -- Capture damage lines while a move is active
+    if active_move then
+        local target, dmg = msg:match('^(%S+) takes (%d+) points of damage')
+        if target and dmg then
+            table.insert(active_move.hits, {
+                target = target,
+                damage = tonumber(dmg),
+            })
+            active_move.time = os.clock()
+            return
+        end
+    end
+
+    -- Finalize active move after results stop coming in
+    if active_move and os.clock() - active_move.time > 1.5 then
+        local tag
+        if active_move.entry then
+            tag = active_move.entry.nm and 'NM' or 'Mob'
+        else
+            tag = 'Unlisted'
+        end
+
+        print(string.format(
+            '[RTFM] %s | %s used %s on %d target(s)',
+            tag,
+            active_move.mob,
+            active_move.move,
+            #active_move.hits
+        ))
+
+        for _, hit in ipairs(active_move.hits) do
+            print(string.format(
+                '  - %s (%d dmg)',
+                hit.target,
+                hit.damage
+            ))
+        end
+
+        active_move = nil
+    end
+
 end)
