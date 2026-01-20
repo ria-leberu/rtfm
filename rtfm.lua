@@ -253,8 +253,11 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
             })
         end
 
-        -- Learn move (curated or not)
-        learn_move(monster, move)
+        -- Learn ONLY TP moves (ignore spells)
+        if verb == 'uses' then
+            learn_move(monster, move)
+        end
+
         return
     end
 end)
