@@ -36,6 +36,50 @@ local learned_dirty   = false
 local last_save       = os.clock()
 local lastMonster     = nil
 local state           = { is_open = { true } }
+local auto_learn      = false
+
+local emode_mob_readies = {
+    [28]  = true,
+    [30]  = true,
+    [32]  = true,
+    [40]  = true,
+    [104] = true,
+    [105] = true,
+    [107] = true,
+    [110] = true,
+    [112] = true,
+    [177] = true,
+    [185] = true,
+} 
+
+local emode_mob_uses = {
+    [28]  = true,
+    [30]  = true,
+    [32]  = true,
+    [40]  = true,
+    [104] = true,
+    [107] = true,
+    [111] = true,
+    [112] = true,
+    [185] = true,
+} 
+
+local emode_mob_casting = {
+    [51]  = true,
+    [52]  = true,
+} 
+
+local guaranteed_mobs = {
+    ['seiryu']  = true,
+    ['byakko']  = true,
+    ['suzaku']  = true,
+    ['genbu']   = true,
+    ['kirin']   = true,
+    ['sarameya'] = true,
+    ['battosai'] = true,
+    ['gensai'] = true,
+    ['tinnin'] = true,
+}
 
 ------------------------------------------------------------
 -- Utility
@@ -126,16 +170,24 @@ do
     end
 end
 
-------------------------------------------------------------
--- PC / Trust Filter (authoritative)
-------------------------------------------------------------
-local function is_pc_or_trust(name)
+local function is_player_or_trust(name)
     if not name then return false end
     local lname = name:lower()
+
+    if guaranteed_mobs[lname] then
+        return false
+    end
 
     local party = AshitaCore:GetMemoryManager():GetParty()
     local ents  = AshitaCore:GetMemoryManager():GetEntity()
 
+    -- Your own character
+    local myname = party:GetMemberName(0)
+    if myname and myname:lower() == lname then
+        return true
+    end
+
+    -- Party and alliance members
     for i = 0, 17 do
         if party:GetMemberIsActive(i) == 1 then
             local pname = party:GetMemberName(i)
@@ -145,14 +197,21 @@ local function is_pc_or_trust(name)
         end
     end
 
+    -- Scan all entities for PC / Trust / Pet types
     for i = 0, 2303 do
         local ename = ents:GetName(i)
         if ename and ename:lower() == lname then
             local etype = ents:GetType(i)
+            -- 1 = PC, 2 = Trust, 5 = Pet (exclude all of these)
             if etype == 1 or etype == 2 or etype == 5 then
                 return true
             end
         end
+    end
+
+    -- Heuristic fallback: player-style naming (capitalized, no spaces or apostrophes)
+    if name:match("^[A-Z][a-z]+$") then
+        return true
     end
 
     return false
@@ -191,11 +250,8 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
 
     local monster, move, verb
 
-    --------------------------------------------------------
-    -- READIES
-    --------------------------------------------------------
     monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
-    if monster and move and not is_pc_or_trust(monster) then
+    if monster and move and not is_player_or_trust(monster) then
         move = move:gsub('[%p%d%s]+$', '')
         table.insert(pendingActions, {
             id        = create_id(monster, move),
@@ -211,18 +267,20 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     --------------------------------------------------------
     -- STARTS CASTING
     --------------------------------------------------------
-    monster, move = msg:match('^%s*(.-)%s+starts casting%s+([^%.]+)')
-    if monster and move and not is_pc_or_trust(monster) then
-        move = move:gsub('[%p%d%s]+$', '')
-        table.insert(pendingActions, {
-            id        = create_id(monster, move),
-            monster   = monster,
-            move      = move,
-            action    = 'casting',
-            timestamp = os.clock()
-        })
-        lastMonster = monster
-        return
+    if emode_mob_casting[e.mode] then
+        monster, move = msg:match('^%s*(.-)%s+starts casting%s+([^%.]+)')
+        if monster and move and not is_player_or_trust(monster) then
+            move = move:gsub('[%p%d%s]+$', '')
+            table.insert(pendingActions, {
+                id        = create_id(monster, move),
+                monster   = monster,
+                move      = move,
+                action    = 'casting',
+                timestamp = os.clock()
+            })
+            lastMonster = monster
+            return
+        end
     end
 
     --------------------------------------------------------
@@ -236,30 +294,35 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
         verb = 'casts'
     end
 
-    if monster and move and not is_pc_or_trust(monster) then
-        move = move:gsub('[%p%d%s]+$', '')
-        local id = create_id(monster, move)
+    if emode_mob_uses[e.mode] then
+        if monster and move and not is_player_or_trust(monster) then
+            move = move:gsub('[%p%d%s]+$', '')
+            local id = create_id(monster, move)
 
-        local idx = find_pending(id, move)
-        if idx then table.remove(pendingActions, idx) end
+            local idx = find_pending(id, move)
+            if idx then table.remove(pendingActions, idx) end
 
-        if not recent_contains(id) then
-            table.insert(recentMoves, {
-                id        = id,
-                monster   = monster,
-                move      = move,
-                action    = verb,
-                timestamp = os.clock()
-            })
+            if not recent_contains(id) then
+                table.insert(recentMoves, {
+                    id        = id,
+                    monster   = monster,
+                    move      = move,
+                    action    = verb,
+                    timestamp = os.clock()
+                })
+            end
+
+            -- Learn ONLY TP moves (ignore spells)
+            if verb == 'uses' and auto_learn then
+                learn_move(monster, move)
+            end
+
+            return
         end
-
-        -- Learn ONLY TP moves (ignore spells)
-        if verb == 'uses' then
-            learn_move(monster, move)
-        end
-
-        return
     end
+
+
+
 end)
 
 ------------------------------------------------------------
@@ -309,7 +372,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
                 and {1.0, 0.3, 0.3, alpha}     -- red
                 or  {0.8, 0.4, 1.0, alpha}     -- purple
 
-            local text = string.format('%s → %s', m.monster, m.move)
+            local text = string.format('%s used %s', m.monster, m.move)
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
