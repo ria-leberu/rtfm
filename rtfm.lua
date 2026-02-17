@@ -79,6 +79,11 @@ local guaranteed_mobs = {
     ['battosai'] = true,
     ['gensai'] = true,
     ['tinnin'] = true,
+    ['arfarvegr'] = true,
+    ['midgardsormr'] = true,
+    ['skrudningr'] = true,
+    ['brjota'] = true,
+    ['tidepincher'] = true,
 }
 
 ------------------------------------------------------------
