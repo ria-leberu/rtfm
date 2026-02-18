@@ -325,9 +325,6 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
             return
         end
     end
-
-
-
 end)
 
 ------------------------------------------------------------
