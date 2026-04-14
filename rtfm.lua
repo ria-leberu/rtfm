@@ -13,30 +13,31 @@ print('[RTFM] Addon loaded.')
 ------------------------------------------------------------
 -- Paths / Persistence
 ------------------------------------------------------------
-local base_path    = AshitaCore:GetInstallPath()
-local data_dir     = base_path .. 'addons\\rtfm\\data'
-local learned_path = data_dir .. '\\mobs_learned.lua'
+local base_path         = AshitaCore:GetInstallPath()
+local data_dir          = base_path .. 'addons\\rtfm\\data'
+local learned_path      = data_dir .. '\\mobs_learned.lua'
 
 ------------------------------------------------------------
 -- Config
 ------------------------------------------------------------
-local DISPLAY_TIME    = 60.0
-local READIES_TIMEOUT = 10.0
-local SAVE_INTERVAL   = 10.0
+local DISPLAY_TIME      = 60.0
+local READIES_TIMEOUT   = 10.0
+local SAVE_INTERVAL     = 10.0
 
 ------------------------------------------------------------
 -- State
 ------------------------------------------------------------
-local show_window     = true
-local debug_log_all   = false
-local recentMoves     = {}
-local pendingActions  = {}
-local learned_moves   = {}
-local learned_dirty   = false
-local last_save       = os.clock()
-local lastMonster     = nil
-local state           = { is_open = { true } }
-local auto_learn      = false
+local show_window       = true
+local debug_log_all     = false
+local blacklist_enabled = true
+local recentMoves       = {}
+local pendingActions    = {}
+local learned_moves     = {}
+local learned_dirty     = false
+local last_save         = os.clock()
+local lastMonster       = nil
+local state             = { is_open = { true } }
+local auto_learn        = false
 
 local emode_mob_readies = {
     [28]  = true,
@@ -50,9 +51,9 @@ local emode_mob_readies = {
     [112] = true,
     [177] = true,
     [185] = true,
-} 
+}
 
-local emode_mob_uses = {
+local emode_mob_uses    = {
     [28]  = true,
     [30]  = true,
     [32]  = true,
@@ -62,37 +63,49 @@ local emode_mob_uses = {
     [111] = true,
     [112] = true,
     [185] = true,
-} 
-
-local emode_mob_casting = {
-    [51]  = true,
-    [52]  = true,
-} 
-
-local guaranteed_mobs = {
-    ['seiryu']  = true,
-    ['byakko']  = true,
-    ['suzaku']  = true,
-    ['genbu']   = true,
-    ['kirin']   = true,
-    ['sarameya'] = true,
-    ['battosai'] = true,
-    ['gensai'] = true,
-    ['tinnin'] = true,
-    ['tyger']   = true,
-    ['arfarvegr'] = true,
-    ['midgardsormr'] = true,
-    ['skrudningr'] = true,
-    ['brjota'] = true,
-    ['tidepincher'] = true,
-    ['lugh'] = true,
-    ['nidhogg'] = true,
-    ['tethra'] = true,
-    ['ethniu'] = true,
-    ['elatha'] = true,
-    ['buarainech'] = true,
 }
 
+local emode_mob_casting = {
+    [51] = true,
+    [52] = true,
+}
+
+local guaranteed_mobs   = {
+    ['seiryu']       = true,
+    ['byakko']       = true,
+    ['suzaku']       = true,
+    ['genbu']        = true,
+    ['kirin']        = true,
+    ['sarameya']     = true,
+    ['battosai']     = true,
+    ['gensai']       = true,
+    ['tinnin']       = true,
+    ['tyger']        = true,
+    ['arfarvegr']    = true,
+    ['midgardsormr'] = true,
+    ['skrudningr']   = true,
+    ['brjota']       = true,
+    ['tidepincher']  = true,
+    ['lugh']         = true,
+    ['nidhogg']      = true,
+    ['tethra']       = true,
+    ['ethniu']       = true,
+    ['elatha']       = true,
+    ['buarainech']   = true,
+}
+
+local blacklist_mobs    = {
+    ['rabbit'] = true,
+    ['bee'] = true,
+    -- ['moblintopsman'] = true,
+}
+
+local highlight_mobs    = {
+    ['kirin'] = true,
+    ['genbu'] = true,
+    ['moblintopsman'] = true,
+
+}
 ------------------------------------------------------------
 -- Utility
 ------------------------------------------------------------
@@ -111,9 +124,46 @@ local function normalize(s)
     return s
 end
 
+local function is_blacklisted(name)
+    if not name then return false end
+    if not blacklist_enabled then return false end
+
+    return blacklist_mobs[normalize(name)] == true
+end
+
+local function is_highlighted(name)
+    if not name then return false end
+    return highlight_mobs[normalize(name)] == true
+end
+
 local function create_id(monster, move)
     return normalize(monster) .. ':' .. normalize(move)
 end
+
+ashita.events.register('command', 'rtfm_command', function(e)
+    local args = e.command:args()
+    if #args < 2 then return end
+
+    if args[1] ~= '/rtfm' then return end
+
+    local cmd = args[2]:lower()
+
+    if cmd == 'highlight' and args[3] then
+        local mob = normalize(args[3])
+        highlight_mobs[mob] = true
+        print('[RTFM] Highlight added: ' .. args[3])
+        e.blocked = true
+        return
+    end
+
+    if cmd == 'unhighlight' and args[3] then
+        local mob = normalize(args[3])
+        highlight_mobs[mob] = nil
+        print('[RTFM] Highlight removed: ' .. args[3])
+        e.blocked = true
+        return
+    end
+end)
 
 ------------------------------------------------------------
 -- Curated / Learned Lookup
@@ -190,8 +240,8 @@ local function is_player_or_trust(name)
         return false
     end
 
-    local party = AshitaCore:GetMemoryManager():GetParty()
-    local ents  = AshitaCore:GetMemoryManager():GetEntity()
+    local party  = AshitaCore:GetMemoryManager():GetParty()
+    local ents   = AshitaCore:GetMemoryManager():GetEntity()
 
     -- Your own character
     local myname = party:GetMemberName(0)
@@ -235,7 +285,7 @@ end
 local function find_pending(id, move)
     for i = #pendingActions, 1, -1 do
         if pendingActions[i].id == id
-        or normalize(pendingActions[i].move) == normalize(move) then
+            or normalize(pendingActions[i].move) == normalize(move) then
             return i
         end
     end
@@ -263,7 +313,9 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     local monster, move, verb
 
     monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
-    if monster and move and not is_player_or_trust(monster) then
+    if monster and move
+        and not is_player_or_trust(monster)
+        and not is_blacklisted(monster) then
         move = move:gsub('[%p%d%s]+$', '')
         table.insert(pendingActions, {
             id        = create_id(monster, move),
@@ -281,7 +333,9 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     --------------------------------------------------------
     if emode_mob_casting[e.mode] then
         monster, move = msg:match('^%s*(.-)%s+starts casting%s+([^%.]+)')
-        if monster and move and not is_player_or_trust(monster) then
+        if monster and move
+            and not is_player_or_trust(monster)
+            and not is_blacklisted(monster) then
             move = move:gsub('[%p%d%s]+$', '')
             table.insert(pendingActions, {
                 id        = create_id(monster, move),
@@ -307,7 +361,9 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     end
 
     if emode_mob_uses[e.mode] then
-        if monster and move and not is_player_or_trust(monster) then
+        if monster and move
+            and not is_player_or_trust(monster)
+            and not is_blacklisted(monster) then
             move = move:gsub('[%p%d%s]+$', '')
             local id = create_id(monster, move)
 
@@ -353,6 +409,16 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         end
     end
 
+    -- Sort highlighted mobs to top (recent)
+    table.sort(recentMoves, function(a, b)
+        return is_highlighted(a.monster) and not is_highlighted(b.monster)
+    end)
+
+    -- Sort highlighted mobs to top (pending)
+    table.sort(pendingActions, function(a, b)
+        return is_highlighted(a.monster) and not is_highlighted(b.monster)
+    end)
+
     if learned_dirty and (now - last_save) > SAVE_INTERVAL then
         save_learned()
     end
@@ -362,8 +428,8 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
 
     imgui.Begin('RTFM Overlay', state.is_open,
         bit.bor(ImGuiWindowFlags_NoResize,
-                ImGuiWindowFlags_NoCollapse,
-                ImGuiWindowFlags_AlwaysAutoResize))
+            ImGuiWindowFlags_NoCollapse,
+            ImGuiWindowFlags_AlwaysAutoResize))
 
     --------------------------------------------------------
     -- Recent actions (colored + fading)
@@ -372,21 +438,32 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         imgui.Text('No recent actions.')
     else
         for i, m in ipairs(recentMoves) do
-            local age   = now - m.timestamp
-            local alpha = 1.0 - math.min(age / DISPLAY_TIME, 1.0)^2.5
+            local age          = now - m.timestamp
+            local alpha        = 1.0 - math.min(age / DISPLAY_TIME, 1.0) ^ 2.5
 
-            local color = (m.action == 'uses')
-                and {1.0, 0.3, 0.3, alpha}     -- red
-                or  {0.8, 0.4, 1.0, alpha}     -- purple
+            local is_highlight = is_highlighted(m.monster)
+
+            local color
+            if is_highlight then
+                color = {0.0, 1.0, 0.0, alpha}  -- neon green                
+            else
+                color = (m.action == 'uses')
+                    and { 1.0, 0.3, 0.3, alpha } -- red
+                    or { 0.8, 0.4, 1.0, alpha } -- purple
+            end
 
             local text = string.format('%s used %s', m.monster, m.move)
+
+            if is_highlighted(m.monster) then
+                text = '>>> ' .. text
+            end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
             imgui.PopStyleColor()
 
             imgui.SameLine()
-            imgui.PushStyleColor(ImGuiCol_Text, {0.7, 0.7, 0.7, alpha * 0.8})
+            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 0.8 })
             imgui.Text(string.format('(%.1fs ago)', age))
             imgui.PopStyleColor()
 
@@ -402,26 +479,36 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         imgui.Text('Readying...')
 
         for i, p in ipairs(pendingActions) do
-            local age   = now - p.timestamp
-            local pulse = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
-            local alpha = 1.0 - math.min(age / READIES_TIMEOUT, 1.0)^2.5
+            local age          = now - p.timestamp
+            local pulse        = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
+            local alpha        = 1.0 - math.min(age / READIES_TIMEOUT, 1.0) ^ 2.5
+
+            local is_highlight = is_highlighted(p.monster)
 
             local color
-            if p.action == 'casting' then
-                color = {0.6, 0.6 * pulse, 1.0 * pulse, alpha}  -- blue
+            if is_highlight then
+                color = { 0.2, 1.0 * pulse, 0.2, alpha } -- 🔥 pulsing green
             else
-                color = {1.0, 1.0 * pulse, 0.3 * pulse, alpha}  -- yellow
+                if p.action == 'casting' then
+                    color = { 0.6, 0.6 * pulse, 1.0 * pulse, alpha }
+                else
+                    color = { 1.0, 1.0 * pulse, 0.3 * pulse, alpha }
+                end
             end
 
             local verb = (p.action == 'casting') and 'starts casting' or 'readies'
             local text = string.format('%s %s %s', p.monster, verb, p.move)
+
+            if is_highlighted(p.monster) then
+                text = '>>> ' .. text
+            end
 
             imgui.PushStyleColor(ImGuiCol_Text, color)
             imgui.Text(text)
             imgui.PopStyleColor()
 
             imgui.SameLine()
-            imgui.PushStyleColor(ImGuiCol_Text, {0.7, 0.7, 0.7, alpha * 0.8})
+            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 0.8 })
             imgui.Text(string.format('(%.1fs ago)', age))
             imgui.PopStyleColor()
 
