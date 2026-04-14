@@ -95,8 +95,8 @@ local guaranteed_mobs   = {
 }
 
 local blacklist_mobs    = {
-    ['rabbit'] = true,
-    ['bee'] = true,
+    -- ['rabbit'] = true,
+    -- ['bee'] = true,
     -- ['moblintopsman'] = true,
 }
 
@@ -104,6 +104,13 @@ local highlight_mobs    = {
     ['kirin'] = true,
     ['genbu'] = true,
     ['moblintopsman'] = true,
+}
+
+local sound_moves = {
+    ['frypan'] = 'alert.wav',
+    ['smokebomb'] = 'alert.wav',
+    ['crispycandle'] = 'alert.wav',
+    ['paralysisshower'] = 'alert.wav',
 
 }
 ------------------------------------------------------------
@@ -134,6 +141,18 @@ end
 local function is_highlighted(name)
     if not name then return false end
     return highlight_mobs[normalize(name)] == true
+end
+
+local function play_sound_for_move(move)
+    if not move then return end
+
+    local m = normalize(move)
+    local sound = sound_moves[m]
+    if not sound then return end
+
+    local path = AshitaCore:GetInstallPath() .. 'addons\\rtfm\\sounds\\' .. sound
+
+    ashita.misc.play_sound(path)
 end
 
 local function create_id(monster, move)
@@ -378,6 +397,11 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
                     action    = verb,
                     timestamp = os.clock()
                 })
+
+                -- 🔊 Play sound for tracked moves
+                if verb == 'uses' and is_highlighted(monster) then
+                    play_sound_for_move(move)
+                end
             end
 
             -- Learn ONLY TP moves (ignore spells)
