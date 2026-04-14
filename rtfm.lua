@@ -79,11 +79,18 @@ local guaranteed_mobs = {
     ['battosai'] = true,
     ['gensai'] = true,
     ['tinnin'] = true,
+    ['tyger']   = true,
     ['arfarvegr'] = true,
     ['midgardsormr'] = true,
     ['skrudningr'] = true,
     ['brjota'] = true,
     ['tidepincher'] = true,
+    ['lugh'] = true,
+    ['nidhogg'] = true,
+    ['tethra'] = true,
+    ['ethniu'] = true,
+    ['elatha'] = true,
+    ['buarainech'] = true,
 }
 
 ------------------------------------------------------------
@@ -335,7 +342,6 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
 
     local now = os.clock()
 
-    -- Cleanup
     for i = #recentMoves, 1, -1 do
         if (now - recentMoves[i].timestamp) > DISPLAY_TIME then
             table.remove(recentMoves, i)
@@ -347,7 +353,6 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         end
     end
 
-    -- Autosave learned data
     if learned_dirty and (now - last_save) > SAVE_INTERVAL then
         save_learned()
     end
@@ -394,7 +399,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     --------------------------------------------------------
     if #pendingActions > 0 then
         imgui.Separator()
-        imgui.Text('Preparing...')
+        imgui.Text('Readying...')
 
         for i, p in ipairs(pendingActions) do
             local age   = now - p.timestamp
@@ -426,4 +431,3 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
 
     imgui.End()
 end)
-
