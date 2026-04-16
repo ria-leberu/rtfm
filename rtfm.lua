@@ -92,6 +92,7 @@ local guaranteed_mobs   = {
     ['ethniu']       = true,
     ['elatha']       = true,
     ['buarainech']   = true,
+    ['absolute virtue'] = true,
 }
 
 local blacklist_mobs    = {
@@ -104,6 +105,8 @@ local highlight_mobs    = {
     ['kirin'] = true,
     ['genbu'] = true,
     ['moblintopsman'] = true,
+    ['absolute virtue'] = true,
+
 }
 
 local sound_moves = {
@@ -111,6 +114,19 @@ local sound_moves = {
     ['smokebomb'] = 'alert.wav',
     ['crispycandle'] = 'alert.wav',
     ['paralysisshower'] = 'alert.wav',
+
+    ['invincible'] = 'alert.wav',
+    ['mightystrikes'] = 'alert.wav',
+    ['perfectdodge'] = 'alert.wav',
+    ['chainspell'] = 'alert.wav',
+    ['eagleeyeshot'] = 'alert.wav',
+    ['manafont'] = 'alert.wav',
+    ['callwyvern'] = 'alert.wav',
+    ['benediction'] = 'alert.wav',
+    ['hundredfists'] = 'alert.wav',
+    ['bloodweapon'] = 'alert.wav',
+    ['soulvoice'] = 'alert.wav',
+    ['meikyoshisui'] = 'alert.wav',
 
 }
 ------------------------------------------------------------
@@ -140,7 +156,12 @@ end
 
 local function is_highlighted(name)
     if not name then return false end
-    return highlight_mobs[normalize(name)] == true
+
+    local norm = normalize(name)
+    local lower = name:lower()
+
+    return highlight_mobs[norm] == true
+        or highlight_mobs[lower] == true
 end
 
 local function play_sound_for_move(move)
@@ -255,7 +276,10 @@ local function is_player_or_trust(name)
     if not name then return false end
     local lname = name:lower()
 
-    if guaranteed_mobs[lname] then
+    local norm = normalize(name)
+    local lower = name:lower()
+
+    if guaranteed_mobs[norm] or guaranteed_mobs[lower] then
         return false
     end
 
@@ -433,15 +457,15 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         end
     end
 
-    -- Sort highlighted mobs to top (recent)
-    table.sort(recentMoves, function(a, b)
-        return is_highlighted(a.monster) and not is_highlighted(b.monster)
-    end)
+    -- -- Sort highlighted mobs to top (recent)
+    -- table.sort(recentMoves, function(a, b)
+    --     return is_highlighted(a.monster) and not is_highlighted(b.monster)
+    -- end)
 
-    -- Sort highlighted mobs to top (pending)
-    table.sort(pendingActions, function(a, b)
-        return is_highlighted(a.monster) and not is_highlighted(b.monster)
-    end)
+    -- -- Sort highlighted mobs to top (pending)
+    -- table.sort(pendingActions, function(a, b)
+    --     return is_highlighted(a.monster) and not is_highlighted(b.monster)
+    -- end)
 
     if learned_dirty and (now - last_save) > SAVE_INTERVAL then
         save_learned()
