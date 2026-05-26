@@ -20,7 +20,7 @@ local learned_path      = data_dir .. '\\mobs_learned.lua'
 ------------------------------------------------------------
 -- Config
 ------------------------------------------------------------
-local DISPLAY_TIME      = 60.0
+local DISPLAY_TIME      = 120.0
 local READIES_TIMEOUT   = 10.0
 local SAVE_INTERVAL     = 10.0
 
@@ -93,6 +93,18 @@ local guaranteed_mobs   = {
     ['elatha']       = true,
     ['buarainech']   = true,
     ['absolute virtue'] = true,
+    ['tidepincher-ex']  = true,
+    ['emberwing-ex']  = true,
+    ['dustburrower-ex']  = true,
+    ['swiftsting-ex']  = true,
+    ['diabolos somnus']  = true,
+    ['diabolos letum']  = true,
+    ['yasuo hasaki'] = true,
+    ['khimaira']      = true,
+
+
+
+
 }
 
 local blacklist_mobs    = {
@@ -106,6 +118,8 @@ local highlight_mobs    = {
     ['genbu'] = true,
     ['moblintopsman'] = true,
     ['absolute virtue'] = true,
+    ['yasuo hasaki'] = true,
+
 
 }
 
@@ -127,6 +141,12 @@ local sound_moves = {
     ['bloodweapon'] = 'alert.wav',
     ['soulvoice'] = 'alert.wav',
     ['meikyoshisui'] = 'alert.wav',
+    ['oblivionsmantle'] = 'alert.wav',
+    ['fulmination'] = 'alert.wav',
+
+
+
+
 
 }
 ------------------------------------------------------------
@@ -403,10 +423,46 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
         verb = 'casts'
     end
 
-    if emode_mob_uses[e.mode] then
+    -- if emode_mob_uses[e.mode] then
+    --     if (monster and move
+    --         and not is_player_or_trust(monster)
+    --         and not is_blacklisted(monster))
+    --         or is_highlighted(monster) then
+
+    --         move = move:gsub('[%p%d%s]+$', '')
+    --         local id = create_id(monster, move)
+
+    --         local idx = find_pending(id, move)
+    --         if idx then table.remove(pendingActions, idx) end
+
+    --         if not recent_contains(id) then
+    --             table.insert(recentMoves, {
+    --                 id        = id,
+    --                 monster   = monster,
+    --                 move      = move,
+    --                 action    = verb,
+    --                 timestamp = os.clock()
+    --             })
+
+    --             -- 🔊 Play sound for tracked moves
+    --             if verb == 'uses' and is_highlighted(monster) then
+    --                 play_sound_for_move(move)
+    --             end
+    --         end
+
+    --         -- Learn ONLY TP moves (ignore spells)
+    --         if verb == 'uses' and auto_learn then
+    --             learn_move(monster, move)
+    --         end
+
+    --         return
+    --     end
+    -- end
+
         if monster and move
             and not is_player_or_trust(monster)
             and not is_blacklisted(monster) then
+
             move = move:gsub('[%p%d%s]+$', '')
             local id = create_id(monster, move)
 
@@ -422,19 +478,17 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
                     timestamp = os.clock()
                 })
 
-                -- 🔊 Play sound for tracked moves
+                -- 🔊 Sound
                 if verb == 'uses' and is_highlighted(monster) then
                     play_sound_for_move(move)
                 end
             end
 
-            -- Learn ONLY TP moves (ignore spells)
             if verb == 'uses' and auto_learn then
                 learn_move(monster, move)
             end
 
-            return
-        end
+        return
     end
 end)
 
@@ -511,7 +565,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
             imgui.PopStyleColor()
 
             imgui.SameLine()
-            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 0.8 })
+            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 1.0 })
             imgui.Text(string.format('(%.1fs ago)', age))
             imgui.PopStyleColor()
 
