@@ -10,6 +10,23 @@ function window.draw(is_open, alerts, config)
     imgui.SetNextWindowSize({ 580, 450 }, ImGuiCond_FirstUseEver)
     if imgui.Begin('RTFM Settings', is_open, ImGuiWindowFlags_NoCollapse) then
         local limit = { config.max_recent }
+        local scale = { math.floor(config.log_font_scale * 100 + 0.5) }
+        if imgui.SliderInt('Log text size (%)', scale, 75, 200) then
+            config.log_font_scale = scale[1] / 100
+            changed = true
+        end
+        local mode = { config.color_mode }
+        if imgui.Combo('Color vision', mode,
+            'Default\0Red-green (protanopia / deuteranopia)\0Blue-yellow (tritanopia)\0Monochrome\0\0') then
+            config.color_mode = mode[1]
+            changed = true
+        end
+        local labels = { config.action_labels }
+        if imgui.Checkbox('Show Attack / Support labels', labels) then
+            config.action_labels = labels[1]
+            changed = true
+        end
+        imgui.TextWrapped('Color vision modes always show Attack / Support labels. Track / Untrack also identifies saved alerts.')
         if imgui.InputInt('Moves in log', limit) then
             config.max_recent = math.max(1, math.min(250, limit[1]))
             changed = true

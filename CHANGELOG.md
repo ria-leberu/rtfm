@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Show affected party members as a yellow `HIT>> Name, Name` line.
+
+- Lighten action backgrounds and add persistent log text scaling with proportional
+  Track buttons and icons.
+- Add color vision palettes and optional Attack / Support labels; alternative
+  palettes always include labels and update tracked colors throughout the UI.
+
+- Remove the development test suite and its documentation references.
+
 - Show native status icons beside harmful spells such as Bio, Blind and Sleepga
   during casting and in completed log entries.
 
@@ -99,13 +108,11 @@
 
 - Strip complete chat color controls so affected-player results match formatted
   move names; read the action ID separately from the unknown packet field.
-- Add Khimaira Dreadstorm/Fossilizing Breath regression fixtures and optional
-  `/rtfm debug on|off` result diagnostics.
+- Add optional `/rtfm debug on|off` result diagnostics.
 
 - Show sorted, deduplicated affected-player names beneath completed monster moves
   and spells in a smaller font, using successful action-packet outcomes.
-- Add bounded packet/chat result matching and regression coverage for multi-target
-  hits, status effects, misses, resists, pet filtering, and subtitle font sizing.
+- Add bounded packet/chat result matching for multi-target hits and status effects.
 
 - Split configuration, parsing/tracking, actor filtering, rendering, and storage
   into focused modules; removed obsolete commented code and unused resources.
@@ -116,7 +123,7 @@
 - Normalize encounter rules consistently and cache entity classification.
 - Connect curated move descriptions to the overlay.
 - Add learning commands, local preferences, unload saves, and recoverable writes.
-- Update local editor paths and add Lua regression checks.
+- Update local editor paths.
 
 ## 0.1.0 - 2026-11-01
 

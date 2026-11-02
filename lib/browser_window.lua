@@ -1,4 +1,5 @@
 local imgui = require('imgui')
+local appearance = require('lib.appearance')
 local browser = require('lib.catalogue_browser')
 local descriptions = require('lib.descriptions')
 local overrides = require('data.moves')
@@ -15,9 +16,9 @@ local targets = {}
 local function tab(label, value)
     local active = scope == value
     if active then
-        imgui.PushStyleColor(ImGuiCol_Button, { 0.1, 0.45, 0.1, 1 })
-        imgui.PushStyleColor(ImGuiCol_ButtonHovered, { 0.15, 0.6, 0.15, 1 })
-        imgui.PushStyleColor(ImGuiCol_ButtonActive, { 0.1, 0.35, 0.1, 1 })
+        imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
+        imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
+        imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
     end
     local clicked = imgui.Button(label)
     if active then imgui.PopStyleColor(3) end
@@ -30,9 +31,9 @@ end
 local function track_button(alerts, rule, id)
     local tracked = alerts:is_selected(rule)
     if tracked then
-        imgui.PushStyleColor(ImGuiCol_Button, { 0.1, 0.45, 0.1, 1 })
-        imgui.PushStyleColor(ImGuiCol_ButtonHovered, { 0.15, 0.6, 0.15, 1 })
-        imgui.PushStyleColor(ImGuiCol_ButtonActive, { 0.1, 0.35, 0.1, 1 })
+        imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
+        imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
+        imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
     end
     local changed = imgui.Button((tracked and 'Untrack' or 'Track') .. '##' .. id)
     if changed then alerts:set(rule, not tracked) end
@@ -105,9 +106,9 @@ function window.draw(alerts)
                     local rule = browser.rule(selected, move, scope)
                     local tracked = alerts:is_selected(rule)
                     if tracked then
-                        imgui.PushStyleColor(ImGuiCol_Button, { 0.1, 0.45, 0.1, 1 })
-                        imgui.PushStyleColor(ImGuiCol_ButtonHovered, { 0.15, 0.6, 0.15, 1 })
-                        imgui.PushStyleColor(ImGuiCol_ButtonActive, { 0.1, 0.35, 0.1, 1 })
+                        imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
+                        imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
+                        imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
                     end
                     local suffix = move.kind == 'spell' and 'catalogue_spell_' or 'catalogue_move_'
                     if imgui.Button((tracked and 'Untrack' or 'Track') .. '##' .. suffix .. move.id) then
@@ -116,7 +117,7 @@ function window.draw(alerts)
                     end
                     if tracked then imgui.PopStyleColor(3) end
                     imgui.SameLine()
-                    if tracked then imgui.PushStyleColor(ImGuiCol_Text, { 0.2, 1, 0.2, 1 }) end
+                    if tracked then imgui.PushStyleColor(ImGuiCol_Text, appearance.palette().tracked) end
                     imgui.Text((move.kind == 'spell' and 'Spell: ' or '') .. move.name)
                     if tracked then imgui.PopStyleColor() end
                     if move.kind == 'spell' then

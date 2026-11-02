@@ -72,7 +72,7 @@ end
 function descriptions.draw(event, overrides)
     local entry = descriptions.lookup(event, overrides)
     if not entry then return end
-    local size = 16
+    local size = imgui.GetFontSize()
     if entry.damage then
         imgui.SameLine(0, 4)
         local label = damage_labels[entry.damage] or entry.damage

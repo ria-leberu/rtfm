@@ -39,6 +39,13 @@ end
 if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
 if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
 if type(preferences.party_enemies_only) == 'boolean' then config.party_enemies_only = preferences.party_enemies_only end
+if type(preferences.log_font_scale) == 'number' and preferences.log_font_scale == preferences.log_font_scale then
+    config.log_font_scale = math.max(0.75, math.min(2, preferences.log_font_scale))
+end
+if type(preferences.color_mode) == 'number' and preferences.color_mode == preferences.color_mode then
+    config.color_mode = math.max(0, math.min(3, math.floor(preferences.color_mode)))
+end
+if type(preferences.action_labels) == 'boolean' then config.action_labels = preferences.action_labels end
 
 -- Normalize saved and curated keys at the boundary so all lookups agree.
 local normalized_learned = {}
@@ -73,6 +80,9 @@ local function save()
         move_alert_entries = move_alerts:list(),
         max_recent = config.max_recent,
         party_enemies_only = config.party_enemies_only,
+        log_font_scale = config.log_font_scale,
+        color_mode = config.color_mode,
+        action_labels = config.action_labels,
     }) then
         preferences_dirty = false
     end

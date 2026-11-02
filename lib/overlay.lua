@@ -1,4 +1,5 @@
 local imgui = require('imgui')
+local appearance = require('lib.appearance')
 local names = require('lib.names')
 local descriptions = require('lib.descriptions')
 local action_roles = require('lib.action_roles')
@@ -38,7 +39,7 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         local tracked = move_alerts and move_alerts:is_selected(event)
         local color
         if tracked then
-            color = { 0.2, 1, 0.2, alpha }
+            color = appearance.palette().tracked
         elseif event.action == 'casting' or event.action == 'casts' then
             color = { 0.6, 0.6 * pulse, pulse, alpha }
         elseif pending then
@@ -48,15 +49,22 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         end
         local text = string.format('%s %s %s',
             event.monster, verbs[event.action], event.move)
+        local role = action_roles.lookup(event, moves)
+        if role and (config.action_labels or config.color_mode ~= 0) then
+            text = (role == 'offensive' and '[Attack] ' or '[Support] ') .. text
+        end
         if not pending and move_alerts then
             local selected = move_alerts:is_selected(event)
             local label = selected and 'Untrack' or 'Track'
             if selected then
-                imgui.PushStyleColor(ImGuiCol_Button, { 0.1, 0.45, 0.1, 1 })
-                imgui.PushStyleColor(ImGuiCol_ButtonHovered, { 0.15, 0.6, 0.15, 1 })
-                imgui.PushStyleColor(ImGuiCol_ButtonActive, { 0.1, 0.35, 0.1, 1 })
+                imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
+                imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
+                imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
             end
-            if imgui.Button(label .. '##move_alert_' .. i) then
+            local button_width, button_height = imgui.CalcTextSize(label)
+            local scale = config.log_font_scale
+            if imgui.Button(label .. '##move_alert_' .. i,
+                { button_width + 8 * scale, button_height + 6 * scale }) then
                 move_alerts:set(event, not selected)
                 changed = true
             end
@@ -67,12 +75,10 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
             end
             imgui.SameLine()
         end
-        local role = action_roles.lookup(event, moves)
         if role then
             local x, y = imgui.GetCursorScreenPos()
             local width, height = imgui.CalcTextSize(text)
-            local background = role == 'offensive' and { 0.65, 0.08, 0.08, 0.55 }
-                or { 0.35, 0.7, 1, 0.45 }
+            local background = appearance.palette()[role]
             imgui.GetWindowDrawList():AddRectFilled({ x - 2, y }, { x + width + 2, y + height },
                 imgui.GetColorU32(background), 2)
             if not tracked then color = { 1, 1, 1, alpha } end
@@ -87,7 +93,9 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         if not pending and event.affected_players and #event.affected_players > 0 then
             local players = table.concat(event.affected_players, ', ')
             imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * config.affected_font_scale)
-            imgui.TextWrapped('>> ' .. players .. ' <<')
+            imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, 1 })
+            imgui.TextWrapped('HIT>> ' .. players)
+            imgui.PopStyleColor()
             imgui.PopFont()
         end
         imgui.PopStyleColor()
@@ -99,6 +107,8 @@ end
 function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_open)
     if not is_open[1] then return false end
     local changed = false
+    local scale = config.log_font_scale
+    imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * scale)
     imgui.SetNextWindowBgAlpha(0.85)
     imgui.SetNextWindowSize({ 560, 380 }, ImGuiCond_FirstUseEver)
     imgui.SetNextWindowSizeConstraints({ 400, 260 }, { 10000, 10000 })
@@ -125,13 +135,14 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 0, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             imgui.Text('Readying / Casting')
             if #tracker.pending == 0 then imgui.Text('No moves or spells being prepared.') end
-            draw_rows(tracker.pending, true, now, config, moves)
+            draw_rows(tracker.pending, true, now, config, moves, move_alerts)
             -- Keep the newest preparation visible if several enemies act.
             imgui.SetScrollHereY(1.0)
         end
         imgui.EndChild()
     end
     imgui.End()
+    imgui.PopFont()
     return changed
 end
 

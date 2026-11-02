@@ -1,4 +1,5 @@
 local imgui = require('imgui')
+local appearance = require('lib.appearance')
 local browser = require('lib.catalogue_browser')
 local names = require('lib.names')
 local picker = {}
@@ -60,9 +61,9 @@ function picker.draw(alerts)
                     if names.normalize(enemy[1]) == names.normalize(context_name) then rule.aliases = context_aliases end
                     local tracked = alerts:is_selected(rule)
                     if tracked then
-                        imgui.PushStyleColor(ImGuiCol_Button, { 0.1, 0.45, 0.1, 1 })
-                        imgui.PushStyleColor(ImGuiCol_ButtonHovered, { 0.15, 0.6, 0.15, 1 })
-                        imgui.PushStyleColor(ImGuiCol_ButtonActive, { 0.1, 0.35, 0.1, 1 })
+                        imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
+                        imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
+                        imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
                     end
                     local label = adding and 'Add & track' or (tracked and 'Untrack' or 'Track')
                     if imgui.Button(label .. '##picker_spell_' .. spell.spell_id) then
@@ -71,7 +72,7 @@ function picker.draw(alerts)
                     end
                     if tracked then imgui.PopStyleColor(3) end
                     imgui.SameLine()
-                    if tracked then imgui.PushStyleColor(ImGuiCol_Text, { 0.2, 1, 0.2, 1 }) end
+                    if tracked then imgui.PushStyleColor(ImGuiCol_Text, appearance.palette().tracked) end
                     imgui.Text(spell.name)
                     if tracked then imgui.PopStyleColor() end
                 else
