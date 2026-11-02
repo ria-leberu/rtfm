@@ -5,6 +5,7 @@ local catalogue = require('data.catalogue')
 local statuses = require('data.statuses')
 local spell_statuses = require('data.spell_statuses')
 local spell_damage = require('data.generated.spell_damage')
+local display_text = require('lib.display_text')
 local monster_index = require('data.generated.monsters')
 local descriptions = {}
 local by_name = {}
@@ -71,12 +72,13 @@ function descriptions.lookup(event, overrides)
     return unambiguous(by_name[move_key] or {})
 end
 
-function descriptions.draw(event, overrides)
+function descriptions.draw(event, overrides, compact)
     local entry = descriptions.lookup(event, overrides)
     if not entry then return end
     local size = imgui.GetFontSize()
+    local gap = compact and 2 or 4
     if entry.damage then
-        imgui.SameLine(0, 4)
+        imgui.SameLine(0, gap)
         imgui.Text('[')
         imgui.SameLine(0, 2)
         local label = damage_labels[entry.damage] or entry.damage
@@ -85,21 +87,21 @@ function descriptions.draw(event, overrides)
         imgui.Text(']')
     end
     if entry.area then
-        imgui.SameLine(0, 4)
+        imgui.SameLine(0, gap)
         imgui.Text(entry.area)
     end
     local has_statuses = #(entry.statuses or {}) > 0 or #(entry.self_statuses or {}) > 0
     if has_statuses then
-        imgui.SameLine(0, 4)
+        imgui.SameLine(0, gap)
         imgui.Text('(')
     end
     for _, id in ipairs(entry.statuses or {}) do
-        imgui.SameLine(0, 4)
+        imgui.SameLine(0, gap)
         local label = statuses[id] or ('Status ' .. id)
         icons.draw('status', id, label, size, label .. (entry.automated and ' (possible target effect; upstream)' or ''))
     end
     for _, id in ipairs(entry.self_statuses or {}) do
-        imgui.SameLine(0, 4)
+        imgui.SameLine(0, gap)
         local label = statuses[id] or ('Status ' .. id)
         icons.draw('status', id, label, size, 'Self: ' .. label .. ' (possible effect; upstream)')
     end
@@ -108,8 +110,9 @@ function descriptions.draw(event, overrides)
         imgui.Text(')')
     end
     if entry.note then
-        imgui.SameLine(0, 4)
-        imgui.Text(entry.note)
+        imgui.SameLine(0, gap)
+        imgui.Text(compact and display_text.shorten(entry.note) or entry.note)
+        if compact and imgui.IsItemHovered() then imgui.SetTooltip(entry.note) end
     end
 end
 

@@ -13,6 +13,8 @@ local timing = require('lib.timing')
 local overlay = require('lib.overlay')
 local center_alert = require('lib.center_alert')
 local config_window = require('lib.config_window')
+local sounds = require('lib.sounds')
+local sound_window = require('lib.sound_window')
 local actions = require('lib.actions')
 local affected = require('lib.affected')
 local engagement = require('lib.engagement')
@@ -29,6 +31,8 @@ local now = imgui.GetTime
 local last_save = now()
 local learned_moves = storage.load(learned_path)
 local preferences = storage.load(preferences_path)
+sounds.init(config, base_path, preferences)
+if type(preferences.sound_alerts_enabled) == 'boolean' then config.sound_alerts_enabled = preferences.sound_alerts_enabled end
 config.log_retention_minutes = timing.retention_minutes(preferences.log_retention_minutes)
 local move_alerts = require('lib.alerts').new(preferences.move_alerts, preferences.move_alert_entries)
 if move_alerts.migrated then preferences_dirty = true end
@@ -46,6 +50,7 @@ if type(preferences.log_font_scale) == 'number' and preferences.log_font_scale =
     config.log_font_scale = math.max(0.75, math.min(2, preferences.log_font_scale))
 end
 if type(preferences.single_line_log) == 'boolean' then config.single_line_log = preferences.single_line_log end
+if type(preferences.compact_log_text) == 'boolean' then config.compact_log_text = preferences.compact_log_text end
 if type(preferences.center_alert_enabled) == 'boolean' then config.center_alert_enabled = preferences.center_alert_enabled end
 
 -- Normalize saved and curated keys at the boundary so all lookups agree.
@@ -84,7 +89,10 @@ local function save()
         party_enemies_only = config.party_enemies_only,
         log_font_scale = config.log_font_scale,
         single_line_log = config.single_line_log,
+        compact_log_text = config.compact_log_text,
         center_alert_enabled = config.center_alert_enabled,
+        sound_alerts_enabled = config.sound_alerts_enabled,
+        sound_overrides = sounds.overrides,
     }) then
         preferences_dirty = false
     end
@@ -93,7 +101,7 @@ end
 if move_alerts.migrated then save() end
 
 local function help()
-    print('[RTFM] /rtfm [show|hide|toggle|config|learn on|learn off|debug on|debug off|help]')
+    print('[RTFM] /rtfm [show|hide|toggle|config|reload|learn on|learn off|debug on|debug off|help]')
 end
 
 ashita.events.register('command', 'rtfm_command', function(e)
@@ -107,6 +115,10 @@ ashita.events.register('command', 'rtfm_command', function(e)
         preferences_dirty = true
     elseif command == 'config' or command == 'settings' then
         config_open[1] = not config_open[1]
+    elseif command == 'reload' then
+        save()
+        AshitaCore:GetChatManager():QueueCommand(1, '/addon reload rtfm')
+        return
     elseif command == 'debug' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
         config.debug_log_all = args[3]:lower() == 'on'
         print('[RTFM] Debug logging ' .. (config.debug_log_all and 'enabled.' or 'disabled.'))
@@ -135,7 +147,7 @@ local function record_event(event, timestamp, verified_monster)
     end
     if not added then return end
     if (event.action == 'readies' or event.action == 'casting') and move_alerts:is_selected(event) then
-        ashita.misc.play_sound(base_path .. 'sounds\\' .. config.selected_alert_sound)
+        sounds.play(event)
     end
     if event.action == 'uses' then
         local monster, move = names.normalize(event.monster), names.normalize(event.move)
@@ -198,6 +210,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     local was_open = is_open[1]
     local changed = overlay.draw(is_open, tracker, timestamp, config, moves, move_alerts, config_open)
     if config_window.draw(config_open, move_alerts, config) then changed = true end
+    if sound_window.draw(config) then changed = true end
     center_alert.draw(tracker, move_alerts, config, timestamp)
     if changed then
         preferences_dirty = true

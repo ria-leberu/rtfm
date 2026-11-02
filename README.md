@@ -110,8 +110,8 @@ This is a client-side engagement estimate, not the server's full enmity list.
 Unclaimed enemies whose current target or action recipients are unknown can be
 missed. Disable the filter when testing unrelated monsters with GM commands.
 
-Selected preparation alerts use `selected_alert_sound` in `config.lua` (default
-`alert.wav` from the addon sounds folder) and work while the overlay is hidden.
+Selected preparation alerts use `alert.wav` unless a custom sound is assigned
+to that move or spell, and work while the overlay is hidden.
 Repeated preparation lines do not replay the alert while the action is pending.
 Only saved Track selections enable move alerts; there are no hardcoded monster
 highlights or completion-sound rules.
@@ -237,3 +237,47 @@ packet identifies a target that the client can resolve. This appears in both
 Readying/Casting and center alerts. It is the primary intended target, not a
 prediction of everyone an AoE will hit. Unknown targets are omitted; completed
 affected-player lists continue to use actual action results.
+
+## Custom alert sounds
+
+Use **Sound** beside a move or spell in the log or catalogue to choose its audio.
+Selections apply by move/spell name across enemies; TP moves and spells have
+separate choices. Leaving a choice unset uses the bundled **alert.wav**. Missing
+custom files fall back to alert.wav. Selecting audio does not enable tracking.
+
+Settings has **Enable sound alerts** to mute all audio, including previews,
+without disabling visual alerts. **Manage sounds** displays the full sound-folder
+path and its current WAV files. Copy your sounds into the addon's `sounds/`
+folder, then click **Refresh**. Open the displayed path manually in Windows
+Explorer. There is no folder-launch button, in-addon file browser, copying or
+external-path linking.
+
+Select a file and click **Use selected sound** from a move/spell's Sound window.
+**Preview** plays the chosen audio; **Use default alert.wav** clears an assignment.
+Use Windows-playable WAV files (PCM recommended), up to 32 MB. Assignments and
+the master toggle save immediately and survive reloads/logoffs. User WAV files
+are ignored by Git. The unused benediction.wav file has been removed.
+
+Enable **Compact log text (abbreviations / symbols)** in Settings to shorten log
+rows. For example, `Khimaira readies Fossilizing Breath` becomes
+`Khimaira ~ Foss. Br.`, and `Boss starts casting Fire III` becomes
+`Boss cast~ Fire3`. Completed actions use `Boss: Move`; common description words
+such as Attack Boost become `ATK +`. Hover the action or note for its full text.
+Player names, tracking, sound assignments and centre-alert text retain
+their original names. The setting defaults off and saves across reloads.
+
+Per-action controls use drawn icons: an outlined star enables tracking, and a
+filled green star disables it when clicked. The speaker opens sound selection.
+Hover either icon for its tooltip. Icons scale with log text size and appear
+in both the log and catalogue without requiring an icon font.
+
+Use `/rtfm reload` to save pending settings and reload the addon through the
+local addon manager, equivalent to `/addon reload rtfm`.
+
+Compact mode also abbreviates all mob names using the same rules: omit leading
+The and trailing "the ..." epithets, shorten common titles (King -> K.,
+Greater -> Gr.), and initial earlier words while keeping the last word intact.
+Examples: Moblin Topsman -> M. Topsman; Gurfurlur the Menacing -> Gurfurlur.
+Single-word names remain intact. Names that would collide among the current
+history and pending rows expand to full names. Hover shows the original name;
+tracking continues to use it internally.

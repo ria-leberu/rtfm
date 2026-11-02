@@ -4,8 +4,10 @@ local names = require('lib.names')
 local descriptions = require('lib.descriptions')
 local action_roles = require('lib.action_roles')
 local timing = require('lib.timing')
+local sound_window = require('lib.sound_window')
+local display_text = require('lib.display_text')
+local icon_buttons = require('lib.icon_buttons')
 local overlay = {}
-local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
 local last_history_row
 
 local function draw_affected(event, config)
@@ -51,7 +53,7 @@ local function settings_button()
     return clicked
 end
 
-local function draw_rows(rows, pending, now, config, moves, move_alerts)
+local function draw_rows(rows, pending, now, config, moves, move_alerts, mob_names)
     local changed = false
     for row = 1, #rows do
         local i = row
@@ -70,21 +72,16 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         else
             color = { 1, 0.3, 0.3, alpha }
         end
-        local text = string.format('%s %s %s',
-            event.monster, verbs[event.action], event.move)
+        local text = display_text.action(event, config.compact_log_text, mob_names)
         local role = action_roles.lookup(event, moves)
         if not pending and move_alerts then
             local selected = move_alerts:is_selected(event)
-            local label = selected and 'Untrack' or 'Track'
             if selected then
                 imgui.PushStyleColor(ImGuiCol_Button, appearance.button())
                 imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
                 imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
             end
-            local button_width, button_height = imgui.CalcTextSize(label)
-            local scale = config.log_font_scale
-            if imgui.Button(label .. '##move_alert_' .. i,
-                { button_width + 8 * scale, button_height + 6 * scale }) then
+            if icon_buttons.track('move_alert_' .. i, selected) then
                 move_alerts:set(event, not selected)
                 changed = true
             end
@@ -93,6 +90,8 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
                 local preparation = event.action == 'casts' and ' starts casting ' or ' readies '
                 imgui.SetTooltip('Alert when ' .. event.monster .. preparation .. event.move)
             end
+            imgui.SameLine(0, 2)
+            if icon_buttons.sound('move_sound_' .. i) then sound_window.open(event) end
             imgui.SameLine()
         end
         if role then
@@ -105,8 +104,11 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         end
         imgui.PushStyleColor(ImGuiCol_Text, color)
         imgui.Text(text)
+        if config.compact_log_text and imgui.IsItemHovered() then
+            imgui.SetTooltip(display_text.action(event, false))
+        end
         imgui.PopStyleColor()
-        descriptions.draw(event, moves)
+        descriptions.draw(event, moves, config.compact_log_text)
         if pending and event.preparation_target then
             imgui.SameLine(0, 6)
             imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, 1 })
@@ -136,6 +138,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
     local visible = imgui.Begin('RTFM Log', is_open,
         bit.bor(ImGuiWindowFlags_NoTitleBar, ImGuiWindowFlags_NoCollapse))
     if visible then
+        local mob_names = config.compact_log_text and display_text.mob_names(tracker.recent, tracker.pending) or nil
         if settings_button() and config_open then config_open[1] = not config_open[1] end
         imgui.SameLine()
         imgui.Text('RTFM Log')
@@ -146,7 +149,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         local history_height = available_height - pending_height
         if imgui.BeginChild('##rtfm_history', { 0, history_height }, 1, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             if #tracker.recent == 0 then imgui.Text('No recent actions.') end
-            changed = draw_rows(tracker.recent, false, now, config, moves, move_alerts)
+            changed = draw_rows(tracker.recent, false, now, config, moves, move_alerts, mob_names)
             local newest = tracker.recent[#tracker.recent]
             if newest and newest ~= last_history_row then imgui.SetScrollHereY(1.0) end
             last_history_row = newest
@@ -156,7 +159,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         imgui.Text('Readying/Casting')
         if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 1, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             if #tracker.pending == 0 then imgui.Text('No moves or spells being prepared.') end
-            draw_rows(tracker.pending, true, now, config, moves, move_alerts)
+            draw_rows(tracker.pending, true, now, config, moves, move_alerts, mob_names)
             -- Keep the newest preparation visible if several enemies act.
             imgui.SetScrollHereY(1.0)
         end
