@@ -42,6 +42,10 @@ and are deduplicated and sorted. Damage, drains, dispels, and status effects cou
 misses, full resists, healing, pets, and trusts do not. No subtitle appears when there are no confirmed player hits or a result
 cannot be resolved. Confirmed packet results create completed action rows directly,
 including when the corresponding chat is filtered or injected by another addon.
+Chat supplies preparation entries only; completed actions come exclusively from
+packets to prevent duplicate packet/chat rows.
+Repeated or split result packets within the result window merge into one row,
+combining their hit lists. A new preparation starts a separate execution.
 
 `affected_font_scale` controls subtitle size (default `0.85`), and
 `affected_match_window` controls merging of duplicate packet/chat completion rows

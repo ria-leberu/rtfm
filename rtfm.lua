@@ -106,7 +106,13 @@ end)
 local function record_event(event, timestamp, verified_monster)
     if config.blacklist_enabled and config.blacklist_mobs[names.normalize(event.monster)] then return end
     if not verified_monster and actors:is_excluded(event.monster, timestamp) then return end
-    if not tracker:record(event, timestamp) then return end
+    local added = tracker:record(event, timestamp)
+    if config.debug_log_all then
+        print(string.format('[RTFM][row] %s %s %s: %s (recent=%d, pending=%d)',
+            event.monster, event.action, event.move, added and 'added' or 'merged/ignored',
+            #tracker.recent, #tracker.pending))
+    end
+    if not added then return end
     if event.action == 'uses' then
         local monster, move = names.normalize(event.monster), names.normalize(event.move)
         if config.highlight_mobs[monster] and config.sound_moves[move] then
@@ -145,7 +151,11 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
     if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
     local event = actions.parse(e.message, e.mode, config.casting_modes)
-    if event then record_event(event, now(), false) end
+    -- Completion packets already supply the move and its targets. Chat can be
+    -- delayed or reformatted by other addons, so it must not create a second row.
+    if event and (event.action == 'readies' or event.action == 'casting') then
+        record_event(event, now(), false)
+    end
 end)
 
 ashita.events.register('d3d_present', 'rtfm_present', function()

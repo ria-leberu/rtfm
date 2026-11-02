@@ -2,6 +2,21 @@ local names = require('lib.names')
 local actions = {}
 actions.__index = actions
 
+local function merge_players(previous, incoming)
+    local players, seen = {}, {}
+    for _, list in ipairs({ previous.affected_players or {}, incoming.affected_players or {} }) do
+        for _, player in ipairs(list) do
+            local key = player:lower()
+            if not seen[key] then
+                seen[key] = true
+                players[#players + 1] = player
+            end
+        end
+    end
+    table.sort(players)
+    previous.affected_players = players
+end
+
 function actions.new(config)
     return setmetatable({ config = config, pending = {}, recent = {} }, actions)
 end
@@ -67,19 +82,25 @@ function actions:record(event, now)
         if not matched then
             for i = #self.recent, 1, -1 do
                 local previous = self.recent[i]
-                if previous.id == event.id and previous.action == event.action then
+                if previous.id == event.id and previous.action == event.action
+                    and (not previous.actor_id or not event.actor_id or previous.actor_id == event.actor_id)
+                    and (not previous.action_id or not event.action_id or previous.action_id == event.action_id)
+                    and (not previous.category or not event.category or previous.category == event.category) then
                     local age = now - previous.timestamp
                     if event.affected_players ~= nil then
-                        if previous.affected_players == nil and age <= self.config.affected_match_window then
-                            previous.affected_players = event.affected_players
+                        if age <= self.config.affected_match_window then
+                            -- A move can deliver repeated or split result packets.
+                            -- Merge their players; a new preparation above starts
+                            -- a separate execution even inside this short window.
+                            merge_players(previous, event)
                             return false
                         end
-                        -- Each confirmed packet is a separate move execution.
                     elseif previous.affected_players ~= nil and age <= self.config.affected_match_window then
                         return false
                     elseif age < self.config.duplicate_window then
                         return false
                     end
+                    break
                 end
             end
         end

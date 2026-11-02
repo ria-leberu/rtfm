@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Merge repeated/split completion packets for the same monster and move within
+  the result window, combining hit-player names without duplicate rows or alerts.
+- Preserve separate executions after a new preparation and distinguish packet
+  actors by server ID.
+
+- Prevent duplicate completed moves by using packets as the sole completion
+  source and chat only for preparation entries.
+
 - Label affected-player subtitles `Hit:` and hide the line when no players were hit.
 
 - Create completed move rows directly from confirmed packet results, so affected

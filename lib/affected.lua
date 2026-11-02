@@ -112,6 +112,7 @@ function affected.resolve(packet, entities, resources)
     end
     table.sort(players)
     return {
+        actor_id = packet.actor_id, action_id = packet.action_id, category = packet.category,
         monster = actor.name, move = move:gsub('%z+$', ''),
         action = packet.category == 4 and 'casts' or 'uses',
         affected_players = players,

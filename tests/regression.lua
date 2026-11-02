@@ -123,10 +123,18 @@ end
 command({ '/rtfm', 'hide' })
 command({ '/rtfm', 'learn', 'on' })
 command({ '/rtfm', 'highlight', 'The', 'Greater', 'Manticore' })
+callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 51 })
+callbacks.packet_in({ fixture = {
+    monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
+} })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
 assert(scans == 1 and sounds == 1)
 clock = 1
+callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 51 })
+callbacks.packet_in({ fixture = {
+    monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
+} })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
 assert(sounds == 2)
 clock = 11
@@ -134,7 +142,9 @@ callbacks.d3d_present()
 assert(saves['mock/data\\mobs_learned.lua'].kirin.mortalray)
 assert(saves['mock/data\\preferences.lua'].highlight_mobs.greatermanticore)
 assert(saves['mock/data\\preferences.lua'].is_open == false)
-callbacks.text_in({ message = 'Kirin uses Fulmination.', mode = 51 })
+callbacks.packet_in({ fixture = {
+    monster = 'Kirin', move = 'Fulmination', action = 'uses', affected_players = { 'Rialia' },
+} })
 callbacks.unload()
 assert(saves['mock/data\\mobs_learned.lua'].kirin.fulmination)
 
@@ -157,6 +167,28 @@ callbacks.packet_in({ fixture = {
 callbacks.d3d_present()
 local dreadstorm = displayed_tracker.recent[#displayed_tracker.recent]
 assert(dreadstorm.move == 'Dreadstorm' and dreadstorm.affected_players[1] == 'Rialia')
+local completed_count = #displayed_tracker.recent
+clock = 22.1
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Dreadstorm', action = 'uses',
+    affected_players = { 'Rialia', 'Alpha' },
+} })
+callbacks.d3d_present()
+assert(#displayed_tracker.recent == completed_count)
+assert(table.concat(dreadstorm.affected_players, ', ') == 'Alpha, Rialia')
+clock = 27
+callbacks.text_in({ message = 'Khimaira uses Dreadstorm.', mode = 185 })
+callbacks.text_in({ message = 'Khimaira uses Fossilizing Breath.', mode = 185 })
+callbacks.d3d_present()
+assert(#displayed_tracker.recent == completed_count)
+-- Chat before the packet must not add a completion either.
+callbacks.text_in({ message = 'Khimaira uses Dreadstorm.', mode = 185 })
+assert(#displayed_tracker.recent == completed_count)
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Dreadstorm', action = 'uses', affected_players = { 'Rialia' },
+} })
+callbacks.d3d_present()
+assert(#displayed_tracker.recent == completed_count + 1)
 
 -- Known entities take precedence over name heuristics and configured exceptions.
 local actor_filter = require('lib.actors').new({

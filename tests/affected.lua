@@ -139,6 +139,26 @@ local function completion(monster, move)
     return { monster = monster or 'Kirin', move = move or 'Mortal Ray', action = 'uses' }
 end
 local tracker = actions.new(config)
+local burst = actions.new(config)
+local function packet_result(actor_id, players)
+    return { monster = 'Khimaira', move = 'Fossilizing Breath', action = 'uses',
+        actor_id = actor_id, action_id = 2026, category = 11, affected_players = players }
+end
+assert(burst:record(packet_result(100, { 'Rialia' }), 0))
+assert(not burst:record(packet_result(100, { 'Rialia' }), 0.05))
+assert(not burst:record(packet_result(100, { 'Alpha' }), 0.1))
+assert(#burst.recent == 1)
+assert(table.concat(burst.recent[1].affected_players, ', ') == 'Alpha, Rialia')
+assert(burst:record(packet_result(101, { 'Zeta' }), 0.2))
+assert(#burst.recent == 2) -- same monster name, different server ID
+assert(burst:record({ monster = 'Khimaira', move = 'Fossilizing Breath', action = 'readies' }, 0.3))
+assert(burst:record(packet_result(100, { 'Rialia' }), 0.4))
+assert(#burst.recent == 3) -- a new preparation denotes a genuine repeat
+assert(not burst:record(packet_result(100, { 'Beta' }), 0.45))
+assert(#burst.recent == 3)
+assert(table.concat(burst.recent[3].affected_players, ', ') == 'Beta, Rialia')
+assert(burst:record(packet_result(100, { 'Rialia' }), 3))
+assert(#burst.recent == 4)
 -- Packets before text, duplicate result lines, and later casts stay separate.
 tracker:attach_affected(result, 1)
 tracker:record(completion(), 1.1)
