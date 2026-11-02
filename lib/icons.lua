@@ -29,14 +29,14 @@ local function get_texture(kind, id)
     return textures[key] or nil
 end
 
-function icons.draw(kind, id, label, size)
+function icons.draw(kind, id, label, size, tooltip)
     local texture = get_texture(kind, id)
     if texture then
         imgui.Image(tonumber(backend.ffi.cast('uint32_t', texture)), { size, size })
     else
         imgui.Text('[' .. label .. ']')
     end
-    if imgui.IsItemHovered() then imgui.SetTooltip(label) end
+    if imgui.IsItemHovered() then imgui.SetTooltip(tooltip or label) end
 end
 
 function icons.clear()

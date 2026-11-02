@@ -2,6 +2,43 @@
 
 ## Unreleased
 
+- Map Moblin Topsman to the Moblin family and share known common-monster move
+  selections between the log and family catalogue, including Frypan.
+- Migrate legacy per-common-monster selections while preserving existing explicit
+  family choices; keep named-NM and spell scopes separate.
+
+- Highlight the active catalogue tab and add a Spells tab with any-enemy and
+  specific-enemy casting alerts, saved scopes, and per-enemy exceptions.
+- Show known spell lists with NM moves, including King Behemoth's scripted Meteor.
+- Add Absolute Virtue as a reviewed NM omission using its zone script and list 329.
+
+- Remove the catalogue move-list search field; show all moves for the selection.
+
+- Deduplicate catalogue move names while retaining their underlying variant IDs;
+  show a variant note instead of arbitrary effects when versions differ.
+- Add a reviewed King Behemoth NM entry using its upstream HNM script and skill list.
+
+- Separate the catalogue into 148 common-family categories and 293 source-flagged
+  notorious monsters, with 25-entry pages and search.
+- Group standard family variants without mixing named boss, pet, trust, or quest
+  lists into the family menu; preserve existing saved family selections.
+
+- Add a searchable monster/family catalogue browser in Settings with per-move
+  Track/Untrack controls and inline descriptions.
+- Persist alias-aware monster selections and family/skill-list alert rules;
+  individual monster exceptions override family selections.
+
+- Remove hardcoded monster highlighting, highlight commands, and their legacy
+  completion alerts; green styling and alerts now follow saved Track selections.
+
+- Import a pinned upstream reference catalogue with 2,454 moves, 1,291 monster
+  templates, 959 skill lists, 482 spell lists, and 668 status definitions.
+- Add readable indexes, source hashes, review flags/queue, and a reproducible
+  offline builder; preserve unknown and missing-script fields explicitly.
+- Use generated descriptions as a baseline beneath reviewed/server overrides,
+  resolve preparation variants by monster skill list, and avoid ambiguous matches.
+- Distinguish possible self effects from target effects in icon tooltips.
+
 - Show compact move descriptions inline with completed and preparing actions,
   using sword/element damage icons and native FFXI status icons with tooltips.
 - Seed an ID-based Khimaira catalogue and expand Manticore/Aw'ghrah metadata

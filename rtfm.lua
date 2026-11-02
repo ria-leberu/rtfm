@@ -28,19 +28,13 @@ local last_save = now()
 local learned_moves = storage.load(learned_path)
 local preferences = storage.load(preferences_path)
 local move_alerts = require('lib.alerts').new(preferences.move_alerts, preferences.move_alert_entries)
+if move_alerts.migrated then preferences_dirty = true end
 if type(preferences.max_recent) == 'number' and preferences.max_recent == preferences.max_recent then
     config.max_recent = math.max(1, math.min(250, math.floor(preferences.max_recent)))
 end
 
-for _, key in ipairs({ 'guaranteed_mobs', 'blacklist_mobs', 'highlight_mobs', 'sound_moves' }) do
+for _, key in ipairs({ 'guaranteed_mobs', 'blacklist_mobs' }) do
     config[key] = names.map(config[key])
-end
-if type(preferences.highlight_mobs) == 'table' then
-    local highlights = {}
-    for key, value in pairs(preferences.highlight_mobs) do
-        if type(key) == 'string' and value == true then highlights[key] = true end
-    end
-    config.highlight_mobs = names.map(highlights)
 end
 if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
 if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
@@ -73,7 +67,6 @@ local function save()
     ashita.fs.create_dir(data_dir)
     if learned_dirty and storage.save(learned_path, learned_moves) then learned_dirty = false end
     if preferences_dirty and storage.save(preferences_path, {
-        highlight_mobs = config.highlight_mobs,
         auto_learn = config.auto_learn,
         is_open = is_open[1],
         move_alerts = move_alerts.selected,
@@ -85,8 +78,10 @@ local function save()
     end
 end
 
+if move_alerts.migrated then save() end
+
 local function help()
-    print('[RTFM] /rtfm [show|hide|toggle|config|highlight <mob>|unhighlight <mob>|learn on|learn off|debug on|debug off|help]')
+    print('[RTFM] /rtfm [show|hide|toggle|config|learn on|learn off|debug on|debug off|help]')
 end
 
 ashita.events.register('command', 'rtfm_command', function(e)
@@ -100,11 +95,6 @@ ashita.events.register('command', 'rtfm_command', function(e)
         preferences_dirty = true
     elseif command == 'config' or command == 'settings' then
         config_open[1] = not config_open[1]
-    elseif (command == 'highlight' or command == 'unhighlight') and args[3] then
-        local monster = table.concat(args, ' ', 3)
-        config.highlight_mobs[names.normalize(monster)] = command == 'highlight' or nil
-        preferences_dirty = true
-        print('[RTFM] Highlight ' .. (command == 'highlight' and 'added: ' or 'removed: ') .. monster)
     elseif command == 'debug' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
         config.debug_log_all = args[3]:lower() == 'on'
         print('[RTFM] Debug logging ' .. (config.debug_log_all and 'enabled.' or 'disabled.'))
@@ -137,9 +127,6 @@ local function record_event(event, timestamp, verified_monster)
     end
     if event.action == 'uses' then
         local monster, move = names.normalize(event.monster), names.normalize(event.move)
-        if config.highlight_mobs[monster] and config.sound_moves[move] and not move_alerts:is_selected(event) then
-            ashita.misc.play_sound(base_path .. 'sounds\\' .. config.sound_moves[move])
-        end
         if config.auto_learn then
             learned_moves[monster] = learned_moves[monster] or {}
             if not learned_moves[monster][move] then

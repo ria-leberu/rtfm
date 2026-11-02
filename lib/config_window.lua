@@ -1,10 +1,11 @@
 local imgui = require('imgui')
+local browser_window = require('lib.browser_window')
 local window = {}
 local editing, error_message
 local enemy_input, move_input, enabled_input = { '' }, { '' }, { true }
 
 function window.draw(is_open, alerts, config)
-    if not is_open[1] then return false end
+    if not is_open[1] then return browser_window.draw(alerts) end
     local changed = false
     imgui.SetNextWindowSize({ 580, 450 }, ImGuiCond_FirstUseEver)
     if imgui.Begin('RTFM Settings', is_open, ImGuiWindowFlags_NoCollapse) then
@@ -18,6 +19,7 @@ function window.draw(is_open, alerts, config)
             config.party_enemies_only = party_only[1]
             changed = true
         end
+        if imgui.Button('Browse families / notorious monsters') then browser_window.open() end
         imgui.Text('Saved move alerts')
         imgui.TextWrapped('Enable, edit, or remove alerts saved from the move log.')
         if imgui.BeginChild('##saved_move_alerts', { 0, 230 }, 1, 0) then
@@ -31,8 +33,9 @@ function window.draw(is_open, alerts, config)
                     changed = true
                 end
                 imgui.SameLine()
-                imgui.Text(entry.monster .. ': ' .. entry.move)
-                if imgui.Button('Edit##' .. i) then
+                imgui.Text((entry.scope == 'family' and 'Family: ' or '') .. entry.monster .. ': ' .. entry.move
+                    .. (entry.kind == 'spell' and ' (spell)' or ''))
+                if entry.scope == nil and imgui.Button('Edit##' .. i) then
                     editing, error_message = entry, nil
                     enemy_input[1], move_input[1], enabled_input[1] = entry.monster, entry.move, entry.enabled
                 end
@@ -65,6 +68,7 @@ function window.draw(is_open, alerts, config)
         end
     end
     imgui.End()
+    if browser_window.draw(alerts) then changed = true end
     return changed
 end
 

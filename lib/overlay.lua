@@ -34,13 +34,10 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         local age = math.max(0, now - event.timestamp)
         local alpha = 1
         local pulse = pending and (0.6 + 0.4 * math.abs(math.sin(now * 3))) or 1
-        local highlighted = config.highlight_mobs[names.normalize(event.monster)]
         local tracked = move_alerts and move_alerts:is_selected(event)
         local color
         if tracked then
             color = { 0.2, 1, 0.2, alpha }
-        elseif highlighted then
-            color = { 0.2, pulse, 0.2, alpha }
         elseif event.action == 'casting' or event.action == 'casts' then
             color = { 0.6, 0.6 * pulse, pulse, alpha }
         elseif pending then
@@ -48,7 +45,7 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         else
             color = { 1, 0.3, 0.3, alpha }
         end
-        local text = string.format('%s%s %s %s', highlighted and '>>> ' or '',
+        local text = string.format('%s %s %s',
             event.monster, verbs[event.action], event.move)
         if not pending and move_alerts then
             local selected = move_alerts:is_selected(event)

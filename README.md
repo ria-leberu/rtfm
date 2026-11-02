@@ -1,6 +1,6 @@
 # RTFM
 
-An Ashita addon for displaying monster TP moves and spells, with highlighting,
+An Ashita addon for displaying monster TP moves and spells, with selectable
 sound alerts, and optional move learning.
 
 ## Development status
@@ -17,21 +17,18 @@ Development takes place directly in `ashita/addons/rtfm`.
 Load with `/addon load rtfm`.
 
 - `/rtfm`, `/rtfm toggle`, `/rtfm show`, `/rtfm hide`: control the overlay.
-- `/rtfm highlight <mob>` and `/rtfm unhighlight <mob>`: change highlighting.
-  Multiword names work with or without quotes.
 - `/rtfm learn on` and `/rtfm learn off`: control observed TP-move learning.
 - `/rtfm help`: list commands.
 - `/rtfm config` or `/rtfm settings`: open or close the configuration window.
 - `/rtfm debug on` and `/rtfm debug off`: log chat and decoded action results
   when troubleshooting missing affected-player subtitles.
 
-Edit `config.lua` for durations, history limits, filters, default highlights,
-and sound rules. Reload the addon after editing it. Alerts fire on completed TP
-moves for highlighted monsters. Repeated result lines within 0.5 seconds are
+Edit `config.lua` for durations, history limits, filters,
+and sound rules. Reload the addon after editing it. Alerts fire when selected monster moves are readied. Repeated result lines within 0.5 seconds are
 collapsed unless a new preparation was observed. Unknown single-word names still
 use a player-name fallback; add exceptions to `guaranteed_mobs` when necessary.
 
-Window visibility, highlights, alert rules, history limit, and learning preference
+Window visibility, alert rules, history limit, and learning preference
 persist locally in `data/preferences.lua` and override their defaults. Preference
 changes save immediately; pending data also saves on unload and zone departure
 (including logout). Learned moves are stored in `data/mobs_learned.lua` and save
@@ -60,6 +57,50 @@ enemy/move pairs, including disabled ones. Enable or disable each rule, use
 Edit fields apply with **Save entry**; **Cancel** discards the form changes.
 **Moves in log** changes the saved history limit (1–250).
 
+Choose **Browse families / notorious monsters** in Settings to open the catalogue.
+**Common families** shows 148 reviewed generic categories, combining variants
+such as the three Crab base lists. **Notorious monsters** includes source-flagged
+NM entries and reviewed additions for omissions such as King Behemoth. Pet, trust, quest-NPC, and named-boss
+skill lists are not mixed into the common-family menu.
+
+Search for an entry and select it on the left. Lists show 25 entries per page
+with **Previous / Next** controls. The right side shows its known moves and inline effect icons;
+use **Track / Untrack** beside each move to change its alert. All moves for the selected entry are shown without a separate move search.
+Each move name appears once, even when multiple underlying move IDs share it.
+When those versions have different effect data, the row says **varies by version**.
+The active catalogue tab is highlighted green.
+
+Use the **Spells** tab to search for a spell such as **Breakga**, **Sleepga**, or
+**Meteor**. Select it, then choose **Track** under **Any enemy casting this spell**,
+or enter a name under **Specific enemy** and track only that caster. Spell alerts
+play when casting starts, not when the spell completes. Existing blacklist and
+party/alliance engagement filters still apply; player/trust casts are excluded.
+Per-enemy disabled spell rules override an any-enemy spell selection.
+
+Known spells are also listed alongside a named monster's TP moves where source
+data provides them. King Behemoth includes **Spell: Meteor**, which can be tracked
+directly from its NM entry. Duplicate spell IDs with the same name share one
+name-based tracking choice. Spell and TP-move ID namespaces remain separate.
+
+Monster selections include the template's known aliases. Family selections cover
+the category's standard skill-list variants and apply to their known catalogue member
+names; this is not a guarantee of every biological family member or custom-server
+spawn. Common-monster log controls use the same rule as their family catalogue
+when membership and move are known. **Moblin Topsman → Frypan** and **Moblin →
+Frypan** are one saved family selection, and either control toggles it. Legacy
+common-monster selections migrate to family rules; an existing explicit family
+choice wins if old preferences disagree. Named NMs, unknown custom moves, and
+spells retain their specific scopes. Individual named-monster rules still take
+precedence over family rules.
+
+Both scopes save immediately and survive reloads/logoffs. Saved family entries
+are marked **Family:** and can be enabled, disabled, or removed there; select
+different family moves through the browser. Existing per-monster entries retain
+their Edit controls.
+Any-enemy spell rules are marked with **Any enemy** and **(spell)**; toggle or
+remove them there, and choose different spells through the catalogue. All spell
+rules save immediately and restore across reloads/logoffs.
+
 Enable **Only enemies engaged with my party/alliance** in Settings to filter new
 log entries, preparations, learning, and alerts. It is off by default and saves
 with your preferences. An enemy qualifies when it is claimed by a party/alliance
@@ -74,8 +115,8 @@ missed. Disable the filter when testing unrelated monsters with GM commands.
 Selected preparation alerts use `selected_alert_sound` in `config.lua` (default
 `alert.wav` from the addon sounds folder) and work while the overlay is hidden.
 Repeated preparation lines do not replay the alert while the action is pending.
-Selected moves skip their existing completion sound to avoid alerting twice;
-unselected moves retain the existing configured completion-sound rules.
+Only saved Track selections enable move alerts; there are no hardcoded monster
+highlights or completion-sound rules.
 
 Completed monster moves and spells show a smaller line beneath the action:
 `>> Alpha, Zeta <<` Names come from incoming action-result packets
@@ -102,8 +143,12 @@ labels. Status icons come from the installed game; elemental/sword assets are
 bundled with RTFM. There is no dependency on another addon and no runtime network
 lookup. Texture resources are cached and released on unload.
 
-Initial coverage is 20 moves across Khimaira, Greater Manticore, and Aw'ghrah.
-See `data/README.md` for catalogue fields and sources. Damage estimates are deferred.
+The catalogue now includes 2,454 upstream move records and base mappings for
+1,291 monster templates, with possible effects and damage types where directly
+extractable. Reviewed Khimaira/Manticore/Aw'ghrah entries and local monster
+overrides take precedence. Generated data is identified in icon tooltips and
+remains unverified on custom servers. See `data/README.md` and the readable
+`data/reference/MONSTERS.md` / `MOVES.md` indexes. Damage estimates remain deferred.
 
 ## Code layout
 
@@ -119,9 +164,16 @@ See `data/README.md` for catalogue fields and sources. Damage estimates are defe
 - `lib/descriptions.lua`: ID/name lookup and inline move metadata.
 - `lib/icons.lua`: native status and bundled damage icon textures.
 - `lib/config_window.lua`: history limit and editable saved alert rules.
+- `lib/catalogue_browser.lua`: searchable monster/family/move catalogue model.
+- `lib/browser_window.lua`: catalogue selection and scoped alert controls.
 - `lib/storage.lua`: deterministic serialization and recoverable saves.
 - `data/moves.lua`: curated monster move descriptions.
 - `data/catalogue.lua`: shared monster-move descriptions keyed by action ID.
+- `data/generated/`: compact imported move, monster, and status indexes.
+- `data/family_categories.lua`: reviewed common-family grouping and variant IDs.
+- `data/notorious_additions.lua`: reviewed named NM additions with source references.
+- `data/reference/`: sourced JSON/Markdown catalogue, provenance, and review queue.
+- `data/reviewed_moves.lua`: reviewed descriptions overriding generated data.
 - `data/statuses.lua`: FFXI status ID labels.
 - `tests/regression.lua`: Lua 5.1/LuaJIT regression checks with host stubs.
 - `tests/affected.lua`: multi-target packets, result matching, and subtitle checks.
@@ -131,6 +183,9 @@ See `data/README.md` for catalogue fields and sources. Damage estimates are defe
 - `tests/engagement.lua`: claims, combat targets, alliance members, and pets.
 - `tests/descriptions.lua`: lookup precedence and inline description placement.
 - `tests/icons.lua`: native resource loading, caching, fallback, and cleanup.
+- `tests/catalogue_lookup.lua`: monster-specific lookup and ambiguous-name handling.
+- `tests/test_catalogue_builder.py`: offline importer and generated-data validation.
+- `tests/browser.lua`: catalogue selection, aliases, family exceptions, and persistence.
 
 Run `lua tests/regression.lua` and `lua tests/affected.lua` from the addon directory. In-game verification
 should cover actual entity classification, ImGui rendering, sound playback,

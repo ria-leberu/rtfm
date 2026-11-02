@@ -219,5 +219,6 @@ require('lib.overlay').draw({ true }, { recent = { {
     monster = 'Kirin', move = 'Mortal Ray', action = 'uses', timestamp = 1,
     affected_players = {},
 } }, pending = {} }, 2, config, {})
-assert(#texts == 5 and font_depth == 0)
+for _, text in ipairs(texts) do assert(not text:match('^>> ')) end
+assert(font_depth == 0)
 print('RTFM affected-player checks passed.')

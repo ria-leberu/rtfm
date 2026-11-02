@@ -128,25 +128,23 @@ local function command(text)
 end
 command({ '/rtfm', 'hide' })
 command({ '/rtfm', 'learn', 'on' })
-command({ '/rtfm', 'highlight', 'The', 'Greater', 'Manticore' })
 callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 51 })
 callbacks.packet_in({ fixture = {
     monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
 } })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
-assert(scans == 1 and sounds == 1)
+assert(scans == 1 and sounds == 0)
 clock = 1
 callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 51 })
 callbacks.packet_in({ fixture = {
     monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
 } })
 callbacks.text_in({ message = 'Kirin uses Mortal Ray.', mode = 51 })
-assert(sounds == 2)
+assert(sounds == 0)
 clock = 11
 callbacks.d3d_present()
 assert(saves['mock/data\\mobs_learned.lua'].kirin.mortalray)
-assert(saves['mock/data\\preferences.lua'].highlight_mobs.greatermanticore)
 assert(saves['mock/data\\preferences.lua'].is_open == false)
 callbacks.packet_in({ fixture = {
     monster = 'Kirin', move = 'Fulmination', action = 'uses', affected_players = { 'Rialia' },
@@ -296,4 +294,40 @@ command({ '/rtfm', 'hide' })
 assert(saves['mock/data\\preferences.lua'].party_enemies_only == true)
 config.party_enemies_only = false
 engagement.matches = real_matches
+clock = 80
+alert_change = { event = { monster = 'Any enemy', move = 'Sleepga', scope = 'spell', kind = 'spell' }, enabled = true }
+callbacks.d3d_present()
+local spell_sounds = sounds
+callbacks.text_in({ message = 'Other Boss starts casting Sleepga.', mode = 999 })
+callbacks.text_in({ message = 'Other Boss starts casting Sleepga.', mode = 999 })
+assert(sounds == spell_sounds + 1)
+callbacks.packet_in({ fixture = { monster = 'Other Boss', move = 'Sleepga', action = 'casts', affected_players = { 'Rialia' } } })
+assert(sounds == spell_sounds + 1)
+callbacks.text_in({ message = 'Another Boss starts casting Sleepga.', mode = 999 })
+assert(sounds == spell_sounds + 2)
+alert_change = { event = { monster = 'King Behemoth', move = 'Meteor', kind = 'spell' }, enabled = true }
+callbacks.d3d_present()
+callbacks.text_in({ message = 'King Behemoth starts casting Meteor.', mode = 999 })
+assert(sounds == spell_sounds + 3)
+callbacks.text_in({ message = 'Other Boss starts casting Meteor.', mode = 999 })
+assert(sounds == spell_sounds + 3)
+-- Upgrade the user's old log-only Topsman selection and immediately persist it.
+package.loaded['lib.storage'].load = function(path)
+    if path:match('preferences.lua$') then
+        return { is_open = false, move_alerts = { moblintopsman = { frypan = true } } }
+    end
+    return {}
+end
+clock = 100
+dofile('rtfm.lua')
+local migrated = saves['mock/data\\preferences.lua']
+assert(migrated.move_alerts.moblintopsman == nil)
+assert(migrated.move_alert_entries[1].scope == 'family')
+assert(migrated.move_alert_entries[1].family_id == 184)
+local frypan_sounds = sounds
+callbacks.text_in({ message = 'Moblin Topsman readies Frypan.', mode = 185 })
+assert(sounds == frypan_sounds + 1)
+alert_change = { event = { monster = 'Moblin Topsman', move = 'Frypan', action = 'uses' }, enabled = false }
+callbacks.d3d_present()
+assert(not saves['mock/data\\preferences.lua'].move_alert_entries[1].enabled)
 print('RTFM regression checks passed.')

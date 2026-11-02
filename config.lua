@@ -73,28 +73,6 @@ local guaranteed_mobs   = {
     ['Lost Aitvaras'] = true,
 }
 
-local highlight_mobs    = {
-    ['kirin'] = true,
-    ['genbu'] = true,
-    ['moblintopsman'] = true,
-    ['absolute virtue'] = true,
-    ['yasuo hasaki'] = true,
-    ['medusa'] = true,
-    ['gurfurlur the menacing'] = true,
-    ['brjota'] = true,
-    ['zo\'pha forgesoul'] = true,
-    ['neo-ultima'] = true,
-    ['odin\'s fool'] = true,
-    ['cetus'] = true,
-    ['tyger'] = true
-}
-
-local sound_moves = {
-    ['mortalray'] = 'alert.wav',
-    ['abrasivetantara'] = 'alert.wav',
-    ['souldouse'] = 'alert.wav',
-    ['fulmination'] = 'alert.wav',
-}
 return {
     pending_timeout = 10.0,
     save_interval = 10.0,
@@ -110,6 +88,4 @@ return {
     party_enemies_only = false,
     blacklist_mobs = {},
     guaranteed_mobs = guaranteed_mobs,
-    highlight_mobs = highlight_mobs,
-    sound_moves = sound_moves,
 }

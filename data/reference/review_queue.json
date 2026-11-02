@@ -1,0 +1,6763 @@
+[
+  {
+    "id": 272,
+    "name": "Ranged Attack",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 280,
+    "name": "Sonic Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 284,
+    "name": "Cold Stare",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 287,
+    "name": "Healing Breeze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 292,
+    "name": "Blank Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 293,
+    "name": "Whistle Call",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 295,
+    "name": "Magic Fruit",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 321,
+    "name": "Needleshot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 323,
+    "name": "Wild Carrot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 325,
+    "name": "Random Kiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 326,
+    "name": "Absorbing Kiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 327,
+    "name": "Deep Kiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 330,
+    "name": "Shuffle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 335,
+    "name": "Pollen",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 336,
+    "name": "Final Sting",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 344,
+    "name": "Sticky Thread",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 359,
+    "name": "Bionic Boost",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 364,
+    "name": "Filamented Hold",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 370,
+    "name": "Baleful Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 386,
+    "name": "Awful Eye",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 394,
+    "name": "Blood Drain",
+    "reasons": [
+      "multiple_shadow_behavior",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 398,
+    "name": "Whispers of Ire",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 411,
+    "name": "Baleful Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 417,
+    "name": "Drainkiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 420,
+    "name": "TP Drainkiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 421,
+    "name": "MP Drainkiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 428,
+    "name": "MP Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 433,
+    "name": "Digest",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 436,
+    "name": "Gloeosuccus",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 438,
+    "name": "Hex Eye",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 439,
+    "name": "Petro Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 440,
+    "name": "Catharsis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 449,
+    "name": "Intimidate",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 464,
+    "name": "Psychomancy",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 472,
+    "name": "Grave Reel",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 479,
+    "name": "Horror Cloud",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 485,
+    "name": "Blood Saber",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 502,
+    "name": "Mortal Ray",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 505,
+    "name": "Venom Shell",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 512,
+    "name": "Heat Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 516,
+    "name": "Geist Wall",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 520,
+    "name": "Double Ray",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 528,
+    "name": "Cold Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 541,
+    "name": "Gravity Field",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 547,
+    "name": "Ultimate Terror",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 549,
+    "name": "Eyes On Me",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 550,
+    "name": "Hypnosis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 551,
+    "name": "Mind Break",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 559,
+    "name": "Soul Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 563,
+    "name": "Demonic Howl",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 577,
+    "name": "Jettatura",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 578,
+    "name": "Nihility Song",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 586,
+    "name": "Blank Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 589,
+    "name": "Mortal Ray",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 595,
+    "name": "Heat Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 600,
+    "name": "Cold Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 611,
+    "name": "Ore Toss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 624,
+    "name": "(Vulture 1)",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 625,
+    "name": "(Vulture 2)",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 626,
+    "name": "(Vulture 3)",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 627,
+    "name": "(Vulture 4)",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 634,
+    "name": "Meteor",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 635,
+    "name": "Burst",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 648,
+    "name": "Petro Eyes",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 649,
+    "name": "Voidsong",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 653,
+    "name": "Chaotic Eye",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 658,
+    "name": "Catapult",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 670,
+    "name": "Implosion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 678,
+    "name": "Crystal Rain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 689,
+    "name": "Benediction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 707,
+    "name": "Sentinel",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 725,
+    "name": "Impale",
+    "reasons": [
+      "dynamic_status_effects"
+    ]
+  },
+  {
+    "id": 726,
+    "name": "Drain Whip",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 731,
+    "name": "Mijin Gakure",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 732,
+    "name": "Call Wyvern",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 734,
+    "name": "Astral Flow",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 740,
+    "name": "Familiar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 744,
+    "name": "Spirit Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 745,
+    "name": "Spirit Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 755,
+    "name": "Fission",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 785,
+    "name": "Light of Penance",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 804,
+    "name": "Tortoise Song",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 812,
+    "name": "Spider Web",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 813,
+    "name": "Dispelling Wind",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 834,
+    "name": "Ecliptic Growl",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 835,
+    "name": "Lunar Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 837,
+    "name": "Ecliptic Howl",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 842,
+    "name": "Burning Strike",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 851,
+    "name": "Rock Buster",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 861,
+    "name": "Spring Water",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 862,
+    "name": "Slowga",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 869,
+    "name": "Whispering Wind",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 870,
+    "name": "Hastega",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 887,
+    "name": "Rolling Thunder",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 894,
+    "name": "Healing Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 895,
+    "name": "Healing Breath II",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 896,
+    "name": "Healing Breath III",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 897,
+    "name": "Remove Poison",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 898,
+    "name": "Remove Blindness",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 899,
+    "name": "Remove Paralysis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 906,
+    "name": "Healing Ruby",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 908,
+    "name": "Shining Ruby",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 909,
+    "name": "Glittering Ruby",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 911,
+    "name": "Healing Ruby II",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 920,
+    "name": "Everyone's Grudge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 921,
+    "name": "Everyone's Rancor",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 936,
+    "name": "Ark Guardian: Tarutaru",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 942,
+    "name": "Spirits Within",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 954,
+    "name": "Touchdown",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 958,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 961,
+    "name": "Spider Web",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 962,
+    "name": "Tarutaru Warp II",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 974,
+    "name": "Spirits Within",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 977,
+    "name": "Warp",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 978,
+    "name": "Warp",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 980,
+    "name": "Freezebite",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 982,
+    "name": "Abyssal Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 983,
+    "name": "Abyssal Strike",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 984,
+    "name": "Electrocharge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 985,
+    "name": "Stellar Burst",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 988,
+    "name": "Eald2 Warp In",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 989,
+    "name": "Eald2 Warp Out",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1002,
+    "name": "Summonshadows",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1007,
+    "name": "Zeid Summon Shadows",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1010,
+    "name": "Benediction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1016,
+    "name": "Familiar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1017,
+    "name": "Call Beast",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1021,
+    "name": "Mijin Gakure",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1022,
+    "name": "Call Wyvern",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1023,
+    "name": "Astral Flow",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1046,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1074,
+    "name": "The Wrath of Gu'Dha",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1075,
+    "name": "Ore Toss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1080,
+    "name": "The Wrath of Gu'Dha",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1099,
+    "name": "Goblin Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1107,
+    "name": "Goblin Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1108,
+    "name": "Goblin Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1109,
+    "name": "Goblin Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1111,
+    "name": "Numbing Glare",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1113,
+    "name": "Tormentful Glare",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1115,
+    "name": "Torpid Glare",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1123,
+    "name": "Ore Toss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1124,
+    "name": "Regain Hp",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1125,
+    "name": "Regain Mp",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1128,
+    "name": "Transfusion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1129,
+    "name": "Manastrom",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1137,
+    "name": "Eyes On Me",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1138,
+    "name": "Hypnosis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1139,
+    "name": "Mind Break",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1142,
+    "name": "Pet Charm",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1145,
+    "name": "Soul Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1147,
+    "name": "Demonic Howl",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1156,
+    "name": "Marrow Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1174,
+    "name": "Petro Eyes",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1200,
+    "name": "Namas",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1201,
+    "name": "Coronach",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1237,
+    "name": "Hyper Pulse",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1238,
+    "name": "Target Analysis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1240,
+    "name": "Ion Efflux",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1241,
+    "name": "Rear Lasers",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1245,
+    "name": "Winds of Promyvion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1246,
+    "name": "Spirit Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1247,
+    "name": "Binary Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1248,
+    "name": "Trinary Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1249,
+    "name": "Spirit Tap",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1250,
+    "name": "Binary Tap",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1251,
+    "name": "Trinary Tap",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1252,
+    "name": "Shadow Spread",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1254,
+    "name": "Wanion",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1269,
+    "name": "Chemical Bomb",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1282,
+    "name": "Touchdown",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1286,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1292,
+    "name": "Touchdown",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1296,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1299,
+    "name": "Typhoon Wing",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1302,
+    "name": "Touchdown",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1306,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1316,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1322,
+    "name": "Gerjis' Grip",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1324,
+    "name": "Debilitating Drone",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1331,
+    "name": "Counterstance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1332,
+    "name": "Extremely Bad Breath",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1333,
+    "name": "Contagion Transfer",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1334,
+    "name": "Contamination",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1343,
+    "name": "Moblin Emote 1",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1344,
+    "name": "Moblin Emote 2",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1345,
+    "name": "Moblin Emote 3",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1346,
+    "name": "Moblin Emote 4",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1347,
+    "name": "Dual Strike",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1353,
+    "name": "Aerial Collision",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1357,
+    "name": "Tidal Dive",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1359,
+    "name": "Chthonian Ray",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1363,
+    "name": "Hungry Crunch",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1378,
+    "name": "Wing Thrust",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1381,
+    "name": "Depuration",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1388,
+    "name": "Aern Ranged",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1396,
+    "name": "Cosmic Elucidation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1398,
+    "name": "Tenzen Ranged High",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1399,
+    "name": "Riceball",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1400,
+    "name": "Tenzen Ranged Low",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1401,
+    "name": "Soul Accretion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1406,
+    "name": "Typhoon Wing",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1409,
+    "name": "Touchdown",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1413,
+    "name": "Horrid Roar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1414,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1415,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1416,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1419,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1420,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1421,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1424,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1425,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1426,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1427,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1430,
+    "name": "Steal",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1433,
+    "name": "Sic",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1438,
+    "name": "Blood Pact",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1442,
+    "name": "Core Meltdown",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1443,
+    "name": "Hexidiscs",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1450,
+    "name": "Viscid Nectar",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1453,
+    "name": "Nutrient Absorption",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1457,
+    "name": "Marionette Dice",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1464,
+    "name": "Optic Induration Charge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1486,
+    "name": "Benediction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1487,
+    "name": "Prishe Item 1",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1488,
+    "name": "Prishe Item 2",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1489,
+    "name": "Nullifying Dropkick",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1496,
+    "name": "Malevolent Blessing",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1500,
+    "name": "Malevolent Blessing",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1509,
+    "name": "Rejuvenation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1525,
+    "name": "Guided Missile II",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1529,
+    "name": "Hyper Pulse",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1530,
+    "name": "Stun Cannon",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1531,
+    "name": "WZ_RECOVER_ALL",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1532,
+    "name": "Pod Ejection",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1535,
+    "name": "Hyper Pulse",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1536,
+    "name": "Target Analysis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1538,
+    "name": "Ion Efflux",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1539,
+    "name": "Rear Lasers",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1546,
+    "name": "Prodigious Spike",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1549,
+    "name": "Horrible Roar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1550,
+    "name": "Call Of The Wyrmking",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1558,
+    "name": "Smite of Fury",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1560,
+    "name": "Whispers of Ire",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1561,
+    "name": "Sonic Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1563,
+    "name": "Cold Stare",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1566,
+    "name": "Healing Breeze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1570,
+    "name": "Wild Carrot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1571,
+    "name": "Gas Shell",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1572,
+    "name": "Venom Shell",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1581,
+    "name": "Sticky Thread",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1582,
+    "name": "Poison Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1585,
+    "name": "Dream Flower",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1588,
+    "name": "Scream",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1595,
+    "name": "Geist Wall",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1606,
+    "name": "Fragrant Breath",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1607,
+    "name": "Fragrant Breath",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1610,
+    "name": "Extremely Bad Breath",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1619,
+    "name": "Attractant",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1624,
+    "name": "Debilitating Drone",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1636,
+    "name": "Trebuchet",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1646,
+    "name": "Cold Wave",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1652,
+    "name": "Crystal Rain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1663,
+    "name": "Blood Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1665,
+    "name": "Marrow Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1679,
+    "name": "Claw Cyclone",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1695,
+    "name": "Hypnic Lamp",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1698,
+    "name": "Leeching Current",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1700,
+    "name": "Snatch Morsel",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1701,
+    "name": "Feather Tickle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1707,
+    "name": "Voracious Trunk",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1708,
+    "name": "Proboscis Shower",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1712,
+    "name": "Bugle Call",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1713,
+    "name": "Yawn",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1724,
+    "name": "White Wind",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1726,
+    "name": "Cutpurse",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1728,
+    "name": "Faze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1733,
+    "name": "Firespit",
+    "reasons": [
+      "multiple_shadow_behavior"
+    ]
+  },
+  {
+    "id": 1736,
+    "name": "Axe Throw",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1738,
+    "name": "Groundburst",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1752,
+    "name": "Gusting Gouge",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1754,
+    "name": "Dukkeripen",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1757,
+    "name": "Dukkeripen",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1759,
+    "name": "Hypnotic Sway",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1765,
+    "name": "Gusting Gouge",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1767,
+    "name": "Dukkeripen",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1770,
+    "name": "Dukkeripen",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1772,
+    "name": "Torrent",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1775,
+    "name": "Rising Swell",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1781,
+    "name": "Hex Palm",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1792,
+    "name": "Nullsong",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1794,
+    "name": "Perdition",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1795,
+    "name": "Malediction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1799,
+    "name": "Tyrannic Blare",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1800,
+    "name": "Miasma",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1803,
+    "name": "Head Snatch",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1807,
+    "name": "Pleiades Ray",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1808,
+    "name": "Petrifaction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1814,
+    "name": "Gorgon Dance",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1823,
+    "name": "Xenoglossia",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1826,
+    "name": "Synergism",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1836,
+    "name": "Nerve Gas",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 1892,
+    "name": "Roar Cerberus",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1901,
+    "name": "Activate",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1906,
+    "name": "Ultimate Terror",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1923,
+    "name": "Firespit",
+    "reasons": [
+      "multiple_shadow_behavior"
+    ]
+  },
+  {
+    "id": 1934,
+    "name": "Wild Card",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1935,
+    "name": "Overdrive",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1938,
+    "name": "Warp Out Gessho",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1939,
+    "name": "Warp In Gessho",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1942,
+    "name": "Arcuballista",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1945,
+    "name": "Provoke",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1946,
+    "name": "Shock Absorber",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1948,
+    "name": "Mana Converter",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 1949,
+    "name": "Ranged Attack",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1953,
+    "name": "Proboscis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1955,
+    "name": "Exuviation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1961,
+    "name": "Providence",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1966,
+    "name": "Mind Purge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1969,
+    "name": "Reprobation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1970,
+    "name": "Eclosion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1980,
+    "name": "Boreas Mantle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1992,
+    "name": "Fire Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1993,
+    "name": "Ice Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1994,
+    "name": "Wind Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1995,
+    "name": "Earth Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1996,
+    "name": "Thunder Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 1997,
+    "name": "Water Maneuver",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2005,
+    "name": "Reward",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2007,
+    "name": "Wild Card",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2008,
+    "name": "Overdrive",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2016,
+    "name": "Dark Shot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2018,
+    "name": "Frame Change",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2021,
+    "name": "Eraser",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2022,
+    "name": "Tenebrous Mist",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2030,
+    "name": "Roar Khimaira",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2034,
+    "name": "Reinforcements",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2035,
+    "name": "Biomagnet",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2041,
+    "name": "Restoral",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2052,
+    "name": "Restoral",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2058,
+    "name": "Homing Missile",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2059,
+    "name": "Discoid",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2061,
+    "name": "Restoral",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2062,
+    "name": "Restoral",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2065,
+    "name": "Cannibal Blade",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2068,
+    "name": "Economizer",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2070,
+    "name": "Dismemberment",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2071,
+    "name": "Dire Straight",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2072,
+    "name": "Earthshatter",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2073,
+    "name": "Sinker Drill",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2074,
+    "name": "Detonating Grip",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2089,
+    "name": "Salamander Flame",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2090,
+    "name": "Typhonic Arrow",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2091,
+    "name": "Meteoric Impact",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2094,
+    "name": "Fire Angon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2096,
+    "name": "Clobber",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2098,
+    "name": "Blazing Angon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2100,
+    "name": "Clobber",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2104,
+    "name": "Crippling Slam",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 2108,
+    "name": "Nosferatu's Kiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2109,
+    "name": "Heliovoid",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2111,
+    "name": "Eternal Damnation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2115,
+    "name": "Cackle",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2126,
+    "name": "Zantetsuken",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2132,
+    "name": "Replicator",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2145,
+    "name": "Gospel of the Lost",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2152,
+    "name": "Aqua Fortis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2155,
+    "name": "Torpefying Charge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2156,
+    "name": "Grim Glower",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2160,
+    "name": "Bombilation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2162,
+    "name": "Emetic Discharge",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2171,
+    "name": "Call of the Moon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2172,
+    "name": "Call of the Moon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2173,
+    "name": "Plenilune Embrace",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2174,
+    "name": "Plenilune Embrace",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2182,
+    "name": "Spiral Burst",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2190,
+    "name": "Extreme Purgation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2191,
+    "name": "Desiccation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2192,
+    "name": "Doomvoid",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2197,
+    "name": "Autumn Breeze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2210,
+    "name": "Petal Pirouette",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2216,
+    "name": "Nocturnal Combustion",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2221,
+    "name": "Hell Scissors",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2256,
+    "name": "Astral Flow",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2260,
+    "name": "Trance",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2261,
+    "name": "Tabula Rasa",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2269,
+    "name": "Kamaitachi",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2299,
+    "name": "Bone Crusher",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2300,
+    "name": "Armor Piercer",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2332,
+    "name": "Di Trample",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2333,
+    "name": "Di Glow",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2336,
+    "name": "Acheron Kick",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2337,
+    "name": "Damsel Memento",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2351,
+    "name": "Tear Grenade",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2388,
+    "name": "Dirty Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2424,
+    "name": "Terror Eye",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2425,
+    "name": "Bloody Claw",
+    "reasons": [
+      "dynamic_status_effects"
+    ]
+  },
+  {
+    "id": 2430,
+    "name": "Warped Wail",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 2431,
+    "name": "Reaving Wind",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2434,
+    "name": "Reaving Wind Kb",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2442,
+    "name": "Thorned Stance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2443,
+    "name": "Sensual Dance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2444,
+    "name": "Dancer's Fury",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2445,
+    "name": "Whirling Edge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2446,
+    "name": "Rousing Samba",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2447,
+    "name": "Vivifying Waltz",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2448,
+    "name": "Regal Scratch",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2449,
+    "name": "Mewing Lullaby",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2450,
+    "name": "Eerie Eye",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2451,
+    "name": "Divine Favor",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2452,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2453,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2454,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2455,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2456,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2457,
+    "name": "Level ? Holy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2491,
+    "name": "Ice Overload",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2499,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2512,
+    "name": "Venom Shower",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2513,
+    "name": "Mega Scissors",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2514,
+    "name": "Cytokinesis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2515,
+    "name": "Phason Beam",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2519,
+    "name": "Dexter Wing",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2520,
+    "name": "Sinister Wing",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2521,
+    "name": "Chaos Blast",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2522,
+    "name": "Abyssic Buster",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2523,
+    "name": "Dancing Tail",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2524,
+    "name": "Dancing Tail",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2525,
+    "name": "Chilling Roar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2526,
+    "name": "Chilling Roar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2527,
+    "name": "Soul Douse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2528,
+    "name": "Soul Douse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2529,
+    "name": "Dark Star",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2530,
+    "name": "Dark Star",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2534,
+    "name": "Minax Glare",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2536,
+    "name": "Boon Void",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2537,
+    "name": "Cruel Slash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2538,
+    "name": "Spell Wall",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2540,
+    "name": "Umbral Orb",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2541,
+    "name": "Cross Smash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2542,
+    "name": "Blighting Blitz",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2543,
+    "name": "Spawn Shadow",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2544,
+    "name": "Soma Wall",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2545,
+    "name": "Doom Arc",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2550,
+    "name": "Dissolve",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2566,
+    "name": "Diabolic Claw",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2567,
+    "name": "Stygian Cyclone",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2568,
+    "name": "Deathly Diminuendo",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2569,
+    "name": "Hellish Crescendo",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2570,
+    "name": "Afflicting Gaze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2571,
+    "name": "Stygian Sphere",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2572,
+    "name": "Malign Invocation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2573,
+    "name": "Shadow Wreck",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2576,
+    "name": "Mercurial Strike",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2577,
+    "name": "Mercurial Strike",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2619,
+    "name": "Turbine Cyclone",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2620,
+    "name": "Seismic Impact",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2621,
+    "name": "Incinerator",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2622,
+    "name": "Arm Cannon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2623,
+    "name": "Ballistic Kick",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2624,
+    "name": "Scapula Beam",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2625,
+    "name": "Eradicator",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2626,
+    "name": "Auger Smash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2627,
+    "name": "Area Bombardment",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2631,
+    "name": "Osmosis",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2632,
+    "name": "Vacuole Discharge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2634,
+    "name": "Interference",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2635,
+    "name": "Dark Arrivisme",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2637,
+    "name": "Besieger's Bane",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2650,
+    "name": "Shinryu Attack Right",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2651,
+    "name": "Shinryu Attack Left",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2652,
+    "name": "Shinryu Attack Right 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2653,
+    "name": "Shinryu Attack Left 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2654,
+    "name": "Shinryu Attack Tail 1",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2655,
+    "name": "Shinryu Attack Tail 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2656,
+    "name": "Shinryu Attack Tail Stun",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2657,
+    "name": "Shinryu Attack Right",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2658,
+    "name": "Shinryu Attack Left",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2659,
+    "name": "Shinryu Attack Right 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2660,
+    "name": "Shinryu Attack Left 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2661,
+    "name": "Shinryu Attack Tail 1",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2662,
+    "name": "Shinryu Attack Tail 2",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2663,
+    "name": "Shinryu Attack Tail Stun",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2664,
+    "name": "Cosmic Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2665,
+    "name": "Cataclysmic Vortex",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2666,
+    "name": "Gyre Charge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2667,
+    "name": "Mighty Guard",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2668,
+    "name": "Atomic Ray",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2669,
+    "name": "Dark Matter",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2670,
+    "name": "Protostar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2671,
+    "name": "Supernova",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2675,
+    "name": "Dark Thorn",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2676,
+    "name": "Petaline Tempest",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2677,
+    "name": "Durance Whip",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2678,
+    "name": "Subjugating Slash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2679,
+    "name": "Fatal Allure",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2680,
+    "name": "Moonlight Veil",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2684,
+    "name": "Dark Flare",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2685,
+    "name": "Dark Freeze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2686,
+    "name": "Dark Tornado",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2687,
+    "name": "Dark Quake",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2688,
+    "name": "Dark Burst",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2689,
+    "name": "Dark Flood",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2690,
+    "name": "Dark Moon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2691,
+    "name": "Dark Sun",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2692,
+    "name": "Royal Decree",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2708,
+    "name": "Cosmic Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2709,
+    "name": "Cataclysmic Vortex",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2714,
+    "name": "Yaksha Stance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2715,
+    "name": "Yaksha: Damnation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2716,
+    "name": "Yaksha: Bliss",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2717,
+    "name": "Yaksha: Oblivion",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2718,
+    "name": "Raksha Stance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2719,
+    "name": "Raksha: Judgment",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2720,
+    "name": "Raksha: Illusion",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2721,
+    "name": "Raksha: Vengeance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2725,
+    "name": "Rending Talons",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2726,
+    "name": "Shrieking Gale",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2727,
+    "name": "Wings of Woe",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2728,
+    "name": "Wings of Agony",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2729,
+    "name": "Typhoean Rage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2730,
+    "name": "Ravenous Wail",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2739,
+    "name": "Anvil Lightning",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2740,
+    "name": "Silent Storm",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2743,
+    "name": "String Shredder",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2744,
+    "name": "Armor Shatterer",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2745,
+    "name": "Heat Capacitor",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2746,
+    "name": "Barrage Turbine",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2747,
+    "name": "Disruptor",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2751,
+    "name": "Slicing Sickle",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2752,
+    "name": "Raptorial Claw",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2753,
+    "name": "Phlegm Expulsion",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2754,
+    "name": "Macerating Bile",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2755,
+    "name": "Preying Posture",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2756,
+    "name": "Death Prophet",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2784,
+    "name": "Diluvial Wake",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2785,
+    "name": "Kurnugi Collapse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2786,
+    "name": "Searing Halitus",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2787,
+    "name": "Divesting Gale",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2788,
+    "name": "Bolt of Perdition",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2789,
+    "name": "Crippling Rime",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2790,
+    "name": "Oblivion's Mantle",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2828,
+    "name": "Jettatura",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2839,
+    "name": "Prismatic Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2840,
+    "name": "Acicular Brand",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2841,
+    "name": "Orogenesis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2842,
+    "name": "Phason Beam",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2843,
+    "name": "Diffractive Break",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2844,
+    "name": "Euhedral Swat",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2852,
+    "name": "Prismatic Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2853,
+    "name": "Acicular Brand",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2854,
+    "name": "Orogenesis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2856,
+    "name": "Diffractive Break",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2857,
+    "name": "Euhedral Swat",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2858,
+    "name": "Crystallite Shower",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2859,
+    "name": "Graviton Crux",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2860,
+    "name": "Crystal Bolide",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2861,
+    "name": "Fragor Maximus",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2868,
+    "name": "Echolocation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2869,
+    "name": "Deep Sea Dirge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2870,
+    "name": "Caudal Capacitor",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2871,
+    "name": "Baleen Gurge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2872,
+    "name": "Depth Charge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2873,
+    "name": "Blowhole Blast",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2874,
+    "name": "Waterspout",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2875,
+    "name": "Angry Seas",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2876,
+    "name": "Thar She Blows",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2880,
+    "name": "Night Stalker",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2881,
+    "name": "Atropine Spore",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2882,
+    "name": "Frond Fatale",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2883,
+    "name": "Full Bloom",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2884,
+    "name": "Deracinator",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2885,
+    "name": "Beautiful Death",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2895,
+    "name": "Knuckle Sandwich",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 2919,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2920,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2921,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2922,
+    "name": "Soulshattering Roar",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 2926,
+    "name": "Beastruction",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2927,
+    "name": "Metamorphic Blast",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2928,
+    "name": "Enervating Grasp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2929,
+    "name": "Orogenic Storm",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2930,
+    "name": "Subduction",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2939,
+    "name": "Mighty Strikes",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2940,
+    "name": "Invincible",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2941,
+    "name": "Eagle Eye Shot",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2942,
+    "name": "Chainspell",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2943,
+    "name": "Benediction",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2944,
+    "name": "Manafont",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2945,
+    "name": "Nature's Meditation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2946,
+    "name": "Sensilla Blades",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2947,
+    "name": "Tegmina Buffet",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2948,
+    "name": "Sanguinary Slash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2949,
+    "name": "Orthopterror",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2951,
+    "name": "Slice 'n' Dice",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2957,
+    "name": "Impenetrable Carapace",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2959,
+    "name": "Sundering Snip",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2960,
+    "name": "Viscid Spindrift",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2961,
+    "name": "Riptide Eupnea",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2965,
+    "name": "Cranial Thrust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2966,
+    "name": "Tail Thwack",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2967,
+    "name": "Embalming Earth",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2968,
+    "name": "Scalding Breath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2969,
+    "name": "Debilitating Spout",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2970,
+    "name": "Paralyzing Triad",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2971,
+    "name": "Crepuscular Grasp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2972,
+    "name": "Necrotic Brume",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2974,
+    "name": "Foul Waters",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2975,
+    "name": "Pestilent Plume",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2976,
+    "name": "Deadening Haze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2978,
+    "name": "Consecration",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2979,
+    "name": "Sacred Caper",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2980,
+    "name": "Phototrophic Blessing",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2981,
+    "name": "Phototrophic Wrath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2982,
+    "name": "Deific Gambol",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2983,
+    "name": "Ancestral Banishment",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2984,
+    "name": "Heartfelt Aura",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2985,
+    "name": "Impairing Glister",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2986,
+    "name": "Crippling Gleam",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2988,
+    "name": "Glutinous Dart",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2989,
+    "name": "Death Spin",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2990,
+    "name": "Velkkan Pygmachia",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2991,
+    "name": "Saurian Slide",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 2992,
+    "name": "Jungle Wallop",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3002,
+    "name": "Mandibular Lashing",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3003,
+    "name": "Vespine Hurricane",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3004,
+    "name": "Stinger Volley",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3005,
+    "name": "Droning Whirlwind",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3006,
+    "name": "Incisive Denouement",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3007,
+    "name": "Incisive Apotheosis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3011,
+    "name": "Protolithic Puncture",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3012,
+    "name": "Aquatic Lance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3013,
+    "name": "Pelagic Cleaver",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3014,
+    "name": "Carcharian Verve",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3015,
+    "name": "Tidal Guillotine",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3016,
+    "name": "Marine Mayhem",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3020,
+    "name": "Blistering Roar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3021,
+    "name": "Searing Serration",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3022,
+    "name": "Volcanic Stasis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3023,
+    "name": "Tyrannical Blow",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3024,
+    "name": "Batholithic Shell",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3025,
+    "name": "Pyroclastic Surge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3026,
+    "name": "Incinerating Lahar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3030,
+    "name": "Retinal Glare",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3031,
+    "name": "Sylvan Slumber",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3032,
+    "name": "Crushing Gaze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3033,
+    "name": "Vaskania",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3057,
+    "name": "Root of the Problem",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3058,
+    "name": "Potted Plant",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3059,
+    "name": "Uproot",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3060,
+    "name": "Canopierce",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3061,
+    "name": "Firefly Fandango",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3062,
+    "name": "Tiiimbeeer",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3063,
+    "name": "Molting Plumage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3064,
+    "name": "Pentapeck",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3065,
+    "name": "Swooping Frenzy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3066,
+    "name": "From the Skies",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3073,
+    "name": "Reverberating Cry",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3074,
+    "name": "Brownout",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3075,
+    "name": "Reverse Current",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3076,
+    "name": "Sparkstorm",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3077,
+    "name": "Static Prison",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3078,
+    "name": "Static Prison",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3097,
+    "name": "Tickling Tendrils",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3098,
+    "name": "Stink Bomb",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3099,
+    "name": "Nectarous Deluge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3100,
+    "name": "Nepenthic Plunge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3101,
+    "name": "Infaunal Flop",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3102,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3115,
+    "name": "Bellatrix of Light",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3116,
+    "name": "Bellatrix of Shadows",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3123,
+    "name": "Fighting Stance α",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3137,
+    "name": "Polar Roar",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3138,
+    "name": "Brain Freeze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3139,
+    "name": "Biting Abrogation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3140,
+    "name": "Permafrost Requiem",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3141,
+    "name": "Glacial Tomb",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3142,
+    "name": "Glassy Nova",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3148,
+    "name": "Noname",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3149,
+    "name": "Dazing Discord",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3150,
+    "name": "Steaming Rage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3151,
+    "name": "Noname",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3152,
+    "name": "Shining Salvo",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3153,
+    "name": "Palling Salvo",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3154,
+    "name": "Cathartic Caper",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3155,
+    "name": "Bewailing Wake",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3156,
+    "name": "Flight of the Fluttyries",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3160,
+    "name": "Vehement Resolution",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3161,
+    "name": "Camaraderie of the Crevasse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3162,
+    "name": "Into the Light",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3163,
+    "name": "Arduous Decision",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3164,
+    "name": "12 Blades of Remorse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3168,
+    "name": "Aurous Charge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3169,
+    "name": "Howling Gust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3170,
+    "name": "Righteous Rasp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3171,
+    "name": "Starward Yowl",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3172,
+    "name": "Stalking Prey",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3195,
+    "name": "Abyssal Drain",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3196,
+    "name": "Abyssal Strike",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 3205,
+    "name": "Berserk-Ruf",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3218,
+    "name": "Villainous Rebuke",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3219,
+    "name": "Stygian Release",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3220,
+    "name": "Infernal Bulwark",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3221,
+    "name": "Atramentous Libations",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3230,
+    "name": "Inspirit",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3233,
+    "name": "Lunar Revolution",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3234,
+    "name": "Nullifying Dropkick",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3236,
+    "name": "Knuckle Sandwich",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3239,
+    "name": "Typhonic Arrow",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3240,
+    "name": "Meteoric Impact",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3244,
+    "name": "Sixth Element",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3252,
+    "name": "Bisection",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3254,
+    "name": "Akimbo Shot",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3255,
+    "name": "Grisly Horizon",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3264,
+    "name": "Salvation Scythe",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3276,
+    "name": "Kagedourou",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3277,
+    "name": "Karakuridourou",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3278,
+    "name": "Tsujikaze",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3283,
+    "name": "Iniquitous Stab",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3284,
+    "name": "Shockstorm Edge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3285,
+    "name": "Choreographed Carnage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3286,
+    "name": "Lock and Load",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3291,
+    "name": "Stag's Call",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3292,
+    "name": "Gyre Strike",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3293,
+    "name": "Stag's Charge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3294,
+    "name": "Orcsbane",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3295,
+    "name": "Songbird Swoop",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3296,
+    "name": "Temblor Blade",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3297,
+    "name": "Cobra Clamp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3303,
+    "name": "Feast of Arrows",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3304,
+    "name": "Cruel Joke",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3305,
+    "name": "Regurgitated Swarm",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3306,
+    "name": "Setting the Stage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3307,
+    "name": "Last Laugh",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3308,
+    "name": "Thorned Stance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3309,
+    "name": "Sensual Dance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3310,
+    "name": "Dancer's Fury",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3311,
+    "name": "Whirling Edge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3312,
+    "name": "Rousing Samba",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3313,
+    "name": "Vivifying Waltz",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3322,
+    "name": "Critical Mass",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3323,
+    "name": "Fiery Tailings",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3337,
+    "name": "Lunar Bay",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3353,
+    "name": "Petal Pirouette",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3358,
+    "name": "Blank Gaze",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3363,
+    "name": "Tearing Gust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3364,
+    "name": "Concussive Shock",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3365,
+    "name": "Chokehold",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3366,
+    "name": "Zap",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3367,
+    "name": "Shrieking Gale",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3368,
+    "name": "Undulating Shockwave",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3372,
+    "name": "Cesspool",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3373,
+    "name": "Fetid Eddies",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3374,
+    "name": "Nullifying Rain",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3375,
+    "name": "Noyade",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3376,
+    "name": "Clobbering Wave",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3380,
+    "name": "Start from Scratch",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3381,
+    "name": "Frenzied Thrust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3382,
+    "name": "Sinner's Cross",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3383,
+    "name": "Open Coffin",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3384,
+    "name": "Ravenous Assault",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3385,
+    "name": "Hemocladis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3389,
+    "name": "Fulminous Smash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3390,
+    "name": "Flaming Kick",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3391,
+    "name": "Icy Grasp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3392,
+    "name": "Flashflood",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3393,
+    "name": "Eroding Flesh",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3394,
+    "name": "Vivisection",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3399,
+    "name": "Impudence",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3400,
+    "name": "Incessant Void",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3401,
+    "name": "Tenebrous Grip",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3402,
+    "name": "Demonfire",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3403,
+    "name": "Frozen Blood",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3404,
+    "name": "Blast of Reticence",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3405,
+    "name": "Ensepulcher",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3406,
+    "name": "Ceaseless Surge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3407,
+    "name": "Torrential Pain",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3408,
+    "name": "Eternal Misery",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3409,
+    "name": "Crippling Agony",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3410,
+    "name": "Bane of Tartarus",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3434,
+    "name": "Tachi: Kamai",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3435,
+    "name": "Iainuki",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3440,
+    "name": "Pocket Sand",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3441,
+    "name": "Tripe Gripe",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3442,
+    "name": "Sharp Eye",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3451,
+    "name": "Dynastic Gravitas",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3452,
+    "name": "Illustrious Aid",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3453,
+    "name": "Guiding Light",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3454,
+    "name": "Coming Up Roses",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3455,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3456,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3457,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3458,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3459,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3460,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3466,
+    "name": "Paralyzing Microtube",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 3467,
+    "name": "Silencing Microtube",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 3473,
+    "name": "Stellar Burst",
+    "reasons": [
+      "damage_type_needs_review"
+    ]
+  },
+  {
+    "id": 3485,
+    "name": "Regulator",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3486,
+    "name": "Tongue Lash",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3487,
+    "name": "Sidewinder",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3488,
+    "name": "Arching Arrow",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3490,
+    "name": "Lux Arrow",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3502,
+    "name": "Nott",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3503,
+    "name": "Justicebreaker",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3507,
+    "name": "Incensed Pummel",
+    "reasons": [
+      "dynamic_status_effects"
+    ]
+  },
+  {
+    "id": 3516,
+    "name": "Infected Leech",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3517,
+    "name": "Gloom Spray",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3538,
+    "name": "Null Blast",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3543,
+    "name": "Knuckle Sandwich",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3544,
+    "name": "Whirling Edge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3556,
+    "name": "Amatsu: Fuga",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3558,
+    "name": "Amatsu: Hanadoki",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3559,
+    "name": "Amatsu: Choun",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3560,
+    "name": "Amatsu: Gachirin",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3567,
+    "name": "Beclouding Dust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3613,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3614,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3615,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3616,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3617,
+    "name": "Feast of Arrows",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3618,
+    "name": "Regurgitated Swarm",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3619,
+    "name": "Setting the Stage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3620,
+    "name": "Last Laugh",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3622,
+    "name": "Rejuvenation",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3627,
+    "name": "Bored to Tears",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3628,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3629,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3630,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3631,
+    "name": "Start from Scratch",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3632,
+    "name": "Frenzied Thrust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3633,
+    "name": "Sinner's Cross",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3634,
+    "name": "Open Coffin",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3635,
+    "name": "Ravenous Assault",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3636,
+    "name": "Hemocladis",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3644,
+    "name": "Ruthlessness",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3645,
+    "name": "Inexorable Strike",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3646,
+    "name": "Self-Aggrandizement",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3647,
+    "name": "Merciless Strike",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3650,
+    "name": "August Melee H2H",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3659,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3660,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3661,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3662,
+    "name": "Baneful Blades",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3663,
+    "name": "Wildwood Indignation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3664,
+    "name": "Dryad's Kiss",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3665,
+    "name": "Depraved Dandia",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3666,
+    "name": "Matriarchal Fiat",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3673,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3674,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3675,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3676,
+    "name": "Vehement Resolution",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3677,
+    "name": "Camaraderie of the Crevasse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3678,
+    "name": "Into the Light",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3679,
+    "name": "Arduous Decision",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3680,
+    "name": "12 Blades of Remorse",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3681,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3682,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3683,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3684,
+    "name": "Aurous Charge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3685,
+    "name": "Howling Gust",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3686,
+    "name": "Righteous Rasp",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3687,
+    "name": "Starward Yowl",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3688,
+    "name": "Stalking Prey",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3689,
+    "name": "Shuffle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3693,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3694,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3695,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3696,
+    "name": "",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3697,
+    "name": "Ascension",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3698,
+    "name": "Descension",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3699,
+    "name": "Expunge Magic",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3700,
+    "name": "Harmonic Displacement",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3701,
+    "name": "Sight Unseen",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3702,
+    "name": "Darkest Hour",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3703,
+    "name": "Unceasing Dread",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3704,
+    "name": "Dignified Awe",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3705,
+    "name": "Naakual's Vengeance",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3710,
+    "name": "Arrogance Incarnate",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3732,
+    "name": "Amatsu: Fuga",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3733,
+    "name": "Amatsu: Kyori",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3734,
+    "name": "Amatsu: Hanadoki",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3735,
+    "name": "Amatsu: Choun",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3736,
+    "name": "Amatsu: Gachirin",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3737,
+    "name": "Amatsu: Suien",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3738,
+    "name": "Rise From Ashes",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3739,
+    "name": "Auto Attack Shantotto Ii",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3740,
+    "name": "Final Exam",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3741,
+    "name": "Doctor's Orders",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3742,
+    "name": "Empirical Research",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3743,
+    "name": "Lesson in Pain",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3750,
+    "name": "Shearing Undulation",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3751,
+    "name": "Celling Rupture",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3752,
+    "name": "Destitution",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3754,
+    "name": "Primordial Surge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3755,
+    "name": "Waning Vigor",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3813,
+    "name": "Phototrophic Blessing",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3814,
+    "name": "Phototrophic Wrath",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3815,
+    "name": "Deific Gambol",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3866,
+    "name": "Needleshot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3887,
+    "name": "Gloeosuccus",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3889,
+    "name": "Geist Wall",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3896,
+    "name": "Filamented Hold",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3898,
+    "name": "Chaotic Eye",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3901,
+    "name": "Drainkiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3903,
+    "name": "Wild Carrot",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3908,
+    "name": "TP Drainkiss",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3916,
+    "name": "Jettatura",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3924,
+    "name": "Intimidate",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3927,
+    "name": "Sensilla Blades",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3928,
+    "name": "Tegmina Buffet",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3929,
+    "name": "Molting Plumage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3930,
+    "name": "Swooping Frenzy",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3931,
+    "name": "Sweeping Gouge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3932,
+    "name": "Zealous Snort",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3933,
+    "name": "Pentapeck",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3934,
+    "name": "Tickling Tendrils",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3935,
+    "name": "Stink Bomb",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3936,
+    "name": "Nectarous Deluge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3937,
+    "name": "Nepenthic Plunge",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3939,
+    "name": "Foul Waters",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3940,
+    "name": "Pestilent Plume",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3944,
+    "name": "Spider Web",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3945,
+    "name": "Infected Leech",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3946,
+    "name": "Gloom Spray",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3950,
+    "name": "Disembowel",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3951,
+    "name": "Extirpating Salvo",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3952,
+    "name": "Venom Shower",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3953,
+    "name": "Mega Scissors",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3954,
+    "name": "Frenzied Rage",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3955,
+    "name": "Rhinowrecker",
+    "reasons": [
+      "missing_script"
+    ]
+  },
+  {
+    "id": 3958,
+    "name": "Digest",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 3962,
+    "name": "Nihility Song",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4167,
+    "name": "Ka-thwack",
+    "reasons": [
+      "damage_type_needs_review",
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4231,
+    "name": "Mix: Final Elixir",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4232,
+    "name": "Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4233,
+    "name": "Hi-Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4234,
+    "name": "X-Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4235,
+    "name": "Hyper Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4236,
+    "name": "Max. Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4237,
+    "name": "Mix: Max. Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4238,
+    "name": "Mix: Antidote",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4239,
+    "name": "Mix: Para-b-gone",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4240,
+    "name": "Mix: Eye Drops",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4241,
+    "name": "Echo Drops",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4242,
+    "name": "Holy Water",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4243,
+    "name": "Mix: Vaccine",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4244,
+    "name": "Mix: Gold Needle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4245,
+    "name": "Mix: Panacea-1",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4246,
+    "name": "Antidote",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4247,
+    "name": "Mix: Para-b-gone",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4248,
+    "name": "Eye Drops",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4249,
+    "name": "Echo Drops",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4250,
+    "name": "Holy Water",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4251,
+    "name": "Mix: Vaccine",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4252,
+    "name": "Mix: Gold Needle",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4253,
+    "name": "Mix: Panacea-1",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4254,
+    "name": "Mix: Dry Ether Concoction",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4260,
+    "name": "Mix: Dark Potion",
+    "reasons": [
+      "needs_review"
+    ]
+  },
+  {
+    "id": 4261,
+    "name": "Mix: Samson's Strength",
+    "reasons": [
+      "dynamic_status_effects",
+      "needs_review"
+    ]
+  }
+]
