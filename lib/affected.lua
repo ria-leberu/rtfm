@@ -41,7 +41,9 @@ function affected.parse(e)
             result.interrupted = true
             return result
         end
-        if result.category ~= 4 and result.category ~= 6 and result.category ~= 11 then return end
+        result.preparing = result.category == 7 or result.category == 8
+        if result.category == 8 and result.action_id ~= 24931 then return end
+        if not result.preparing and result.category ~= 4 and result.category ~= 6 and result.category ~= 11 then return end
         for _ = 1, count do
             local target = { id = read(32), hit = false }
             local action_count = read(4)
@@ -50,7 +52,8 @@ function affected.parse(e)
                 read(12) -- animation
                 read(7) -- special effect
                 read(3) -- knockback
-                read(17) -- amount / status
+                local param = read(17) -- preparation ID, or result amount / status
+                if not target.action_id then target.action_id = param end
                 local message = read(10)
                 target.message = message
                 read(31)
@@ -68,6 +71,11 @@ function affected.parse(e)
                 end
             end
             table.insert(result.targets, target)
+        end
+        if result.preparing then
+            result.preparation_marker = result.action_id
+            result.action_id = result.targets[1] and result.targets[1].action_id
+            if not result.action_id or result.action_id == 0 then return end
         end
         return result
     end)
@@ -101,12 +109,12 @@ function affected.resolve(packet, entities, resources)
             category = packet.category }
     end
     local move
-    if packet.category == 11 then
+    if packet.category == 11 or packet.category == 7 then
         if packet.action_id < 256 then return end
         move = resources:GetString('monsters.abilities', packet.action_id - 256, 2)
     else
         local resource
-        if packet.category == 4 then resource = resources:GetSpellById(packet.action_id)
+        if packet.category == 4 or packet.category == 8 then resource = resources:GetSpellById(packet.action_id)
         else resource = resources:GetAbilityById(packet.action_id + 512) end
         move = resource and resource.Name[1]
     end
@@ -121,6 +129,18 @@ function affected.resolve(packet, entities, resources)
         end
     end
     table.sort(players)
+    if packet.preparing then
+        local primary = packet.targets[1]
+        local target = primary and resolved[primary.id]
+        return {
+            actor_id = packet.actor_id, action_id = packet.action_id, category = packet.category,
+            monster = actor.name, move = move:gsub('%z+$', ''),
+            action = packet.category == 8 and 'casting' or 'readies',
+            preparation_target = target and target.name or nil,
+            preparation_target_id = primary and primary.id or nil,
+            target_ids = target_ids,
+        }
+    end
     return {
         actor_id = packet.actor_id, action_id = packet.action_id, category = packet.category,
         monster = actor.name, move = move:gsub('%z+$', ''),

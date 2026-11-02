@@ -1,5 +1,7 @@
 local imgui = require('imgui')
 local alert = {}
+local outline_offsets = { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 },
+    { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } }
 
 local function characters(line)
     return line:gmatch('[%z\1-\127\194-\244][\128-\191]*')
@@ -20,6 +22,7 @@ function alert.draw(tracker, alerts, config, now)
     for _, event in ipairs(tracker.pending) do
         if alerts:is_selected(event) then
             lines[#lines + 1] = event.monster .. (event.action == 'casting' and ' casting ' or ' readying ') .. event.move
+                .. (event.preparation_target and (' -> ' .. event.preparation_target) or '')
         end
     end
     if #lines == 0 then return end
@@ -44,24 +47,34 @@ function alert.draw(tracker, alerts, config, now)
         ImGuiWindowFlags_NoInputs, ImGuiWindowFlags_NoBackground, ImGuiWindowFlags_NoFocusOnAppearing)
     if imgui.Begin('##rtfm_center_alert', { true }, flags) then
         local x, y = imgui.GetWindowPos()
-        imgui.GetWindowDrawList():AddRectFilled({ x, y }, { x + width, y + height },
-            imgui.GetColorU32({ 0.015, 0.015, 0.025, 0.85 }), 8)
         -- One smooth pulse per second; keep the text readable at its dimmest.
         local alpha = 0.35 + 0.65 * (0.5 + 0.5 * math.cos(now * 2 * math.pi))
-        imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, alpha })
-        for row, line in ipairs(lines) do
-            local offset = 0
-            local left = x + (width - line_width(line)) / 2
-            local baseline = y + 12 + amplitude + (row - 1) * line_height
-            for character in characters(line) do
-                local wave = math.sin(offset / math.max(size, 1) * 0.7 - now * 4) * amplitude
-                imgui.SetCursorScreenPos({ left + offset, baseline + wave })
-                imgui.Text(character)
-                local advance = imgui.CalcTextSize(character)
-                offset = offset + advance
+        local thickness = math.max(1, size / 20)
+        -- Finish all outlines before the yellow fill so adjacent glyphs stay clear.
+        for pass = 1, 2 do
+            imgui.PushStyleColor(ImGuiCol_Text, pass == 1 and { 0, 0, 0, alpha } or { 1, 0.9, 0.2, alpha })
+            for row, line in ipairs(lines) do
+                local offset = 0
+                local left = x + (width - line_width(line)) / 2
+                local baseline = y + 12 + amplitude + (row - 1) * line_height
+                for character in characters(line) do
+                    local wave = math.sin(offset / math.max(size, 1) * 0.7 - now * 4) * amplitude
+                    if pass == 1 then
+                        for _, shift in ipairs(outline_offsets) do
+                            imgui.SetCursorScreenPos({ left + offset + shift[1] * thickness,
+                                baseline + wave + shift[2] * thickness })
+                            imgui.Text(character)
+                        end
+                    else
+                        imgui.SetCursorScreenPos({ left + offset, baseline + wave })
+                        imgui.Text(character)
+                    end
+                    local advance = imgui.CalcTextSize(character)
+                    offset = offset + advance
+                end
             end
+            imgui.PopStyleColor()
         end
-        imgui.PopStyleColor()
     end
     imgui.End()
     imgui.PopFont()

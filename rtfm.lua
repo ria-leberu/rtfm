@@ -9,6 +9,7 @@ local imgui = require('imgui')
 local names = require('lib.names')
 local storage = require('lib.storage')
 local config = require('config')
+local timing = require('lib.timing')
 local overlay = require('lib.overlay')
 local center_alert = require('lib.center_alert')
 local config_window = require('lib.config_window')
@@ -28,6 +29,7 @@ local now = imgui.GetTime
 local last_save = now()
 local learned_moves = storage.load(learned_path)
 local preferences = storage.load(preferences_path)
+config.log_retention_minutes = timing.retention_minutes(preferences.log_retention_minutes)
 local move_alerts = require('lib.alerts').new(preferences.move_alerts, preferences.move_alert_entries)
 if move_alerts.migrated then preferences_dirty = true end
 if type(preferences.max_recent) == 'number' and preferences.max_recent == preferences.max_recent then
@@ -78,6 +80,7 @@ local function save()
         move_alerts = move_alerts.selected,
         move_alert_entries = move_alerts:list(),
         max_recent = config.max_recent,
+        log_retention_minutes = config.log_retention_minutes,
         party_enemies_only = config.party_enemies_only,
         log_font_scale = config.log_font_scale,
         single_line_log = config.single_line_log,
@@ -165,7 +168,7 @@ ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
         end
         print(string.format('[RTFM][result] category=%d action=%d move=%s targets=%s players=%s',
             packet.category, packet.action_id, result and result.move or '(unresolved)',
-            table.concat(messages, ','), result and table.concat(result.affected_players, ',') or '(unresolved)'))
+            table.concat(messages, ','), result and table.concat(result.affected_players or {}, ',') or '(unresolved)'))
     end
     if result then record_event(result, now(), true) end
 end)

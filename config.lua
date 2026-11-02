@@ -85,6 +85,7 @@ return {
     center_alert_enabled = true,
     selected_alert_sound = 'alert.wav',
     max_recent = 25,
+    log_retention_minutes = 3,
     max_pending = 100,
     debug_log_all = false,
     auto_learn = false,
