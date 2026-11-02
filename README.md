@@ -216,3 +216,12 @@ is the authoritative addon version.
   features, and PATCH for compatible fixes.
 - Record changes in `CHANGELOG.md` and tag releases as `vMAJOR.MINOR.PATCH`.
 - Keep unreleased changes under `Unreleased` until the next release is ready.
+
+Offensive actions in the log and Readying / Casting area have a red text
+background; defensive buffs and healing use light blue. Tracked actions keep
+their green text. Classification uses local target/effect metadata; unknown
+actions remain uncolored, and custom-server changes may differ.
+
+Harmful spells with known status metadata (including Bio, Blind and Sleepga)
+show the same native status icons as TP moves during casting and in the log.
+Icons describe possible effects, including effects that may be resisted.

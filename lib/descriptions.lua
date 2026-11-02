@@ -3,6 +3,7 @@ local imgui = require('imgui')
 local icons = require('lib.icons')
 local catalogue = require('data.catalogue')
 local statuses = require('data.statuses')
+local spell_statuses = require('data.spell_statuses')
 local monster_index = require('data.generated.monsters')
 local descriptions = {}
 local by_name = {}
@@ -51,9 +52,12 @@ function descriptions.lookup(event, overrides)
         local id = legacy_statuses[names.normalize(override)]
         return id and { statuses = { id } } or { note = override }
     end
+    if event.action == 'casts' or event.action == 'casting' or event.kind == 'spell' then
+        local effects = spell_statuses[names.trim(event.move):lower()]
+        return effects and { statuses = effects, automated = true } or nil
+    end
     -- Only TP-move IDs belong to this catalogue, not spell/JA IDs.
     if event.category == 11 and catalogue[event.action_id] then return catalogue[event.action_id] end
-    if event.action == 'casts' or event.action == 'casting' then return nil end
     local move_key = names.normalize(event.move)
     local candidates = {}
     for _, id in ipairs(monster_index[names.normalize(event.monster)] or {}) do

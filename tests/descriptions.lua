@@ -19,6 +19,16 @@ for _, position in ipairs(positions) do assert(position == 1) end
 assert(descriptions.lookup({ monster = 'Khimaira', move = 'Fossilizing Breath', action = 'readies' }, overrides).statuses[1] == 7)
 assert(not descriptions.lookup({ monster = 'Other', move = 'Unknown move', action = 'uses' }, overrides))
 assert(not descriptions.lookup({ monster = 'Other', move = 'Fire', action = 'casts', category = 4, action_id = 2028 }, overrides))
+for _, action in ipairs({ 'casting', 'casts' }) do
+    for spell, id in pairs({ Bio = 135, ['Bio II'] = 135, Blind = 5, Blindga = 5,
+        Sleepga = 2, Breakga = 7, Diaga = 134, Poison = 3 }) do
+        drawn, positions = {}, {}
+        descriptions.draw({ monster = 'Test', move = spell, action = action, category = 4, action_id = 2028 }, overrides)
+        assert(table.concat(drawn, ',') == 'status:' .. id, spell)
+        assert(positions[1] == 1)
+    end
+end
+assert(not descriptions.lookup({ monster = 'Test', move = 'Blindna', action = 'casts' }, overrides))
 assert(descriptions.lookup({ monster = 'The Greater Manticore', move = 'Heat Breath', action = 'uses' }, overrides).damage == 'fire')
 assert(descriptions.lookup({ monster = "The Aw'ghrah", move = 'Damnation Dive', action = 'uses' }, overrides).damage == 'physical')
 assert(descriptions.lookup({ monster = 'Test', move = 'Test', action = 'uses' }, { test = { test = 'Blind' } }).statuses[1] == 5)

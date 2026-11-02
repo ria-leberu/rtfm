@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Show native status icons beside harmful spells such as Bio, Blind and Sleepga
+  during casting and in completed log entries.
+
+- Distinguish offensive actions with red text backgrounds and defensive buffs
+  or healing with light blue in the log and preparation area.
+
 - Keep TP moves separate from spells, with a Track spells button showing the
   selected enemy's known and saved spells.
 - Add a searchable Add another spell option for missing enemy-specific spells.

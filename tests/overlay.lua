@@ -7,9 +7,11 @@ package.loaded.imgui = {
     Begin = function(title) assert(title == 'RTFM Log'); return true end, End = function() end,
     GetTextLineHeightWithSpacing = function() return 20 end,
     GetCursorScreenPos = function() return 0, 0 end,
+    CalcTextSize = function(text) return #text * 8, 16 end,
     InvisibleButton = function(id) assert(id == '##rtfm_settings'); return click_gear end,
     GetColorU32 = function() return 0 end,
-    GetWindowDrawList = function() return { AddLine = function() end, AddCircle = function() end } end,
+    GetWindowDrawList = function() return { AddLine = function() end, AddCircle = function() end,
+        AddRectFilled = function(_, a, b) assert(b[1] > a[1] and b[2] > a[2]) end } end,
     GetWindowHeight = function() return 260 end, GetCursorPosY = function() return 30 end,
     IsItemHovered = function() return false end,
     BeginChild = function(id, size, child_flags, window_flags)

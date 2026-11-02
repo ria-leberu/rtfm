@@ -1,6 +1,7 @@
 local imgui = require('imgui')
 local names = require('lib.names')
 local descriptions = require('lib.descriptions')
+local action_roles = require('lib.action_roles')
 local overlay = {}
 local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
 local last_history_row
@@ -65,6 +66,16 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
                 imgui.SetTooltip('Alert when ' .. event.monster .. preparation .. event.move)
             end
             imgui.SameLine()
+        end
+        local role = action_roles.lookup(event, moves)
+        if role then
+            local x, y = imgui.GetCursorScreenPos()
+            local width, height = imgui.CalcTextSize(text)
+            local background = role == 'offensive' and { 0.65, 0.08, 0.08, 0.55 }
+                or { 0.35, 0.7, 1, 0.45 }
+            imgui.GetWindowDrawList():AddRectFilled({ x - 2, y }, { x + width + 2, y + height },
+                imgui.GetColorU32(background), 2)
+            if not tracked then color = { 1, 1, 1, alpha } end
         end
         imgui.PushStyleColor(ImGuiCol_Text, color)
         imgui.Text(text)
