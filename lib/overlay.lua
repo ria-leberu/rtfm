@@ -28,6 +28,12 @@ local function draw_rows(rows, pending, now, config, moves)
         imgui.SameLine()
         imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha })
         imgui.Text(string.format('(%.1fs ago)', age))
+        if not pending and event.affected_players and #event.affected_players > 0 then
+            local players = table.concat(event.affected_players, ', ')
+            imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * config.affected_font_scale)
+            imgui.TextWrapped('Hit: ' .. players .. '.')
+            imgui.PopFont()
+        end
         local mob_moves = moves[names.normalize(event.monster)]
         local description = mob_moves and mob_moves[names.normalize(event.move)]
         if description and description ~= '' then imgui.Text('Effect: ' .. description) end

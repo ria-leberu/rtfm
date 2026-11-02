@@ -100,6 +100,8 @@ return {
     pending_timeout = 10.0,
     save_interval = 10.0,
     duplicate_window = 0.5,
+    affected_match_window = 1.0,
+    affected_font_scale = 0.85,
     max_recent = 100,
     max_pending = 100,
     debug_log_all = false,

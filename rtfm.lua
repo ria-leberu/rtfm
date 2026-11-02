@@ -11,6 +11,7 @@ local storage = require('lib.storage')
 local config = require('config')
 local overlay = require('lib.overlay')
 local actions = require('lib.actions')
+local affected = require('lib.affected')
 local moves = require('data.moves')
 local base_path = addon.path or (AshitaCore:GetInstallPath() .. 'addons\\rtfm\\')
 local data_dir = base_path .. 'data\\'
@@ -73,7 +74,7 @@ local function save()
 end
 
 local function help()
-    print('[RTFM] /rtfm [show|hide|toggle|highlight <mob>|unhighlight <mob>|learn on|learn off|help]')
+    print('[RTFM] /rtfm [show|hide|toggle|highlight <mob>|unhighlight <mob>|learn on|learn off|debug on|debug off|help]')
 end
 
 ashita.events.register('command', 'rtfm_command', function(e)
@@ -90,6 +91,9 @@ ashita.events.register('command', 'rtfm_command', function(e)
         config.highlight_mobs[names.normalize(monster)] = command == 'highlight' or nil
         preferences_dirty = true
         print('[RTFM] Highlight ' .. (command == 'highlight' and 'added: ' or 'removed: ') .. monster)
+    elseif command == 'debug' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
+        config.debug_log_all = args[3]:lower() == 'on'
+        print('[RTFM] Debug logging ' .. (config.debug_log_all and 'enabled.' or 'disabled.'))
     elseif command == 'learn' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
         config.auto_learn = args[3]:lower() == 'on'
         preferences_dirty = true
@@ -99,13 +103,10 @@ ashita.events.register('command', 'rtfm_command', function(e)
     end
 end)
 
-ashita.events.register('text_in', 'rtfm_text_in', function(e)
-    if not e or e.injected or not e.message then return end
-    if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
-    local event = actions.parse(e.message, e.mode, config.casting_modes)
-    if not event then return end
-    local timestamp = now()
-    if actors:is_excluded(event.monster, timestamp) or not tracker:record(event, timestamp) then return end
+local function record_event(event, timestamp, verified_monster)
+    if config.blacklist_enabled and config.blacklist_mobs[names.normalize(event.monster)] then return end
+    if not verified_monster and actors:is_excluded(event.monster, timestamp) then return end
+    if not tracker:record(event, timestamp) then return end
     if event.action == 'uses' then
         local monster, move = names.normalize(event.monster), names.normalize(event.move)
         if config.highlight_mobs[monster] and config.sound_moves[move] then
@@ -120,6 +121,31 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
             end
         end
     end
+end
+
+ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
+    local packet, err = affected.parse(e)
+    if err and config.debug_log_all then print('[RTFM][result] Decode failed: ' .. tostring(err)) end
+    if not packet then return end
+    local result = affected.resolve(packet, AshitaCore:GetMemoryManager():GetEntity(),
+        AshitaCore:GetResourceManager())
+    if config.debug_log_all then
+        local messages = {}
+        for _, target in ipairs(packet.targets) do
+            messages[#messages + 1] = string.format('%u:%s', target.id, tostring(target.message))
+        end
+        print(string.format('[RTFM][result] category=%d action=%d move=%s targets=%s players=%s',
+            packet.category, packet.action_id, result and result.move or '(unresolved)',
+            table.concat(messages, ','), result and table.concat(result.affected_players, ',') or '(unresolved)'))
+    end
+    if result then record_event(result, now(), true) end
+end)
+
+ashita.events.register('text_in', 'rtfm_text_in', function(e)
+    if not e or e.injected or not e.message then return end
+    if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
+    local event = actions.parse(e.message, e.mode, config.casting_modes)
+    if event then record_event(event, now(), false) end
 end)
 
 ashita.events.register('d3d_present', 'rtfm_present', function()

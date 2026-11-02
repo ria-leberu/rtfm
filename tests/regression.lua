@@ -99,7 +99,16 @@ ashita = {
 bit = { band = function(a, b) return a == b and b or 0 end }
 package.loaded.common = {}
 package.loaded.imgui = { GetTime = function() return clock end }
-package.loaded['lib.overlay'] = { draw = function(open) assert(not open[1]) end }
+local displayed_tracker
+package.loaded['lib.overlay'] = { draw = function(open, tracker)
+    assert(not open[1])
+    displayed_tracker = tracker
+end }
+package.loaded['lib.affected'] = {
+    parse = function(e) return e.fixture end,
+    resolve = function(packet) return packet end,
+}
+AshitaCore.GetResourceManager = function() return {} end
 package.loaded['lib.storage'] = {
     load = function() return {} end,
     save = function(path, value) saves[path] = value; return true end,
@@ -128,6 +137,26 @@ assert(saves['mock/data\\preferences.lua'].is_open == false)
 callbacks.text_in({ message = 'Kirin uses Fulmination.', mode = 51 })
 callbacks.unload()
 assert(saves['mock/data\\mobs_learned.lua'].kirin.fulmination)
+
+-- Reproduce the user's confirmed packet without any matching chat callback.
+clock = 20
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Fossilizing Breath', action = 'uses',
+    affected_players = { 'Rialia' },
+} })
+callbacks.text_in({ injected = true, message = 'Khimaira uses Fossilizing Breath.', mode = 185 })
+callbacks.d3d_present()
+local breath = displayed_tracker.recent[#displayed_tracker.recent]
+assert(breath.monster == 'Khimaira' and breath.move == 'Fossilizing Breath')
+assert(breath.affected_players[1] == 'Rialia')
+clock = 22
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Dreadstorm', action = 'uses',
+    affected_players = { 'Rialia' },
+} })
+callbacks.d3d_present()
+local dreadstorm = displayed_tracker.recent[#displayed_tracker.recent]
+assert(dreadstorm.move == 'Dreadstorm' and dreadstorm.affected_players[1] == 'Rialia')
 
 -- Known entities take precedence over name heuristics and configured exceptions.
 local actor_filter = require('lib.actors').new({

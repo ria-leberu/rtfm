@@ -7,7 +7,10 @@ function actions.new(config)
 end
 
 function actions.parse(message, mode, casting_modes)
-    message = names.trim(message:gsub('[\31\30\127]', ''))
+    -- Color controls contain a marker AND a palette byte. Leaving the palette
+    -- byte behind makes visually identical chat/resource names compare unequal.
+    message = message:gsub('[\30\31].', ''):gsub('\127.', '\n')
+    message = names.trim(message:gsub('[%z\1-\8\11\12\14-\31\127]', ''))
     local patterns = {
         { 'readies', 'readies' },
         { 'starts casting', 'casting' },
@@ -27,6 +30,11 @@ function actions.parse(message, mode, casting_modes)
     end
 end
 
+-- Packet results are complete events, even if chat is filtered or injected.
+function actions:attach_affected(result, now)
+    return self:record(result, now)
+end
+
 function actions:update(now)
     for _, group in ipairs({ { self.pending, self.config.pending_timeout },
         { self.recent, self.config.display_time } }) do
@@ -40,6 +48,9 @@ end
 
 function actions:record(event, now)
     self:update(now)
+    local row = {}
+    for key, value in pairs(event) do row[key] = value end
+    event = row
     event.id = names.normalize(event.monster) .. ':' .. names.normalize(event.move)
     local pending = event.action == 'readies' or event.action == 'casting'
     local matched
@@ -56,9 +67,19 @@ function actions:record(event, now)
         if not matched then
             for i = #self.recent, 1, -1 do
                 local previous = self.recent[i]
-                if previous.id == event.id and previous.action == event.action
-                    and now - previous.timestamp < self.config.duplicate_window then
-                    return false
+                if previous.id == event.id and previous.action == event.action then
+                    local age = now - previous.timestamp
+                    if event.affected_players ~= nil then
+                        if previous.affected_players == nil and age <= self.config.affected_match_window then
+                            previous.affected_players = event.affected_players
+                            return false
+                        end
+                        -- Each confirmed packet is a separate move execution.
+                    elseif previous.affected_players ~= nil and age <= self.config.affected_match_window then
+                        return false
+                    elseif age < self.config.duplicate_window then
+                        return false
+                    end
                 end
             end
         end
