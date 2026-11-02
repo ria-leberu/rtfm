@@ -1,2 +1,11 @@
 # Local Lua editor configuration
 .luarc.json
+
+# Local runtime preferences and save recovery files
+data/preferences.lua
+data/*.tmp
+data/*.bak
+
+# Upstream source snapshot used by the offline catalogue builder
+.catalogue-cache/
+tools/__pycache__/

@@ -1,772 +1,192 @@
-addon.name     = 'rtfm'
-addon.author   = 'Rialia'
-addon.version  = '0.1.0'
-addon.desc     = 'Displays, logs, and learns monster TP moves and spells.'
+addon.name = 'rtfm'
+addon.author = 'Rialia'
+addon.version = '0.1.0'
+addon.desc = 'Displays, logs, and learns monster TP moves and spells.'
 addon.commands = { 'rtfm' }
 
 require('common')
-local imgui    = require('imgui')
-local moveData = require('moves')
-
-print('[RTFM] Addon loaded.')
-
-------------------------------------------------------------
--- Paths / Persistence
-------------------------------------------------------------
-local base_path         = AshitaCore:GetInstallPath()
-local data_dir          = base_path .. 'addons\\rtfm\\data'
-local learned_path      = data_dir .. '\\mobs_learned.lua'
-
-------------------------------------------------------------
--- Config
-------------------------------------------------------------
-local DISPLAY_TIME      = 120.0
-local READIES_TIMEOUT   = 10.0
-local SAVE_INTERVAL     = 10.0
-
-------------------------------------------------------------
--- State
-------------------------------------------------------------
-local show_window       = true
-local debug_log_all     = false
-local blacklist_enabled = true
-local recentMoves       = {}
-local pendingActions    = {}
-local learned_moves     = {}
-local learned_dirty     = false
-local last_save         = os.clock()
-local lastMonster       = nil
-local state             = { is_open = { true } }
-local auto_learn        = false
-
-local emode_mob_readies = {
-    [28]  = true,
-    [30]  = true,
-    [32]  = true,
-    [40]  = true,
-    [104] = true,
-    [105] = true,
-    [107] = true,
-    [110] = true,
-    [112] = true,
-    [177] = true,
-    [185] = true,
-}
-
-local emode_mob_uses    = {
-    [28]  = true,
-    [30]  = true,
-    [32]  = true,
-    [40]  = true,
-    [104] = true,
-    [107] = true,
-    [111] = true,
-    [112] = true,
-    [185] = true,
-}
-
-local emode_mob_casting = {
-    [51] = true,
-    [52] = true,
-}
-
-local guaranteed_mobs   = {
-    ['seiryu']       = true,
-    ['byakko']       = true,
-    ['suzaku']       = true,
-    ['genbu']        = true,
-    ['kirin']        = true,
-    ['sarameya']     = true,
-    ['battosai']     = true,
-    ['gensai']       = true,
-    ['tinnin']       = true,
-    ['tyger']        = true,
-    ['arfarvegr']    = true,
-    ['midgardsormr'] = true,
-    ['skrudningr']   = true,
-    ['brjota']       = true,
-    ['tidepincher']  = true,
-    ['lugh']         = true,
-    ['nidhogg']      = true,
-    ['tethra']       = true,
-    ['ethniu']       = true,
-    ['elatha']       = true,
-    ['buarainech']   = true,
-    ['absolute virtue'] = true,
-    ['tidepincher-ex']  = true,
-    ['emberwing-ex']  = true,
-    ['dustburrower-ex']  = true,
-    ['swiftsting-ex']  = true,
-    ['diabolos somnus']  = true,
-    ['diabolos letum']  = true,
-    ['yasuo hasaki'] = true,
-    ['khimaira']      = true,
-    ['medusa'] = true,
-    ['gurfurlur the menacing'] = true,
-    ['Tzee Xicu the Manifest'] = true,
-    ['zo\'pha forgesoul'] = true,
-    ['jailer of love']   = true,
-    ['tee zaksa the ceaseless']   = true,
-    ['fuu tzapo the blessed']   = true,
-    ['naa yixo the stillrage']   = true,
-    ['di\'zho spongeshell']   = true,
-    ['nosferatu']   = true,
-    ['khromasoul bhurborlor']   = true,
-    ['maa illmu the bestower']   = true,
-    ['asterion']   = true,
-    ['suu xicu the cantabile']   = true,
-    ['vee ladu the titterer']   = true,
-    ['loo kutto the pensive']   = true,
-    ['marquis forneus']   = true,
-    ['dee zelko the esoteric']   = true,
-    ['feralox honeylips']   = true,
-    ['wilywox tenderpalm']   = true,
-    ['neo-ultima'] = true,
-    ['neo-omega'] = true,
-    ['cetus'] = true,
-    ['lost stcemqestcint'] = true,
-    ['nyx animus'] = true,
-    ['necrodrome'] = true,
-    ['king za\'dha'] = true,
-    ['tzee xicu'] = true,
-    ['lord bakgodek'] = true,
-    ['arch antaeus'] = true,
-    ['cyning behemoth'] = true,
-    ['titan orobon'] = true,
-    ['amphisbaena'] = true,
-    ['tamandua'] = true,
-    ['Wild Baelfyr'] = true,
-    ['Wild Gefyrst'] = true,
-    ['Wild Ungeweder'] = true,
-    ['Wild Byrgen'] = true,
-    ['Lost Barong'] = true,
-    ['Lost Stihi'] = true,
-    ['Lost Alklha'] = true,
-    ['Lost Aitvaras'] = true,
-
-    
-
-
-}
-
-local blacklist_mobs    = {
-    -- ['rabbit'] = true,
-    -- ['bee'] = true,
-    -- ['moblintopsman'] = true,
-}
-
-local highlight_mobs    = {
-    ['kirin'] = true,
-    ['genbu'] = true,
-    ['moblintopsman'] = true,
-    ['absolute virtue'] = true,
-    ['yasuo hasaki'] = true,
-    ['medusa'] = true,
-    ['gurfurlur the menacing'] = true,
-    ['brjota']       = true,
-    ['zo\'pha forgesoul'] = true,
-    ['neo-ultima'] = true,
-    ['odin\'s fool'] = true,
-    ['cetus'] = true,
-    ['tyger'] = true
-
-
-
-}
-
-local sound_moves = {
-
-    ['mortalray'] = 'alert.wav',
-    ['abrasivetantara'] = 'alert.wav',
-    ['souldouse'] = 'alert.wav',
-
-
-    -- ['invincible'] = 'alert.wav',
-    -- ['mightystrikes'] = 'alert.wav',
-    -- ['perfectdodge'] = 'alert.wav',
-    -- ['chainspell'] = 'alert.wav',
-    -- ['eagleeyeshot'] = 'alert.wav',
-    -- ['manafont'] = 'alert.wav',
-    -- ['callwyvern'] = 'alert.wav',
-    -- ['benediction'] = 'alert.wav',
-    -- ['hundredfists'] = 'alert.wav',
-    -- ['bloodweapon'] = 'alert.wav',
-    -- ['soulvoice'] = 'alert.wav',
-    -- ['meikyoshisui'] = 'alert.wav',
-    -- ['oblivionsmantle'] = 'alert.wav',
-    ['fulmination'] = 'alert.wav',
-
-}
-------------------------------------------------------------
--- Utility
-------------------------------------------------------------
-local function strip_formatting(s)
-    if not s then return '' end
-    return s:gsub('[\31\30\127]', '')
+local imgui = require('imgui')
+local names = require('lib.names')
+local storage = require('lib.storage')
+local config = require('config')
+local overlay = require('lib.overlay')
+local config_window = require('lib.config_window')
+local actions = require('lib.actions')
+local affected = require('lib.affected')
+local engagement = require('lib.engagement')
+local moves = require('data.moves')
+local base_path = addon.path or (AshitaCore:GetInstallPath() .. 'addons\\rtfm\\')
+local data_dir = base_path .. 'data\\'
+local learned_path = data_dir .. 'mobs_learned.lua'
+local preferences_path = data_dir .. 'preferences.lua'
+local is_open = { true }
+local config_open = { false }
+local learned_dirty = false
+local preferences_dirty = false
+local now = imgui.GetTime
+local last_save = now()
+local learned_moves = storage.load(learned_path)
+local preferences = storage.load(preferences_path)
+local move_alerts = require('lib.alerts').new(preferences.move_alerts, preferences.move_alert_entries)
+if move_alerts.migrated then preferences_dirty = true end
+if type(preferences.max_recent) == 'number' and preferences.max_recent == preferences.max_recent then
+    config.max_recent = math.max(1, math.min(250, math.floor(preferences.max_recent)))
 end
 
-local function normalize(s)
-    if not s then return '' end
-    s = s:lower()
-    s = s:gsub('^the%s+', '')
-    s = s:gsub("[’']", '')
-    s = s:gsub('%s+', '')
-    s = s:gsub('[%p%d]+$', '')
-    return s
+for _, key in ipairs({ 'guaranteed_mobs', 'blacklist_mobs' }) do
+    config[key] = names.map(config[key])
+end
+if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
+if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
+if type(preferences.party_enemies_only) == 'boolean' then config.party_enemies_only = preferences.party_enemies_only end
+
+-- Normalize saved and curated keys at the boundary so all lookups agree.
+local normalized_learned = {}
+for monster, entries in pairs(learned_moves) do
+    if type(monster) == 'string' and type(entries) == 'table' then
+        local key = names.normalize(monster)
+        normalized_learned[key] = normalized_learned[key] or {}
+        for move, value in pairs(entries) do
+            if type(move) == 'string' and value == true then
+                normalized_learned[key][names.normalize(move)] = true
+            end
+        end
+    end
+end
+learned_moves = normalized_learned
+local normalized_moves = {}
+for monster, entries in pairs(moves) do
+    normalized_moves[names.normalize(monster)] = names.map(entries)
+end
+moves = normalized_moves
+local tracker = actions.new(config)
+local actors = require('lib.actors').new(config)
+
+local function save()
+    if not learned_dirty and not preferences_dirty then return end
+    ashita.fs.create_dir(data_dir)
+    if learned_dirty and storage.save(learned_path, learned_moves) then learned_dirty = false end
+    if preferences_dirty and storage.save(preferences_path, {
+        auto_learn = config.auto_learn,
+        is_open = is_open[1],
+        move_alerts = move_alerts.selected,
+        move_alert_entries = move_alerts:list(),
+        max_recent = config.max_recent,
+        party_enemies_only = config.party_enemies_only,
+    }) then
+        preferences_dirty = false
+    end
 end
 
-local function is_blacklisted(name)
-    if not name then return false end
-    if not blacklist_enabled then return false end
+if move_alerts.migrated then save() end
 
-    return blacklist_mobs[normalize(name)] == true
+local function help()
+    print('[RTFM] /rtfm [show|hide|toggle|config|learn on|learn off|debug on|debug off|help]')
 end
-
-local function is_highlighted(name)
-    if not name then return false end
-
-    local norm = normalize(name)
-    local lower = name:lower()
-
-    return highlight_mobs[norm] == true
-        or highlight_mobs[lower] == true
-end
-
-local function play_sound_for_move(move)
-    if not move then return end
-
-    local m = normalize(move)
-    local sound = sound_moves[m]
-    if not sound then return end
-
-    local path = AshitaCore:GetInstallPath() .. 'addons\\rtfm\\sounds\\' .. sound
-
-    ashita.misc.play_sound(path)
-end
-
-local function create_id(monster, move)
-    return normalize(monster) .. ':' .. normalize(move)
-end
-
--- ashita.events.register('command', 'rtfm_command', function(e)
---     local args = e.command:args()
---     if #args < 2 then return end
-
---     if args[1] ~= '/rtfm' then return end
-
---     local cmd = args[2]:lower()
-
---     if cmd == 'highlight' and args[3] then
---         local mob = normalize(args[3])
---         highlight_mobs[mob] = true
---         print('[RTFM] Highlight added: ' .. args[3])
---         e.blocked = true
---         return
---     end
-
---     if cmd == 'unhighlight' and args[3] then
---         local mob = normalize(args[3])
---         highlight_mobs[mob] = nil
---         print('[RTFM] Highlight removed: ' .. args[3])
---         e.blocked = true
---         return
---     end
--- end)
 
 ashita.events.register('command', 'rtfm_command', function(e)
     local args = e.command:args()
-
-    if #args < 1 then
-        return
+    if not args[1] or args[1]:lower() ~= '/rtfm' then return end
+    e.blocked = true
+    local command = args[2] and args[2]:lower() or 'toggle'
+    if command == 'show' or command == 'hide' or command == 'toggle' then
+        if command == 'toggle' then is_open[1] = not is_open[1]
+        else is_open[1] = command == 'show' end
+        preferences_dirty = true
+    elseif command == 'config' or command == 'settings' then
+        config_open[1] = not config_open[1]
+    elseif command == 'debug' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
+        config.debug_log_all = args[3]:lower() == 'on'
+        print('[RTFM] Debug logging ' .. (config.debug_log_all and 'enabled.' or 'disabled.'))
+    elseif command == 'learn' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
+        config.auto_learn = args[3]:lower() == 'on'
+        preferences_dirty = true
+        print('[RTFM] Learning ' .. (config.auto_learn and 'enabled.' or 'disabled.'))
+    else
+        help()
     end
-
-    if args[1]:lower() ~= '/rtfm' then
-        return
-    end
-
-    --------------------------------------------------------
-    -- /rtfm
-    -- Toggle window by default
-    --------------------------------------------------------
-    if #args == 1 then
-        show_window = not show_window
-        state.is_open[1] = show_window
-
-        -- print(string.format(
-        --     '[RTFM] Overlay %s.',
-        --     show_window and 'shown' or 'hidden'
-        -- ))
-
-        e.blocked = true
-        return
-    end
-
-    local cmd = args[2]:lower()
-
-    --------------------------------------------------------
-    -- /rtfm show
-    --------------------------------------------------------
-    if cmd == 'show' then
-        show_window = true
-        state.is_open[1] = true
-
-        -- print('[RTFM] Overlay shown.')
-
-        e.blocked = true
-        return
-    end
-
-    --------------------------------------------------------
-    -- /rtfm hide
-    --------------------------------------------------------
-    if cmd == 'hide' then
-        show_window = false
-        state.is_open[1] = false
-
-        -- print('[RTFM] Overlay hidden.')
-
-        e.blocked = true
-        return
-    end
-
-    --------------------------------------------------------
-    -- /rtfm toggle
-    --------------------------------------------------------
-    if cmd == 'toggle' then
-        show_window = not show_window
-        state.is_open[1] = show_window
-
-        -- print(string.format(
-        --     '[RTFM] Overlay %s.',
-        --     show_window and 'shown' or 'hidden'
-        -- ))
-
-        e.blocked = true
-        return
-    end
-
-    --------------------------------------------------------
-    -- /rtfm highlight <mob>
-    --------------------------------------------------------
-    if cmd == 'highlight' and args[3] then
-        local mob = normalize(args[3])
-        highlight_mobs[mob] = true
-        print('[RTFM] Highlight added: ' .. args[3])
-
-        e.blocked = true
-        return
-    end
-
-    --------------------------------------------------------
-    -- /rtfm unhighlight <mob>
-    --------------------------------------------------------
-    if cmd == 'unhighlight' and args[3] then
-        local mob = normalize(args[3])
-        highlight_mobs[mob] = nil
-        print('[RTFM] Highlight removed: ' .. args[3])
-
-        e.blocked = true
-        return
-    end
+    if preferences_dirty then save() end
 end)
 
-------------------------------------------------------------
--- Curated / Learned Lookup
-------------------------------------------------------------
-local function is_known_move(monster, move)
-    local m = normalize(monster)
-    local a = normalize(move)
-    return (moveData[m] and moveData[m][a]) ~= nil
-end
-
-------------------------------------------------------------
--- Learned Move Recording
-------------------------------------------------------------
-local function learn_move(monster, move)
-    local m = normalize(monster)
-    local a = normalize(move)
-
-    learned_moves[m] = learned_moves[m] or {}
-
-    if not learned_moves[m][a] then
-        learned_moves[m][a] = true
-        learned_dirty = true
-        print(string.format('[RTFM] Learned: %s → %s', monster, move))
+local function record_event(event, timestamp, verified_monster)
+    if config.blacklist_enabled and config.blacklist_mobs[names.normalize(event.monster)] then return end
+    if not verified_monster and actors:is_excluded(event.monster, timestamp) then return end
+    if config.party_enemies_only then
+        local memory = AshitaCore:GetMemoryManager()
+        if not engagement.matches(event, memory:GetEntity(), memory:GetParty()) then return end
     end
-end
-
-local function ensure_directory(path)
-    os.execute(string.format('mkdir "%s"', path))
-end
-
-local function save_learned()
-    if not learned_dirty then return end
-
-    ensure_directory(data_dir)
-
-    local f = io.open(learned_path, 'w')
-    if not f then
-        print('[RTFM] ERROR: Failed to write learned moves file.')
-        return
+    local added = tracker:record(event, timestamp)
+    if config.debug_log_all then
+        print(string.format('[RTFM][row] %s %s %s: %s (recent=%d, pending=%d)',
+            event.monster, event.action, event.move, added and 'added' or 'merged/ignored',
+            #tracker.recent, #tracker.pending))
     end
-
-    f:write('return {\n')
-    for mob, moves in pairs(learned_moves) do
-        f:write(string.format('    ["%s"] = {\n', mob))
-        for move, _ in pairs(moves) do
-            f:write(string.format('        ["%s"] = true,\n', move))
-        end
-        f:write('    },\n')
+    if not added then return end
+    if (event.action == 'readies' or event.action == 'casting') and move_alerts:is_selected(event) then
+        ashita.misc.play_sound(base_path .. 'sounds\\' .. config.selected_alert_sound)
     end
-    f:write('}\n')
-    f:close()
-
-    learned_dirty = false
-    last_save = os.clock()
-    print('[RTFM] Learned moves saved.')
-end
-
-------------------------------------------------------------
--- Load learned file (if exists)
-------------------------------------------------------------
-do
-    local ok, data = pcall(dofile, learned_path)
-    if ok and type(data) == 'table' then
-        learned_moves = data
-        print('[RTFM] Loaded learned moves.')
-    end
-end
-
-local function is_player_or_trust(name)
-    if not name then return false end
-    local lname = name:lower()
-
-    local norm = normalize(name)
-    local lower = name:lower()
-
-    if guaranteed_mobs[norm] or guaranteed_mobs[lower] then
-        return false
-    end
-
-    local party  = AshitaCore:GetMemoryManager():GetParty()
-    local ents   = AshitaCore:GetMemoryManager():GetEntity()
-
-    -- Your own character
-    local myname = party:GetMemberName(0)
-    if myname and myname:lower() == lname then
-        return true
-    end
-
-    -- Party and alliance members
-    for i = 0, 17 do
-        if party:GetMemberIsActive(i) == 1 then
-            local pname = party:GetMemberName(i)
-            if pname and pname:lower() == lname then
-                return true
+    if event.action == 'uses' then
+        local monster, move = names.normalize(event.monster), names.normalize(event.move)
+        if config.auto_learn then
+            learned_moves[monster] = learned_moves[monster] or {}
+            if not learned_moves[monster][move] then
+                learned_moves[monster][move] = true
+                learned_dirty = true
+                print(string.format('[RTFM] Learned: %s -> %s', event.monster, event.move))
             end
         end
     end
+end
 
-    -- Scan all entities for PC / Trust / Pet types
-    for i = 0, 2303 do
-        local ename = ents:GetName(i)
-        if ename and ename:lower() == lname then
-            local etype = ents:GetType(i)
-            -- 1 = PC, 2 = Trust, 5 = Pet (exclude all of these)
-            if etype == 1 or etype == 2 or etype == 5 then
-                return true
-            end
+ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
+    if e.id == 0x00B then save() end -- leaving the zone, including logout
+    local packet, err = affected.parse(e)
+    if err and config.debug_log_all then print('[RTFM][result] Decode failed: ' .. tostring(err)) end
+    if not packet then return end
+    local result = affected.resolve(packet, AshitaCore:GetMemoryManager():GetEntity(),
+        AshitaCore:GetResourceManager())
+    if config.debug_log_all then
+        local messages = {}
+        for _, target in ipairs(packet.targets) do
+            messages[#messages + 1] = string.format('%u:%s', target.id, tostring(target.message))
         end
+        print(string.format('[RTFM][result] category=%d action=%d move=%s targets=%s players=%s',
+            packet.category, packet.action_id, result and result.move or '(unresolved)',
+            table.concat(messages, ','), result and table.concat(result.affected_players, ',') or '(unresolved)'))
     end
+    if result then record_event(result, now(), true) end
+end)
 
-    -- Heuristic fallback: player-style naming (capitalized, no spaces or apostrophes)
-    if name:match("^[A-Z][a-z]+$") then
-        return true
-    end
-
-    return false
-end
-
-------------------------------------------------------------
--- Helpers
-------------------------------------------------------------
-local function find_pending(id, move)
-    for i = #pendingActions, 1, -1 do
-        if pendingActions[i].id == id
-            or normalize(pendingActions[i].move) == normalize(move) then
-            return i
-        end
-    end
-    return nil
-end
-
-local function recent_contains(id)
-    for i = 1, #recentMoves do
-        if recentMoves[i].id == id then return true end
-    end
-    return false
-end
-
-------------------------------------------------------------
--- text_in (robust parser + learning)
-------------------------------------------------------------
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
-
-    local msg = strip_formatting(e.message):trim()
-    if debug_log_all then
-        print(string.format('[RTFM][%d] %s', e.mode, msg))
-    end
-
-    local monster, move, verb
-
-    monster, move = msg:match('^%s*(.-)%s+readies%s+([^%.]+)')
-    if monster and move
-        and not is_player_or_trust(monster)
-        and not is_blacklisted(monster) then
-        move = move:gsub('[%p%d%s]+$', '')
-        table.insert(pendingActions, {
-            id        = create_id(monster, move),
-            monster   = monster,
-            move      = move,
-            action    = 'readies',
-            timestamp = os.clock()
-        })
-        lastMonster = monster
-        return
-    end
-
-    --------------------------------------------------------
-    -- STARTS CASTING
-    --------------------------------------------------------
-    if emode_mob_casting[e.mode] then
-        monster, move = msg:match('^%s*(.-)%s+starts casting%s+([^%.]+)')
-        if monster and move
-            and not is_player_or_trust(monster)
-            and not is_blacklisted(monster) then
-            move = move:gsub('[%p%d%s]+$', '')
-            table.insert(pendingActions, {
-                id        = create_id(monster, move),
-                monster   = monster,
-                move      = move,
-                action    = 'casting',
-                timestamp = os.clock()
-            })
-            lastMonster = monster
-            return
-        end
-    end
-
-    --------------------------------------------------------
-    -- USES / CASTS (learning happens here)
-    --------------------------------------------------------
-    monster, move = msg:match('^%s*(.-)%s+uses%s+([^%.]+)')
-    verb = 'uses'
-
-    if not monster then
-        monster, move = msg:match('^%s*(.-)%s+casts%s+([^%.]+)')
-        verb = 'casts'
-    end
-
-    -- if emode_mob_uses[e.mode] then
-    --     if (monster and move
-    --         and not is_player_or_trust(monster)
-    --         and not is_blacklisted(monster))
-    --         or is_highlighted(monster) then
-
-    --         move = move:gsub('[%p%d%s]+$', '')
-    --         local id = create_id(monster, move)
-
-    --         local idx = find_pending(id, move)
-    --         if idx then table.remove(pendingActions, idx) end
-
-    --         if not recent_contains(id) then
-    --             table.insert(recentMoves, {
-    --                 id        = id,
-    --                 monster   = monster,
-    --                 move      = move,
-    --                 action    = verb,
-    --                 timestamp = os.clock()
-    --             })
-
-    --             -- 🔊 Play sound for tracked moves
-    --             if verb == 'uses' and is_highlighted(monster) then
-    --                 play_sound_for_move(move)
-    --             end
-    --         end
-
-    --         -- Learn ONLY TP moves (ignore spells)
-    --         if verb == 'uses' and auto_learn then
-    --             learn_move(monster, move)
-    --         end
-
-    --         return
-    --     end
-    -- end
-
-        if monster and move
-            and not is_player_or_trust(monster)
-            and not is_blacklisted(monster) then
-
-            move = move:gsub('[%p%d%s]+$', '')
-            local id = create_id(monster, move)
-
-            local idx = find_pending(id, move)
-            if idx then table.remove(pendingActions, idx) end
-
-            if not recent_contains(id) then
-                table.insert(recentMoves, {
-                    id        = id,
-                    monster   = monster,
-                    move      = move,
-                    action    = verb,
-                    timestamp = os.clock()
-                })
-
-                -- 🔊 Sound
-                if verb == 'uses' and is_highlighted(monster) then
-                    play_sound_for_move(move)
-                end
-            end
-
-            if verb == 'uses' and auto_learn then
-                learn_move(monster, move)
-            end
-
-        return
+    if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
+    local event = actions.parse(e.message)
+    -- Completion packets already supply the move and its targets. Chat can be
+    -- delayed or reformatted by other addons, so it must not create a second row.
+    if event and (event.action == 'readies' or event.action == 'casting') then
+        record_event(event, now(), false)
     end
 end)
 
-------------------------------------------------------------
--- Overlay UI
-------------------------------------------------------------
 ashita.events.register('d3d_present', 'rtfm_present', function()
-    if not show_window then return end
-
-    local now = os.clock()
-
-    for i = #recentMoves, 1, -1 do
-        if (now - recentMoves[i].timestamp) > DISPLAY_TIME then
-            table.remove(recentMoves, i)
-        end
+    local timestamp = now()
+    tracker:update(timestamp)
+    if timestamp - last_save >= config.save_interval then
+        save()
+        last_save = timestamp
     end
-    for i = #pendingActions, 1, -1 do
-        if (now - pendingActions[i].timestamp) > READIES_TIMEOUT then
-            table.remove(pendingActions, i)
-        end
+    local was_open = is_open[1]
+    local changed = overlay.draw(is_open, tracker, timestamp, config, moves, move_alerts, config_open)
+    if config_window.draw(config_open, move_alerts, config) then changed = true end
+    if changed then
+        preferences_dirty = true
     end
-
-    -- -- Sort highlighted mobs to top (recent)
-    -- table.sort(recentMoves, function(a, b)
-    --     return is_highlighted(a.monster) and not is_highlighted(b.monster)
-    -- end)
-
-    -- -- Sort highlighted mobs to top (pending)
-    -- table.sort(pendingActions, function(a, b)
-    --     return is_highlighted(a.monster) and not is_highlighted(b.monster)
-    -- end)
-
-    if learned_dirty and (now - last_save) > SAVE_INTERVAL then
-        save_learned()
-    end
-
-    imgui.SetNextWindowBgAlpha(0.85)
-    imgui.SetNextWindowSize({ 520, 140 }, ImGuiCond_FirstUseEver)
-
-    imgui.Begin('RTFM Overlay', state.is_open,
-        bit.bor(ImGuiWindowFlags_NoResize,
-            ImGuiWindowFlags_NoCollapse,
-            ImGuiWindowFlags_AlwaysAutoResize))
-
-    --------------------------------------------------------
-    -- Recent actions (colored + fading)
-    --------------------------------------------------------
-    if #recentMoves == 0 then
-        imgui.Text('No recent actions.')
-    else
-        for i, m in ipairs(recentMoves) do
-            local age          = now - m.timestamp
-            local alpha        = 1.0 - math.min(age / DISPLAY_TIME, 1.0) ^ 2.5
-
-            local is_highlight = is_highlighted(m.monster)
-
-            local color
-            if is_highlight then
-                color = {0.0, 1.0, 0.0, alpha}  -- neon green                
-            else
-                color = (m.action == 'uses')
-                    and { 1.0, 0.3, 0.3, alpha } -- red
-                    or { 0.8, 0.4, 1.0, alpha } -- purple
-            end
-
-            local text = string.format('%s used %s', m.monster, m.move)
-
-            if is_highlighted(m.monster) then
-                text = '>>> ' .. text
-            end
-
-            imgui.PushStyleColor(ImGuiCol_Text, color)
-            imgui.Text(text)
-            imgui.PopStyleColor()
-
-            imgui.SameLine()
-            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 1.0 })
-            imgui.Text(string.format('(%.1fs ago)', age))
-            imgui.PopStyleColor()
-
-            if i < #recentMoves then imgui.Separator() end
-        end
-    end
-
-    --------------------------------------------------------
-    -- Pending actions (pulsing)
-    --------------------------------------------------------
-    if #pendingActions > 0 then
-        imgui.Separator()
-        imgui.Text('Readying...')
-
-        for i, p in ipairs(pendingActions) do
-            local age          = now - p.timestamp
-            local pulse        = 0.6 + 0.4 * math.abs(math.sin(now * 3.0))
-            local alpha        = 1.0 - math.min(age / READIES_TIMEOUT, 1.0) ^ 2.5
-
-            local is_highlight = is_highlighted(p.monster)
-
-            local color
-            if is_highlight then
-                color = { 0.2, 1.0 * pulse, 0.2, alpha } -- 🔥 pulsing green
-            else
-                if p.action == 'casting' then
-                    color = { 0.6, 0.6 * pulse, 1.0 * pulse, alpha }
-                else
-                    color = { 1.0, 1.0 * pulse, 0.3 * pulse, alpha }
-                end
-            end
-
-            local verb = (p.action == 'casting') and 'starts casting' or 'readies'
-            local text = string.format('%s %s %s', p.monster, verb, p.move)
-
-            if is_highlighted(p.monster) then
-                text = '>>> ' .. text
-            end
-
-            imgui.PushStyleColor(ImGuiCol_Text, color)
-            imgui.Text(text)
-            imgui.PopStyleColor()
-
-            imgui.SameLine()
-            imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha * 0.8 })
-            imgui.Text(string.format('(%.1fs ago)', age))
-            imgui.PopStyleColor()
-
-            if i < #pendingActions then imgui.Separator() end
-        end
-    end
-
-    imgui.End()
-
-    if not state.is_open[1] then
-        show_window = false
-    end
-
+    if is_open[1] ~= was_open then preferences_dirty = true end
+    if changed or is_open[1] ~= was_open then save() end
 end)
+
+ashita.events.register('unload', 'rtfm_unload', function()
+    save()
+    require('lib.icons').clear()
+end)
+print('[RTFM] Addon loaded.')

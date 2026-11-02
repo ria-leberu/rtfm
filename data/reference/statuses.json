@@ -1,0 +1,4828 @@
+{
+  "0": {
+    "custom": false,
+    "icon_id": 0,
+    "id": 0,
+    "name": "KO",
+    "symbol": "KO"
+  },
+  "1": {
+    "custom": false,
+    "icon_id": 1,
+    "id": 1,
+    "name": "Weakness",
+    "symbol": "WEAKNESS"
+  },
+  "2": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 2,
+    "id": 2,
+    "name": "Sleep",
+    "symbol": "SLEEP_I"
+  },
+  "3": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 3,
+    "id": 3,
+    "name": "Poison",
+    "symbol": "POISON"
+  },
+  "4": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 4,
+    "id": 4,
+    "name": "Paralyze",
+    "symbol": "PARALYSIS"
+  },
+  "5": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 5,
+    "id": 5,
+    "name": "Blind",
+    "symbol": "BLINDNESS"
+  },
+  "6": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 6,
+    "id": 6,
+    "name": "Silence",
+    "symbol": "SILENCE"
+  },
+  "7": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 7,
+    "id": 7,
+    "name": "Petrify",
+    "symbol": "PETRIFICATION"
+  },
+  "8": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 8,
+    "id": 8,
+    "name": "Disease",
+    "symbol": "DISEASE"
+  },
+  "9": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 9,
+    "id": 9,
+    "name": "Curse",
+    "symbol": "CURSE_I"
+  },
+  "10": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 10,
+    "id": 10,
+    "name": "Stun",
+    "symbol": "STUN"
+  },
+  "11": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 11,
+    "id": 11,
+    "name": "Bind",
+    "symbol": "BIND"
+  },
+  "12": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 12,
+    "id": 12,
+    "name": "Gravity",
+    "symbol": "WEIGHT"
+  },
+  "13": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 13,
+    "id": 13,
+    "name": "Slow",
+    "symbol": "SLOW"
+  },
+  "14": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 14,
+    "id": 14,
+    "name": "Charm",
+    "symbol": "CHARM_I"
+  },
+  "15": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 15,
+    "id": 15,
+    "name": "Doom",
+    "symbol": "DOOM"
+  },
+  "16": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 16,
+    "id": 16,
+    "name": "Amnesia",
+    "symbol": "AMNESIA"
+  },
+  "17": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 17,
+    "id": 17,
+    "name": "Charm",
+    "symbol": "CHARM_II"
+  },
+  "18": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 18,
+    "id": 18,
+    "name": "gradual petrification",
+    "symbol": "GRADUAL_PETRIFICATION"
+  },
+  "19": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 19,
+    "id": 19,
+    "name": "Sleep",
+    "symbol": "SLEEP_II"
+  },
+  "20": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 20,
+    "id": 20,
+    "name": "Curse",
+    "symbol": "CURSE_II"
+  },
+  "21": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 21,
+    "id": 21,
+    "name": "Addle",
+    "symbol": "ADDLE"
+  },
+  "22": {
+    "custom": false,
+    "icon_id": 22,
+    "id": 22,
+    "name": "Intimidate",
+    "symbol": "INTIMIDATE"
+  },
+  "23": {
+    "custom": false,
+    "icon_id": 23,
+    "id": 23,
+    "name": "Kaustra",
+    "symbol": "KAUSTRA"
+  },
+  "28": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 28,
+    "id": 28,
+    "name": "terror",
+    "symbol": "TERROR"
+  },
+  "29": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 29,
+    "id": 29,
+    "name": "mute",
+    "symbol": "MUTE"
+  },
+  "30": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 30,
+    "id": 30,
+    "name": "bane",
+    "symbol": "BANE"
+  },
+  "31": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 31,
+    "id": 31,
+    "name": "plague",
+    "symbol": "PLAGUE"
+  },
+  "32": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 32,
+    "id": 32,
+    "name": "Flee",
+    "symbol": "FLEE"
+  },
+  "33": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 33,
+    "id": 33,
+    "name": "Haste",
+    "symbol": "HASTE"
+  },
+  "34": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 34,
+    "id": 34,
+    "name": "Blaze Spikes",
+    "symbol": "BLAZE_SPIKES"
+  },
+  "35": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 35,
+    "id": 35,
+    "name": "Ice Spikes",
+    "symbol": "ICE_SPIKES"
+  },
+  "36": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 36,
+    "id": 36,
+    "name": "Blink",
+    "symbol": "BLINK"
+  },
+  "37": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 37,
+    "id": 37,
+    "name": "Stoneskin",
+    "symbol": "STONESKIN"
+  },
+  "38": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 38,
+    "id": 38,
+    "name": "Shock Spikes",
+    "symbol": "SHOCK_SPIKES"
+  },
+  "39": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 39,
+    "id": 39,
+    "name": "Aquaveil",
+    "symbol": "AQUAVEIL"
+  },
+  "40": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 40,
+    "id": 40,
+    "name": "Protect",
+    "symbol": "PROTECT"
+  },
+  "41": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 41,
+    "id": 41,
+    "name": "Shell",
+    "symbol": "SHELL"
+  },
+  "42": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 42,
+    "id": 42,
+    "name": "Regen",
+    "symbol": "REGEN"
+  },
+  "43": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 43,
+    "id": 43,
+    "name": "Refresh",
+    "symbol": "REFRESH"
+  },
+  "44": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 44,
+    "id": 44,
+    "name": "Mighty Strikes",
+    "symbol": "MIGHTY_STRIKES"
+  },
+  "45": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 45,
+    "id": 45,
+    "name": "Boost",
+    "symbol": "BOOST"
+  },
+  "46": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 46,
+    "id": 46,
+    "name": "Hundred Fists",
+    "symbol": "HUNDRED_FISTS"
+  },
+  "47": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 47,
+    "id": 47,
+    "name": "Manafont",
+    "symbol": "MANAFONT"
+  },
+  "48": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 48,
+    "id": 48,
+    "name": "Chainspell",
+    "symbol": "CHAINSPELL"
+  },
+  "49": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 49,
+    "id": 49,
+    "name": "Perfect Dodge",
+    "symbol": "PERFECT_DODGE"
+  },
+  "50": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 50,
+    "id": 50,
+    "name": "Invincible",
+    "symbol": "INVINCIBLE"
+  },
+  "51": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 51,
+    "id": 51,
+    "name": "Blood Weapon",
+    "symbol": "BLOOD_WEAPON"
+  },
+  "52": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 52,
+    "id": 52,
+    "name": "Soul Voice",
+    "symbol": "SOUL_VOICE"
+  },
+  "53": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 53,
+    "id": 53,
+    "name": "Eagle Eye Shot",
+    "symbol": "EAGLE_EYE_SHOT"
+  },
+  "54": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 54,
+    "id": 54,
+    "name": "Meikyo Shisui",
+    "symbol": "MEIKYO_SHISUI"
+  },
+  "55": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 55,
+    "id": 55,
+    "name": "Astral Flow",
+    "symbol": "ASTRAL_FLOW"
+  },
+  "56": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 56,
+    "id": 56,
+    "name": "Berserk",
+    "symbol": "BERSERK"
+  },
+  "57": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 57,
+    "id": 57,
+    "name": "Defender",
+    "symbol": "DEFENDER"
+  },
+  "58": {
+    "custom": false,
+    "icon_id": 58,
+    "id": 58,
+    "name": "Aggressor",
+    "symbol": "AGGRESSOR"
+  },
+  "59": {
+    "custom": false,
+    "icon_id": 59,
+    "id": 59,
+    "name": "Focus",
+    "symbol": "FOCUS"
+  },
+  "60": {
+    "custom": false,
+    "icon_id": 60,
+    "id": 60,
+    "name": "Dodge",
+    "symbol": "DODGE"
+  },
+  "61": {
+    "custom": false,
+    "icon_id": 61,
+    "id": 61,
+    "name": "Counterstance",
+    "symbol": "COUNTERSTANCE"
+  },
+  "62": {
+    "custom": false,
+    "icon_id": 62,
+    "id": 62,
+    "name": "Sentinel",
+    "symbol": "SENTINEL"
+  },
+  "63": {
+    "custom": false,
+    "icon_id": 63,
+    "id": 63,
+    "name": "Souleater",
+    "symbol": "SOULEATER"
+  },
+  "64": {
+    "custom": false,
+    "icon_id": 64,
+    "id": 64,
+    "name": "Last Resort",
+    "symbol": "LAST_RESORT"
+  },
+  "65": {
+    "custom": false,
+    "icon_id": 65,
+    "id": 65,
+    "name": "Sneak Attack",
+    "symbol": "SNEAK_ATTACK"
+  },
+  "66": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 66,
+    "id": 66,
+    "name": "Copy Image",
+    "symbol": "COPY_IMAGE"
+  },
+  "67": {
+    "custom": false,
+    "icon_id": 67,
+    "id": 67,
+    "name": "Third Eye",
+    "symbol": "THIRD_EYE"
+  },
+  "68": {
+    "custom": false,
+    "icon_id": 68,
+    "id": 68,
+    "name": "Warcry",
+    "symbol": "WARCRY"
+  },
+  "69": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 69,
+    "id": 69,
+    "name": "Invisible",
+    "symbol": "INVISIBLE"
+  },
+  "70": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 70,
+    "id": 70,
+    "name": "Deodorize",
+    "symbol": "DEODORIZE"
+  },
+  "71": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 71,
+    "id": 71,
+    "name": "Sneak",
+    "symbol": "SNEAK"
+  },
+  "72": {
+    "custom": false,
+    "icon_id": 72,
+    "id": 72,
+    "name": "Sharpshot",
+    "symbol": "SHARPSHOT"
+  },
+  "73": {
+    "custom": false,
+    "icon_id": 73,
+    "id": 73,
+    "name": "Barrage",
+    "symbol": "BARRAGE"
+  },
+  "74": {
+    "custom": false,
+    "icon_id": 74,
+    "id": 74,
+    "name": "Holy Circle",
+    "symbol": "HOLY_CIRCLE"
+  },
+  "75": {
+    "custom": false,
+    "icon_id": 75,
+    "id": 75,
+    "name": "Arcane Circle",
+    "symbol": "ARCANE_CIRCLE"
+  },
+  "76": {
+    "custom": false,
+    "icon_id": 76,
+    "id": 76,
+    "name": "Hide",
+    "symbol": "HIDE"
+  },
+  "77": {
+    "custom": false,
+    "icon_id": 77,
+    "id": 77,
+    "name": "Camouflage",
+    "symbol": "CAMOUFLAGE"
+  },
+  "78": {
+    "custom": false,
+    "icon_id": 78,
+    "id": 78,
+    "name": "Divine Seal",
+    "symbol": "DIVINE_SEAL"
+  },
+  "79": {
+    "custom": false,
+    "icon_id": 79,
+    "id": 79,
+    "name": "Elemental Seal",
+    "symbol": "ELEMENTAL_SEAL"
+  },
+  "80": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 80,
+    "id": 80,
+    "name": "STR Boost",
+    "symbol": "STR_BOOST"
+  },
+  "81": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 81,
+    "id": 81,
+    "name": "DEX Boost",
+    "symbol": "DEX_BOOST"
+  },
+  "82": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 82,
+    "id": 82,
+    "name": "VIT Boost",
+    "symbol": "VIT_BOOST"
+  },
+  "83": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 83,
+    "id": 83,
+    "name": "AGI Boost",
+    "symbol": "AGI_BOOST"
+  },
+  "84": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 84,
+    "id": 84,
+    "name": "INT Boost",
+    "symbol": "INT_BOOST"
+  },
+  "85": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 85,
+    "id": 85,
+    "name": "MND Boost",
+    "symbol": "MND_BOOST"
+  },
+  "86": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 86,
+    "id": 86,
+    "name": "CHR Boost",
+    "symbol": "CHR_BOOST"
+  },
+  "87": {
+    "custom": false,
+    "icon_id": 87,
+    "id": 87,
+    "name": "Trick Attack",
+    "symbol": "TRICK_ATTACK"
+  },
+  "88": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 88,
+    "id": 88,
+    "name": "Max HP Boost",
+    "symbol": "MAX_HP_BOOST"
+  },
+  "89": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 89,
+    "id": 89,
+    "name": "Max MP Boost",
+    "symbol": "MAX_MP_BOOST"
+  },
+  "90": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 90,
+    "id": 90,
+    "name": "Accuracy Boost",
+    "symbol": "ACCURACY_BOOST"
+  },
+  "91": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 91,
+    "id": 91,
+    "name": "Attack Boost",
+    "symbol": "ATTACK_BOOST"
+  },
+  "92": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 92,
+    "id": 92,
+    "name": "Evasion Boost",
+    "symbol": "EVASION_BOOST"
+  },
+  "93": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 93,
+    "id": 93,
+    "name": "Defense Boost",
+    "symbol": "DEFENSE_BOOST"
+  },
+  "94": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 94,
+    "id": 94,
+    "name": "Enfire",
+    "symbol": "ENFIRE"
+  },
+  "95": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 95,
+    "id": 95,
+    "name": "Enblizzard",
+    "symbol": "ENBLIZZARD"
+  },
+  "96": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 96,
+    "id": 96,
+    "name": "Enaero",
+    "symbol": "ENAERO"
+  },
+  "97": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 97,
+    "id": 97,
+    "name": "Enstone",
+    "symbol": "ENSTONE"
+  },
+  "98": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 98,
+    "id": 98,
+    "name": "Enthunder",
+    "symbol": "ENTHUNDER"
+  },
+  "99": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 99,
+    "id": 99,
+    "name": "Enwater",
+    "symbol": "ENWATER"
+  },
+  "100": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 100,
+    "id": 100,
+    "name": "Barfire",
+    "symbol": "BARFIRE"
+  },
+  "101": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 101,
+    "id": 101,
+    "name": "Barblizzard",
+    "symbol": "BARBLIZZARD"
+  },
+  "102": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 102,
+    "id": 102,
+    "name": "Baraero",
+    "symbol": "BARAERO"
+  },
+  "103": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 103,
+    "id": 103,
+    "name": "Barstone",
+    "symbol": "BARSTONE"
+  },
+  "104": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 104,
+    "id": 104,
+    "name": "Barthunder",
+    "symbol": "BARTHUNDER"
+  },
+  "105": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 105,
+    "id": 105,
+    "name": "Barwater",
+    "symbol": "BARWATER"
+  },
+  "106": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 106,
+    "id": 106,
+    "name": "Barsleep",
+    "symbol": "BARSLEEP"
+  },
+  "107": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 107,
+    "id": 107,
+    "name": "Barpoison",
+    "symbol": "BARPOISON"
+  },
+  "108": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 108,
+    "id": 108,
+    "name": "Barparalyze",
+    "symbol": "BARPARALYZE"
+  },
+  "109": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 109,
+    "id": 109,
+    "name": "Barblind",
+    "symbol": "BARBLIND"
+  },
+  "110": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 110,
+    "id": 110,
+    "name": "Barsilence",
+    "symbol": "BARSILENCE"
+  },
+  "111": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 111,
+    "id": 111,
+    "name": "Barpetrify",
+    "symbol": "BARPETRIFY"
+  },
+  "112": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 112,
+    "id": 112,
+    "name": "Barvirus",
+    "symbol": "BARVIRUS"
+  },
+  "113": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 113,
+    "id": 113,
+    "name": "Reraise",
+    "symbol": "RERAISE"
+  },
+  "114": {
+    "custom": false,
+    "icon_id": 114,
+    "id": 114,
+    "name": "Cover",
+    "symbol": "COVER"
+  },
+  "115": {
+    "custom": false,
+    "icon_id": 115,
+    "id": 115,
+    "name": "Unlimited Shot",
+    "symbol": "UNLIMITED_SHOT"
+  },
+  "116": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 116,
+    "id": 116,
+    "name": "Phalanx",
+    "symbol": "PHALANX"
+  },
+  "117": {
+    "custom": false,
+    "icon_id": 117,
+    "id": 117,
+    "name": "Warding Circle",
+    "symbol": "WARDING_CIRCLE"
+  },
+  "118": {
+    "custom": false,
+    "icon_id": 118,
+    "id": 118,
+    "name": "Ancient Circle",
+    "symbol": "ANCIENT_CIRCLE"
+  },
+  "119": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 119,
+    "id": 119,
+    "name": "STR Boost",
+    "symbol": "STR_BOOST_II"
+  },
+  "120": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 120,
+    "id": 120,
+    "name": "DEX Boost",
+    "symbol": "DEX_BOOST_II"
+  },
+  "121": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 121,
+    "id": 121,
+    "name": "VIT Boost",
+    "symbol": "VIT_BOOST_II"
+  },
+  "122": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 122,
+    "id": 122,
+    "name": "AGI Boost",
+    "symbol": "AGI_BOOST_II"
+  },
+  "123": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 123,
+    "id": 123,
+    "name": "INT Boost",
+    "symbol": "INT_BOOST_II"
+  },
+  "124": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 124,
+    "id": 124,
+    "name": "MND Boost",
+    "symbol": "MND_BOOST_II"
+  },
+  "125": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 125,
+    "id": 125,
+    "name": "CHR Boost",
+    "symbol": "CHR_BOOST_II"
+  },
+  "126": {
+    "custom": false,
+    "icon_id": 126,
+    "id": 126,
+    "name": "Spirit Surge",
+    "symbol": "SPIRIT_SURGE"
+  },
+  "127": {
+    "custom": false,
+    "icon_id": 127,
+    "id": 127,
+    "name": "Costume",
+    "symbol": "COSTUME"
+  },
+  "128": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 128,
+    "id": 128,
+    "name": "Burn",
+    "symbol": "BURN"
+  },
+  "129": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 129,
+    "id": 129,
+    "name": "Frost",
+    "symbol": "FROST"
+  },
+  "130": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 130,
+    "id": 130,
+    "name": "Choke",
+    "symbol": "CHOKE"
+  },
+  "131": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 131,
+    "id": 131,
+    "name": "Rasp",
+    "symbol": "RASP"
+  },
+  "132": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 132,
+    "id": 132,
+    "name": "Shock",
+    "symbol": "SHOCK"
+  },
+  "133": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 133,
+    "id": 133,
+    "name": "Drown",
+    "symbol": "DROWN"
+  },
+  "134": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 134,
+    "id": 134,
+    "name": "Dia",
+    "symbol": "DIA"
+  },
+  "135": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 135,
+    "id": 135,
+    "name": "Bio",
+    "symbol": "BIO"
+  },
+  "136": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 136,
+    "id": 136,
+    "name": "STR Down",
+    "symbol": "STR_DOWN"
+  },
+  "137": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 137,
+    "id": 137,
+    "name": "DEX Down",
+    "symbol": "DEX_DOWN"
+  },
+  "138": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 138,
+    "id": 138,
+    "name": "VIT Down",
+    "symbol": "VIT_DOWN"
+  },
+  "139": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 139,
+    "id": 139,
+    "name": "AGI Down",
+    "symbol": "AGI_DOWN"
+  },
+  "140": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 140,
+    "id": 140,
+    "name": "INT Down",
+    "symbol": "INT_DOWN"
+  },
+  "141": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 141,
+    "id": 141,
+    "name": "MND Down",
+    "symbol": "MND_DOWN"
+  },
+  "142": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 142,
+    "id": 142,
+    "name": "CHR Down",
+    "symbol": "CHR_DOWN"
+  },
+  "143": {
+    "custom": false,
+    "icon_id": 143,
+    "id": 143,
+    "name": "Level Restriction",
+    "symbol": "LEVEL_RESTRICTION"
+  },
+  "144": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 144,
+    "id": 144,
+    "name": "Max HP Down",
+    "symbol": "MAX_HP_DOWN"
+  },
+  "145": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 145,
+    "id": 145,
+    "name": "Max MP Down",
+    "symbol": "MAX_MP_DOWN"
+  },
+  "146": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 146,
+    "id": 146,
+    "name": "Accuracy Down",
+    "symbol": "ACCURACY_DOWN"
+  },
+  "147": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 147,
+    "id": 147,
+    "name": "Attack Down",
+    "symbol": "ATTACK_DOWN"
+  },
+  "148": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 148,
+    "id": 148,
+    "name": "Evasion Down",
+    "symbol": "EVASION_DOWN"
+  },
+  "149": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 149,
+    "id": 149,
+    "name": "Defense Down",
+    "symbol": "DEFENSE_DOWN"
+  },
+  "150": {
+    "custom": false,
+    "icon_id": 150,
+    "id": 150,
+    "name": "Physical Shield",
+    "symbol": "PHYSICAL_SHIELD"
+  },
+  "151": {
+    "custom": false,
+    "icon_id": 151,
+    "id": 151,
+    "name": "Arrow Shield",
+    "symbol": "ARROW_SHIELD"
+  },
+  "152": {
+    "custom": false,
+    "icon_id": 152,
+    "id": 152,
+    "name": "Magic Shield",
+    "symbol": "MAGIC_SHIELD"
+  },
+  "153": {
+    "custom": false,
+    "icon_id": 153,
+    "id": 153,
+    "name": "Damage Spikes",
+    "symbol": "DAMAGE_SPIKES"
+  },
+  "154": {
+    "custom": false,
+    "icon_id": 154,
+    "id": 154,
+    "name": "Shining Ruby",
+    "symbol": "SHINING_RUBY"
+  },
+  "155": {
+    "custom": false,
+    "icon_id": 155,
+    "id": 155,
+    "name": "medicine",
+    "symbol": "MEDICINE"
+  },
+  "156": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 156,
+    "id": 156,
+    "name": "Flash",
+    "symbol": "FLASH"
+  },
+  "157": {
+    "custom": false,
+    "icon_id": 157,
+    "id": 157,
+    "name": "SJ Restriction",
+    "symbol": "SJ_RESTRICTION"
+  },
+  "158": {
+    "custom": false,
+    "icon_id": 158,
+    "id": 158,
+    "name": "Provoke",
+    "symbol": "PROVOKE"
+  },
+  "159": {
+    "custom": false,
+    "icon_id": 159,
+    "id": 159,
+    "name": "penalty",
+    "symbol": "PENALTY"
+  },
+  "160": {
+    "custom": false,
+    "icon_id": 160,
+    "id": 160,
+    "name": "preparations",
+    "symbol": "PREPARATIONS"
+  },
+  "161": {
+    "custom": false,
+    "icon_id": 161,
+    "id": 161,
+    "name": "Sprint",
+    "symbol": "SPRINT"
+  },
+  "162": {
+    "custom": false,
+    "icon_id": 162,
+    "id": 162,
+    "name": "enchantment",
+    "symbol": "ENCHANTMENT"
+  },
+  "163": {
+    "custom": false,
+    "icon_id": 163,
+    "id": 163,
+    "name": "Azure Lore",
+    "symbol": "AZURE_LORE"
+  },
+  "164": {
+    "custom": false,
+    "icon_id": 164,
+    "id": 164,
+    "name": "Chain Affinity",
+    "symbol": "CHAIN_AFFINITY"
+  },
+  "165": {
+    "custom": false,
+    "icon_id": 165,
+    "id": 165,
+    "name": "Burst Affinity",
+    "symbol": "BURST_AFFINITY"
+  },
+  "166": {
+    "custom": false,
+    "icon_id": 166,
+    "id": 166,
+    "name": "Overdrive",
+    "symbol": "OVERDRIVE"
+  },
+  "167": {
+    "custom": false,
+    "icon_id": 167,
+    "id": 167,
+    "name": "Magic Def. Down",
+    "symbol": "MAGIC_DEF_DOWN"
+  },
+  "168": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 168,
+    "id": 168,
+    "name": "Inhibit TP",
+    "symbol": "INHIBIT_TP"
+  },
+  "169": {
+    "custom": false,
+    "icon_id": 169,
+    "id": 169,
+    "name": "Potency",
+    "symbol": "POTENCY"
+  },
+  "170": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 170,
+    "id": 170,
+    "name": "Regain",
+    "symbol": "REGAIN"
+  },
+  "171": {
+    "custom": false,
+    "icon_id": 171,
+    "id": 171,
+    "name": "Pax",
+    "symbol": "PAX"
+  },
+  "172": {
+    "custom": false,
+    "icon_id": 172,
+    "id": 172,
+    "name": "Intension",
+    "symbol": "INTENSION"
+  },
+  "173": {
+    "custom": false,
+    "icon_id": 173,
+    "id": 173,
+    "name": "Dread Spikes",
+    "symbol": "DREAD_SPIKES"
+  },
+  "174": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 174,
+    "id": 174,
+    "name": "Magic Acc. Down",
+    "symbol": "MAGIC_ACC_DOWN"
+  },
+  "175": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 175,
+    "id": 175,
+    "name": "Magic Atk. Down",
+    "symbol": "MAGIC_ATK_DOWN"
+  },
+  "176": {
+    "custom": false,
+    "icon_id": 176,
+    "id": 176,
+    "name": "quickening",
+    "symbol": "QUICKENING"
+  },
+  "177": {
+    "custom": false,
+    "icon_id": 177,
+    "id": 177,
+    "name": "encumbrance",
+    "symbol": "ENCUMBRANCE_II"
+  },
+  "178": {
+    "custom": false,
+    "icon_id": 178,
+    "id": 178,
+    "name": "Firestorm",
+    "symbol": "FIRESTORM"
+  },
+  "179": {
+    "custom": false,
+    "icon_id": 179,
+    "id": 179,
+    "name": "Hailstorm",
+    "symbol": "HAILSTORM"
+  },
+  "180": {
+    "custom": false,
+    "icon_id": 180,
+    "id": 180,
+    "name": "Windstorm",
+    "symbol": "WINDSTORM"
+  },
+  "181": {
+    "custom": false,
+    "icon_id": 181,
+    "id": 181,
+    "name": "Sandstorm",
+    "symbol": "SANDSTORM"
+  },
+  "182": {
+    "custom": false,
+    "icon_id": 182,
+    "id": 182,
+    "name": "Thunderstorm",
+    "symbol": "THUNDERSTORM"
+  },
+  "183": {
+    "custom": false,
+    "icon_id": 183,
+    "id": 183,
+    "name": "Rainstorm",
+    "symbol": "RAINSTORM"
+  },
+  "184": {
+    "custom": false,
+    "icon_id": 184,
+    "id": 184,
+    "name": "Aurorastorm",
+    "symbol": "AURORASTORM"
+  },
+  "185": {
+    "custom": false,
+    "icon_id": 185,
+    "id": 185,
+    "name": "Voidstorm",
+    "symbol": "VOIDSTORM"
+  },
+  "186": {
+    "custom": false,
+    "icon_id": 186,
+    "id": 186,
+    "name": "Helix",
+    "symbol": "HELIX"
+  },
+  "187": {
+    "custom": false,
+    "icon_id": 187,
+    "id": 187,
+    "name": "Sublimation: Activated",
+    "symbol": "SUBLIMATION_ACTIVATED"
+  },
+  "188": {
+    "custom": false,
+    "icon_id": 188,
+    "id": 188,
+    "name": "Sublimation: Complete",
+    "symbol": "SUBLIMATION_COMPLETE"
+  },
+  "189": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 189,
+    "id": 189,
+    "name": "Max TP Down",
+    "symbol": "MAX_TP_DOWN"
+  },
+  "190": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 190,
+    "id": 190,
+    "name": "Magic Atk. Boost",
+    "symbol": "MAGIC_ATK_BOOST"
+  },
+  "191": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 191,
+    "id": 191,
+    "name": "Magic Def. Boost",
+    "symbol": "MAGIC_DEF_BOOST"
+  },
+  "192": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 192,
+    "id": 192,
+    "name": "Requiem",
+    "symbol": "REQUIEM"
+  },
+  "193": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 193,
+    "id": 193,
+    "name": "Lullaby",
+    "symbol": "LULLABY"
+  },
+  "194": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 194,
+    "id": 194,
+    "name": "Elegy",
+    "symbol": "ELEGY"
+  },
+  "195": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 195,
+    "id": 195,
+    "name": "Paeon",
+    "symbol": "PAEON"
+  },
+  "196": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 196,
+    "id": 196,
+    "name": "Ballad",
+    "symbol": "BALLAD"
+  },
+  "197": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 197,
+    "id": 197,
+    "name": "Minne",
+    "symbol": "MINNE"
+  },
+  "198": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 198,
+    "id": 198,
+    "name": "Minuet",
+    "symbol": "MINUET"
+  },
+  "199": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 199,
+    "id": 199,
+    "name": "Madrigal",
+    "symbol": "MADRIGAL"
+  },
+  "200": {
+    "custom": false,
+    "icon_id": 200,
+    "id": 200,
+    "name": "Prelude",
+    "symbol": "PRELUDE"
+  },
+  "201": {
+    "custom": false,
+    "icon_id": 201,
+    "id": 201,
+    "name": "Mambo",
+    "symbol": "MAMBO"
+  },
+  "202": {
+    "custom": false,
+    "icon_id": 202,
+    "id": 202,
+    "name": "Aubade",
+    "symbol": "AUBADE"
+  },
+  "203": {
+    "custom": false,
+    "icon_id": 203,
+    "id": 203,
+    "name": "Pastoral",
+    "symbol": "PASTORAL"
+  },
+  "204": {
+    "custom": false,
+    "icon_id": 204,
+    "id": 204,
+    "name": "Hum",
+    "symbol": "HUM"
+  },
+  "205": {
+    "custom": false,
+    "icon_id": 205,
+    "id": 205,
+    "name": "Fantasia",
+    "symbol": "FANTASIA"
+  },
+  "206": {
+    "custom": false,
+    "icon_id": 206,
+    "id": 206,
+    "name": "Operetta",
+    "symbol": "OPERETTA"
+  },
+  "207": {
+    "custom": false,
+    "icon_id": 207,
+    "id": 207,
+    "name": "Capriccio",
+    "symbol": "CAPRICCIO"
+  },
+  "208": {
+    "custom": false,
+    "icon_id": 208,
+    "id": 208,
+    "name": "Serenade",
+    "symbol": "SERENADE"
+  },
+  "209": {
+    "custom": false,
+    "icon_id": 209,
+    "id": 209,
+    "name": "Round",
+    "symbol": "ROUND"
+  },
+  "210": {
+    "custom": false,
+    "icon_id": 210,
+    "id": 210,
+    "name": "Gavotte",
+    "symbol": "GAVOTTE"
+  },
+  "211": {
+    "custom": false,
+    "icon_id": 211,
+    "id": 211,
+    "name": "Fugue",
+    "symbol": "FUGUE"
+  },
+  "212": {
+    "custom": false,
+    "icon_id": 212,
+    "id": 212,
+    "name": "Rhapsody",
+    "symbol": "RHAPSODY"
+  },
+  "213": {
+    "custom": false,
+    "icon_id": 213,
+    "id": 213,
+    "name": "Aria",
+    "symbol": "ARIA"
+  },
+  "214": {
+    "custom": false,
+    "icon_id": 214,
+    "id": 214,
+    "name": "March",
+    "symbol": "MARCH"
+  },
+  "215": {
+    "custom": false,
+    "icon_id": 215,
+    "id": 215,
+    "name": "Etude",
+    "symbol": "ETUDE"
+  },
+  "216": {
+    "custom": false,
+    "icon_id": 216,
+    "id": 216,
+    "name": "Carol",
+    "symbol": "CAROL"
+  },
+  "217": {
+    "custom": false,
+    "icon_id": 217,
+    "id": 217,
+    "name": "Threnody",
+    "symbol": "THRENODY"
+  },
+  "218": {
+    "custom": false,
+    "icon_id": 218,
+    "id": 218,
+    "name": "Hymnus",
+    "symbol": "HYMNUS"
+  },
+  "219": {
+    "custom": false,
+    "icon_id": 219,
+    "id": 219,
+    "name": "Mazurka",
+    "symbol": "MAZURKA"
+  },
+  "220": {
+    "custom": false,
+    "icon_id": 220,
+    "id": 220,
+    "name": "Sirvente",
+    "symbol": "SIRVENTE"
+  },
+  "221": {
+    "custom": false,
+    "icon_id": 221,
+    "id": 221,
+    "name": "Dirge",
+    "symbol": "DIRGE"
+  },
+  "222": {
+    "custom": false,
+    "icon_id": 222,
+    "id": 222,
+    "name": "Scherzo",
+    "symbol": "SCHERZO"
+  },
+  "223": {
+    "custom": false,
+    "icon_id": 223,
+    "id": 223,
+    "name": "Nocturne",
+    "symbol": "NOCTURNE"
+  },
+  "227": {
+    "custom": false,
+    "icon_id": 227,
+    "id": 227,
+    "name": "Store TP",
+    "symbol": "STORE_TP"
+  },
+  "228": {
+    "custom": false,
+    "icon_id": 228,
+    "id": 228,
+    "name": "Embrava",
+    "symbol": "EMBRAVA"
+  },
+  "229": {
+    "custom": false,
+    "icon_id": 229,
+    "id": 229,
+    "name": "Manawell",
+    "symbol": "MANAWELL"
+  },
+  "230": {
+    "custom": false,
+    "icon_id": 230,
+    "id": 230,
+    "name": "Spontaneity",
+    "symbol": "SPONTANEITY"
+  },
+  "231": {
+    "custom": false,
+    "icon_id": 231,
+    "id": 231,
+    "name": "Marcato",
+    "symbol": "MARCATO"
+  },
+  "232": {
+    "custom": false,
+    "icon_id": 232,
+    "id": 232,
+    "name": "(N/A)",
+    "symbol": "NA"
+  },
+  "233": {
+    "custom": false,
+    "icon_id": 233,
+    "id": 233,
+    "name": "Auto-Regen",
+    "symbol": "AUTO_REGEN"
+  },
+  "234": {
+    "custom": false,
+    "icon_id": 234,
+    "id": 234,
+    "name": "Auto-Refresh",
+    "symbol": "AUTO_REFRESH"
+  },
+  "235": {
+    "custom": false,
+    "icon_id": 235,
+    "id": 235,
+    "name": "Fishing Imagery",
+    "symbol": "FISHING_IMAGERY"
+  },
+  "236": {
+    "custom": false,
+    "icon_id": 236,
+    "id": 236,
+    "name": "Woodworking Imagery",
+    "symbol": "WOODWORKING_IMAGERY"
+  },
+  "237": {
+    "custom": false,
+    "icon_id": 237,
+    "id": 237,
+    "name": "Smithing Imagery",
+    "symbol": "SMITHING_IMAGERY"
+  },
+  "238": {
+    "custom": false,
+    "icon_id": 238,
+    "id": 238,
+    "name": "Goldsmithing Imagery",
+    "symbol": "GOLDSMITHING_IMAGERY"
+  },
+  "239": {
+    "custom": false,
+    "icon_id": 239,
+    "id": 239,
+    "name": "Clothcraft Imagery",
+    "symbol": "CLOTHCRAFT_IMAGERY"
+  },
+  "240": {
+    "custom": false,
+    "icon_id": 240,
+    "id": 240,
+    "name": "Leathercraft Imagery",
+    "symbol": "LEATHERCRAFT_IMAGERY"
+  },
+  "241": {
+    "custom": false,
+    "icon_id": 241,
+    "id": 241,
+    "name": "Bonecraft Imagery",
+    "symbol": "BONECRAFT_IMAGERY"
+  },
+  "242": {
+    "custom": false,
+    "icon_id": 242,
+    "id": 242,
+    "name": "Alchemy Imagery",
+    "symbol": "ALCHEMY_IMAGERY"
+  },
+  "243": {
+    "custom": false,
+    "icon_id": 243,
+    "id": 243,
+    "name": "Cooking Imagery",
+    "symbol": "COOKING_IMAGERY"
+  },
+  "244": {
+    "custom": false,
+    "icon_id": 244,
+    "id": 244,
+    "name": "Imagery 1",
+    "symbol": "IMAGERY_1"
+  },
+  "245": {
+    "custom": false,
+    "icon_id": 245,
+    "id": 245,
+    "name": "Imagery 2",
+    "symbol": "IMAGERY_2"
+  },
+  "246": {
+    "custom": false,
+    "icon_id": 246,
+    "id": 246,
+    "name": "Imagery 3",
+    "symbol": "IMAGERY_3"
+  },
+  "247": {
+    "custom": false,
+    "icon_id": 247,
+    "id": 247,
+    "name": "Imagery 4",
+    "symbol": "IMAGERY_4"
+  },
+  "248": {
+    "custom": false,
+    "icon_id": 248,
+    "id": 248,
+    "name": "Imagery 5",
+    "symbol": "IMAGERY_5"
+  },
+  "249": {
+    "custom": false,
+    "icon_id": 249,
+    "id": 249,
+    "name": "Dedication",
+    "symbol": "DEDICATION"
+  },
+  "250": {
+    "custom": false,
+    "icon_id": 250,
+    "id": 250,
+    "name": "EF Badge",
+    "symbol": "EF_BADGE"
+  },
+  "251": {
+    "custom": false,
+    "icon_id": 251,
+    "id": 251,
+    "name": "Food",
+    "symbol": "FOOD"
+  },
+  "252": {
+    "custom": false,
+    "icon_id": 252,
+    "id": 252,
+    "name": "Mounted",
+    "symbol": "MOUNTED"
+  },
+  "253": {
+    "custom": false,
+    "icon_id": 253,
+    "id": 253,
+    "name": "Signet",
+    "symbol": "SIGNET"
+  },
+  "254": {
+    "custom": false,
+    "icon_id": 254,
+    "id": 254,
+    "name": "Battlefield",
+    "symbol": "BATTLEFIELD"
+  },
+  "255": {
+    "custom": false,
+    "icon_id": 255,
+    "id": 255,
+    "name": "None",
+    "symbol": "NONE"
+  },
+  "256": {
+    "custom": false,
+    "icon_id": 256,
+    "id": 256,
+    "name": "Sanction",
+    "symbol": "SANCTION"
+  },
+  "257": {
+    "custom": false,
+    "icon_id": 257,
+    "id": 257,
+    "name": "Besieged",
+    "symbol": "BESIEGED"
+  },
+  "258": {
+    "custom": false,
+    "icon_id": 258,
+    "id": 258,
+    "name": "Illusion",
+    "symbol": "ILLUSION"
+  },
+  "259": {
+    "custom": false,
+    "icon_id": 259,
+    "id": 259,
+    "name": "encumbrance",
+    "symbol": "ENCUMBRANCE_I"
+  },
+  "260": {
+    "custom": false,
+    "icon_id": 260,
+    "id": 260,
+    "name": "Obliviscence",
+    "symbol": "OBLIVISCENCE"
+  },
+  "261": {
+    "custom": false,
+    "icon_id": 261,
+    "id": 261,
+    "name": "impairment",
+    "symbol": "IMPAIRMENT"
+  },
+  "262": {
+    "custom": false,
+    "icon_id": 262,
+    "id": 262,
+    "name": "Omerta",
+    "symbol": "OMERTA"
+  },
+  "263": {
+    "custom": false,
+    "icon_id": 263,
+    "id": 263,
+    "name": "debilitation",
+    "symbol": "DEBILITATION"
+  },
+  "264": {
+    "custom": false,
+    "icon_id": 264,
+    "id": 264,
+    "name": "Pathos",
+    "symbol": "PATHOS"
+  },
+  "265": {
+    "custom": false,
+    "icon_id": 265,
+    "id": 265,
+    "name": "Flurry",
+    "symbol": "FLURRY"
+  },
+  "266": {
+    "custom": false,
+    "icon_id": 266,
+    "id": 266,
+    "name": "Concentration",
+    "symbol": "CONCENTRATION"
+  },
+  "267": {
+    "custom": false,
+    "icon_id": 267,
+    "id": 267,
+    "name": "Allied Tags",
+    "symbol": "ALLIED_TAGS"
+  },
+  "268": {
+    "custom": false,
+    "icon_id": 268,
+    "id": 268,
+    "name": "Sigil",
+    "symbol": "SIGIL"
+  },
+  "269": {
+    "custom": false,
+    "icon_id": 269,
+    "id": 269,
+    "name": "Level Sync",
+    "symbol": "LEVEL_SYNC"
+  },
+  "270": {
+    "custom": false,
+    "icon_id": 270,
+    "id": 270,
+    "name": "Aftermath: Lv.1",
+    "symbol": "AFTERMATH_LV1"
+  },
+  "271": {
+    "custom": false,
+    "icon_id": 271,
+    "id": 271,
+    "name": "Aftermath: Lv.2",
+    "symbol": "AFTERMATH_LV2"
+  },
+  "272": {
+    "custom": false,
+    "icon_id": 272,
+    "id": 272,
+    "name": "Aftermath: Lv.3",
+    "symbol": "AFTERMATH_LV3"
+  },
+  "273": {
+    "custom": false,
+    "icon_id": 273,
+    "id": 273,
+    "name": "Aftermath",
+    "symbol": "AFTERMATH"
+  },
+  "274": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 274,
+    "id": 274,
+    "name": "Enlight",
+    "symbol": "ENLIGHT"
+  },
+  "275": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 275,
+    "id": 275,
+    "name": "Auspice",
+    "symbol": "AUSPICE"
+  },
+  "276": {
+    "custom": false,
+    "icon_id": 276,
+    "id": 276,
+    "name": "Confrontation",
+    "symbol": "CONFRONTATION"
+  },
+  "277": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 277,
+    "id": 277,
+    "name": "Enfire II",
+    "symbol": "ENFIRE_II"
+  },
+  "278": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 278,
+    "id": 278,
+    "name": "Enblizzard II",
+    "symbol": "ENBLIZZARD_II"
+  },
+  "279": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 279,
+    "id": 279,
+    "name": "Enaero II",
+    "symbol": "ENAERO_II"
+  },
+  "280": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 280,
+    "id": 280,
+    "name": "Enstone II",
+    "symbol": "ENSTONE_II"
+  },
+  "281": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 281,
+    "id": 281,
+    "name": "Enthunder II",
+    "symbol": "ENTHUNDER_II"
+  },
+  "282": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 282,
+    "id": 282,
+    "name": "Enwater II",
+    "symbol": "ENWATER_II"
+  },
+  "283": {
+    "custom": false,
+    "icon_id": 283,
+    "id": 283,
+    "name": "Perfect Defense",
+    "symbol": "PERFECT_DEFENSE"
+  },
+  "284": {
+    "custom": false,
+    "icon_id": 284,
+    "id": 284,
+    "name": "Egg",
+    "symbol": "EGG"
+  },
+  "285": {
+    "custom": false,
+    "icon_id": 285,
+    "id": 285,
+    "name": "Visitant",
+    "symbol": "VISITANT"
+  },
+  "286": {
+    "custom": false,
+    "icon_id": 286,
+    "id": 286,
+    "name": "Baramnesia",
+    "symbol": "BARAMNESIA"
+  },
+  "287": {
+    "custom": false,
+    "icon_id": 287,
+    "id": 287,
+    "name": "Atma",
+    "symbol": "ATMA"
+  },
+  "288": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 288,
+    "id": 288,
+    "name": "Endark",
+    "symbol": "ENDARK"
+  },
+  "289": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 289,
+    "id": 289,
+    "name": "Enmity Boost",
+    "symbol": "ENMITY_BOOST"
+  },
+  "290": {
+    "custom": false,
+    "icon_id": 290,
+    "id": 290,
+    "name": "Subtle Blow Plus",
+    "symbol": "SUBTLE_BLOW_PLUS"
+  },
+  "291": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 291,
+    "id": 291,
+    "name": "Enmity Down",
+    "symbol": "ENMITY_DOWN"
+  },
+  "292": {
+    "custom": false,
+    "icon_id": 292,
+    "id": 292,
+    "name": "Pennant",
+    "symbol": "PENNANT"
+  },
+  "293": {
+    "custom": false,
+    "icon_id": 293,
+    "id": 293,
+    "name": "Negate Petrify",
+    "symbol": "NEGATE_PETRIFY"
+  },
+  "294": {
+    "custom": false,
+    "icon_id": 294,
+    "id": 294,
+    "name": "Negate Terror",
+    "symbol": "NEGATE_TERROR"
+  },
+  "295": {
+    "custom": false,
+    "icon_id": 295,
+    "id": 295,
+    "name": "Negate Amnesia",
+    "symbol": "NEGATE_AMNESIA"
+  },
+  "296": {
+    "custom": false,
+    "icon_id": 296,
+    "id": 296,
+    "name": "Negate Doom",
+    "symbol": "NEGATE_DOOM"
+  },
+  "297": {
+    "custom": false,
+    "icon_id": 297,
+    "id": 297,
+    "name": "Negate Poison",
+    "symbol": "NEGATE_POISON"
+  },
+  "298": {
+    "custom": false,
+    "icon_id": 298,
+    "id": 298,
+    "name": "critical hit evasion down",
+    "symbol": "CRIT_HIT_EVASION_DOWN"
+  },
+  "299": {
+    "custom": false,
+    "icon_id": 299,
+    "id": 299,
+    "name": "Overload",
+    "symbol": "OVERLOAD"
+  },
+  "300": {
+    "custom": false,
+    "icon_id": 300,
+    "id": 300,
+    "name": "Fire Maneuver",
+    "symbol": "FIRE_MANEUVER"
+  },
+  "301": {
+    "custom": false,
+    "icon_id": 301,
+    "id": 301,
+    "name": "Ice Maneuver",
+    "symbol": "ICE_MANEUVER"
+  },
+  "302": {
+    "custom": false,
+    "icon_id": 302,
+    "id": 302,
+    "name": "Wind Maneuver",
+    "symbol": "WIND_MANEUVER"
+  },
+  "303": {
+    "custom": false,
+    "icon_id": 303,
+    "id": 303,
+    "name": "Earth Maneuver",
+    "symbol": "EARTH_MANEUVER"
+  },
+  "304": {
+    "custom": false,
+    "icon_id": 304,
+    "id": 304,
+    "name": "Thunder Maneuver",
+    "symbol": "THUNDER_MANEUVER"
+  },
+  "305": {
+    "custom": false,
+    "icon_id": 305,
+    "id": 305,
+    "name": "Water Maneuver",
+    "symbol": "WATER_MANEUVER"
+  },
+  "306": {
+    "custom": false,
+    "icon_id": 306,
+    "id": 306,
+    "name": "Light Maneuver",
+    "symbol": "LIGHT_MANEUVER"
+  },
+  "307": {
+    "custom": false,
+    "icon_id": 307,
+    "id": 307,
+    "name": "Dark Maneuver",
+    "symbol": "DARK_MANEUVER"
+  },
+  "308": {
+    "custom": false,
+    "icon_id": 308,
+    "id": 308,
+    "name": "Double-Up Chance",
+    "symbol": "DOUBLE_UP_CHANCE"
+  },
+  "309": {
+    "custom": false,
+    "icon_id": 309,
+    "id": 309,
+    "name": "Bust",
+    "symbol": "BUST"
+  },
+  "310": {
+    "custom": false,
+    "icon_id": 310,
+    "id": 310,
+    "name": "Fighter's Roll",
+    "symbol": "FIGHTERS_ROLL"
+  },
+  "311": {
+    "custom": false,
+    "icon_id": 311,
+    "id": 311,
+    "name": "Monk's Roll",
+    "symbol": "MONKS_ROLL"
+  },
+  "312": {
+    "custom": false,
+    "icon_id": 312,
+    "id": 312,
+    "name": "Healer's Roll",
+    "symbol": "HEALERS_ROLL"
+  },
+  "313": {
+    "custom": false,
+    "icon_id": 313,
+    "id": 313,
+    "name": "Wizard's Roll",
+    "symbol": "WIZARDS_ROLL"
+  },
+  "314": {
+    "custom": false,
+    "icon_id": 314,
+    "id": 314,
+    "name": "Warlock's Roll",
+    "symbol": "WARLOCKS_ROLL"
+  },
+  "315": {
+    "custom": false,
+    "icon_id": 315,
+    "id": 315,
+    "name": "Rogue's Roll",
+    "symbol": "ROGUES_ROLL"
+  },
+  "316": {
+    "custom": false,
+    "icon_id": 316,
+    "id": 316,
+    "name": "Gallant's Roll",
+    "symbol": "GALLANTS_ROLL"
+  },
+  "317": {
+    "custom": false,
+    "icon_id": 317,
+    "id": 317,
+    "name": "Chaos Roll",
+    "symbol": "CHAOS_ROLL"
+  },
+  "318": {
+    "custom": false,
+    "icon_id": 318,
+    "id": 318,
+    "name": "Beast Roll",
+    "symbol": "BEAST_ROLL"
+  },
+  "319": {
+    "custom": false,
+    "icon_id": 319,
+    "id": 319,
+    "name": "Choral Roll",
+    "symbol": "CHORAL_ROLL"
+  },
+  "320": {
+    "custom": false,
+    "icon_id": 320,
+    "id": 320,
+    "name": "Hunter's Roll",
+    "symbol": "HUNTERS_ROLL"
+  },
+  "321": {
+    "custom": false,
+    "icon_id": 321,
+    "id": 321,
+    "name": "Samurai Roll",
+    "symbol": "SAMURAI_ROLL"
+  },
+  "322": {
+    "custom": false,
+    "icon_id": 322,
+    "id": 322,
+    "name": "Ninja Roll",
+    "symbol": "NINJA_ROLL"
+  },
+  "323": {
+    "custom": false,
+    "icon_id": 323,
+    "id": 323,
+    "name": "Drachen Roll",
+    "symbol": "DRACHEN_ROLL"
+  },
+  "324": {
+    "custom": false,
+    "icon_id": 324,
+    "id": 324,
+    "name": "Evoker's Roll",
+    "symbol": "EVOKERS_ROLL"
+  },
+  "325": {
+    "custom": false,
+    "icon_id": 325,
+    "id": 325,
+    "name": "Magus's Roll",
+    "symbol": "MAGUSS_ROLL"
+  },
+  "326": {
+    "custom": false,
+    "icon_id": 326,
+    "id": 326,
+    "name": "Corsair's Roll",
+    "symbol": "CORSAIRS_ROLL"
+  },
+  "327": {
+    "custom": false,
+    "icon_id": 327,
+    "id": 327,
+    "name": "Puppet Roll",
+    "symbol": "PUPPET_ROLL"
+  },
+  "328": {
+    "custom": false,
+    "icon_id": 328,
+    "id": 328,
+    "name": "Dancer's Roll",
+    "symbol": "DANCERS_ROLL"
+  },
+  "329": {
+    "custom": false,
+    "icon_id": 329,
+    "id": 329,
+    "name": "Scholar's Roll",
+    "symbol": "SCHOLARS_ROLL"
+  },
+  "330": {
+    "custom": false,
+    "icon_id": 330,
+    "id": 330,
+    "name": "Bolter's Roll",
+    "symbol": "BOLTERS_ROLL"
+  },
+  "331": {
+    "custom": false,
+    "icon_id": 331,
+    "id": 331,
+    "name": "Caster's Roll",
+    "symbol": "CASTERS_ROLL"
+  },
+  "332": {
+    "custom": false,
+    "icon_id": 332,
+    "id": 332,
+    "name": "Courser's Roll",
+    "symbol": "COURSERS_ROLL"
+  },
+  "333": {
+    "custom": false,
+    "icon_id": 333,
+    "id": 333,
+    "name": "Blitzer's Roll",
+    "symbol": "BLITZERS_ROLL"
+  },
+  "334": {
+    "custom": false,
+    "icon_id": 334,
+    "id": 334,
+    "name": "Tactician's Roll",
+    "symbol": "TACTICIANS_ROLL"
+  },
+  "335": {
+    "custom": false,
+    "icon_id": 335,
+    "id": 335,
+    "name": "Allies' Roll",
+    "symbol": "ALLIES_ROLL"
+  },
+  "336": {
+    "custom": false,
+    "icon_id": 336,
+    "id": 336,
+    "name": "Miser's Roll",
+    "symbol": "MISERS_ROLL"
+  },
+  "337": {
+    "custom": false,
+    "icon_id": 337,
+    "id": 337,
+    "name": "Companion's Roll",
+    "symbol": "COMPANIONS_ROLL"
+  },
+  "338": {
+    "custom": false,
+    "icon_id": 338,
+    "id": 338,
+    "name": "Avenger's Roll",
+    "symbol": "AVENGERS_ROLL"
+  },
+  "339": {
+    "custom": false,
+    "icon_id": 339,
+    "id": 339,
+    "name": "Naturalist's Roll",
+    "symbol": "NATURALISTS_ROLL"
+  },
+  "340": {
+    "custom": false,
+    "icon_id": 340,
+    "id": 340,
+    "name": "Warrior's Charge",
+    "symbol": "WARRIORS_CHARGE"
+  },
+  "341": {
+    "custom": false,
+    "icon_id": 341,
+    "id": 341,
+    "name": "Formless Strikes",
+    "symbol": "FORMLESS_STRIKES"
+  },
+  "342": {
+    "custom": false,
+    "icon_id": 342,
+    "id": 342,
+    "name": "Assassin's Charge",
+    "symbol": "ASSASSINS_CHARGE"
+  },
+  "343": {
+    "custom": false,
+    "icon_id": 343,
+    "id": 343,
+    "name": "Feint",
+    "symbol": "FEINT"
+  },
+  "344": {
+    "custom": false,
+    "icon_id": 344,
+    "id": 344,
+    "name": "Fealty",
+    "symbol": "FEALTY"
+  },
+  "345": {
+    "custom": false,
+    "icon_id": 345,
+    "id": 345,
+    "name": "Dark Seal",
+    "symbol": "DARK_SEAL"
+  },
+  "346": {
+    "custom": false,
+    "icon_id": 346,
+    "id": 346,
+    "name": "Diabolic Eye",
+    "symbol": "DIABOLIC_EYE"
+  },
+  "347": {
+    "custom": false,
+    "icon_id": 347,
+    "id": 347,
+    "name": "Nightingale",
+    "symbol": "NIGHTINGALE"
+  },
+  "348": {
+    "custom": false,
+    "icon_id": 348,
+    "id": 348,
+    "name": "Troubadour",
+    "symbol": "TROUBADOUR"
+  },
+  "349": {
+    "custom": false,
+    "icon_id": 349,
+    "id": 349,
+    "name": "Killer Instinct",
+    "symbol": "KILLER_INSTINCT"
+  },
+  "350": {
+    "custom": false,
+    "icon_id": 350,
+    "id": 350,
+    "name": "Stealth Shot",
+    "symbol": "STEALTH_SHOT"
+  },
+  "351": {
+    "custom": false,
+    "icon_id": 351,
+    "id": 351,
+    "name": "Flashy Shot",
+    "symbol": "FLASHY_SHOT"
+  },
+  "352": {
+    "custom": false,
+    "icon_id": 352,
+    "id": 352,
+    "name": "Sange",
+    "symbol": "SANGE"
+  },
+  "353": {
+    "custom": false,
+    "icon_id": 353,
+    "id": 353,
+    "name": "Hasso",
+    "symbol": "HASSO"
+  },
+  "354": {
+    "custom": false,
+    "icon_id": 354,
+    "id": 354,
+    "name": "Seigan",
+    "symbol": "SEIGAN"
+  },
+  "355": {
+    "custom": false,
+    "icon_id": 355,
+    "id": 355,
+    "name": "Convergence",
+    "symbol": "CONVERGENCE"
+  },
+  "356": {
+    "custom": false,
+    "icon_id": 356,
+    "id": 356,
+    "name": "Diffusion",
+    "symbol": "DIFFUSION"
+  },
+  "357": {
+    "custom": false,
+    "icon_id": 357,
+    "id": 357,
+    "name": "Snake Eye",
+    "symbol": "SNAKE_EYE"
+  },
+  "358": {
+    "custom": false,
+    "icon_id": 358,
+    "id": 358,
+    "name": "Light Arts",
+    "symbol": "LIGHT_ARTS"
+  },
+  "359": {
+    "custom": false,
+    "icon_id": 359,
+    "id": 359,
+    "name": "Dark Arts",
+    "symbol": "DARK_ARTS"
+  },
+  "360": {
+    "custom": false,
+    "icon_id": 360,
+    "id": 360,
+    "name": "Penury",
+    "symbol": "PENURY"
+  },
+  "361": {
+    "custom": false,
+    "icon_id": 361,
+    "id": 361,
+    "name": "Parsimony",
+    "symbol": "PARSIMONY"
+  },
+  "362": {
+    "custom": false,
+    "icon_id": 362,
+    "id": 362,
+    "name": "Celerity",
+    "symbol": "CELERITY"
+  },
+  "363": {
+    "custom": false,
+    "icon_id": 363,
+    "id": 363,
+    "name": "Alacrity",
+    "symbol": "ALACRITY"
+  },
+  "364": {
+    "custom": false,
+    "icon_id": 364,
+    "id": 364,
+    "name": "Rapture",
+    "symbol": "RAPTURE"
+  },
+  "365": {
+    "custom": false,
+    "icon_id": 365,
+    "id": 365,
+    "name": "Ebullience",
+    "symbol": "EBULLIENCE"
+  },
+  "366": {
+    "custom": false,
+    "icon_id": 366,
+    "id": 366,
+    "name": "Accession",
+    "symbol": "ACCESSION"
+  },
+  "367": {
+    "custom": false,
+    "icon_id": 367,
+    "id": 367,
+    "name": "Manifestation",
+    "symbol": "MANIFESTATION"
+  },
+  "368": {
+    "custom": false,
+    "icon_id": 368,
+    "id": 368,
+    "name": "Drain Samba",
+    "symbol": "DRAIN_SAMBA"
+  },
+  "369": {
+    "custom": false,
+    "icon_id": 369,
+    "id": 369,
+    "name": "Aspir Samba",
+    "symbol": "ASPIR_SAMBA"
+  },
+  "370": {
+    "custom": false,
+    "icon_id": 370,
+    "id": 370,
+    "name": "Haste Samba",
+    "symbol": "HASTE_SAMBA"
+  },
+  "371": {
+    "custom": false,
+    "icon_id": 371,
+    "id": 371,
+    "name": "Velocity Shot",
+    "symbol": "VELOCITY_SHOT"
+  },
+  "375": {
+    "custom": false,
+    "icon_id": 375,
+    "id": 375,
+    "name": "Building Flourish",
+    "symbol": "BUILDING_FLOURISH"
+  },
+  "376": {
+    "custom": false,
+    "icon_id": 376,
+    "id": 376,
+    "name": "Trance",
+    "symbol": "TRANCE"
+  },
+  "377": {
+    "custom": false,
+    "icon_id": 377,
+    "id": 377,
+    "name": "Tabula Rasa",
+    "symbol": "TABULA_RASA"
+  },
+  "378": {
+    "custom": false,
+    "icon_id": 378,
+    "id": 378,
+    "name": "Drain Daze",
+    "symbol": "DRAIN_DAZE"
+  },
+  "379": {
+    "custom": false,
+    "icon_id": 379,
+    "id": 379,
+    "name": "Aspir Daze",
+    "symbol": "ASPIR_DAZE"
+  },
+  "380": {
+    "custom": false,
+    "icon_id": 380,
+    "id": 380,
+    "name": "Haste Daze",
+    "symbol": "HASTE_DAZE"
+  },
+  "381": {
+    "custom": false,
+    "icon_id": 381,
+    "id": 381,
+    "name": "Finishing Move 1",
+    "symbol": "FINISHING_MOVE_1"
+  },
+  "382": {
+    "custom": false,
+    "icon_id": 382,
+    "id": 382,
+    "name": "Finishing Move 2",
+    "symbol": "FINISHING_MOVE_2"
+  },
+  "383": {
+    "custom": false,
+    "icon_id": 383,
+    "id": 383,
+    "name": "Finishing Move 3",
+    "symbol": "FINISHING_MOVE_3"
+  },
+  "384": {
+    "custom": false,
+    "icon_id": 384,
+    "id": 384,
+    "name": "Finishing Move 4",
+    "symbol": "FINISHING_MOVE_4"
+  },
+  "385": {
+    "custom": false,
+    "icon_id": 385,
+    "id": 385,
+    "name": "Finishing Move 5",
+    "symbol": "FINISHING_MOVE_5"
+  },
+  "386": {
+    "custom": false,
+    "icon_id": 386,
+    "id": 386,
+    "name": "Lethargic Daze 1",
+    "symbol": "LETHARGIC_DAZE_1"
+  },
+  "387": {
+    "custom": false,
+    "icon_id": 387,
+    "id": 387,
+    "name": "Lethargic Daze 2",
+    "symbol": "LETHARGIC_DAZE_2"
+  },
+  "388": {
+    "custom": false,
+    "icon_id": 388,
+    "id": 388,
+    "name": "Lethargic Daze 3",
+    "symbol": "LETHARGIC_DAZE_3"
+  },
+  "389": {
+    "custom": false,
+    "icon_id": 389,
+    "id": 389,
+    "name": "Lethargic Daze 4",
+    "symbol": "LETHARGIC_DAZE_4"
+  },
+  "390": {
+    "custom": false,
+    "icon_id": 390,
+    "id": 390,
+    "name": "Lethargic Daze 5",
+    "symbol": "LETHARGIC_DAZE_5"
+  },
+  "391": {
+    "custom": false,
+    "icon_id": 391,
+    "id": 391,
+    "name": "Sluggish Daze 1",
+    "symbol": "SLUGGISH_DAZE_1"
+  },
+  "392": {
+    "custom": false,
+    "icon_id": 392,
+    "id": 392,
+    "name": "Sluggish Daze 2",
+    "symbol": "SLUGGISH_DAZE_2"
+  },
+  "393": {
+    "custom": false,
+    "icon_id": 393,
+    "id": 393,
+    "name": "Sluggish Daze 3",
+    "symbol": "SLUGGISH_DAZE_3"
+  },
+  "394": {
+    "custom": false,
+    "icon_id": 394,
+    "id": 394,
+    "name": "Sluggish Daze 4",
+    "symbol": "SLUGGISH_DAZE_4"
+  },
+  "395": {
+    "custom": false,
+    "icon_id": 395,
+    "id": 395,
+    "name": "Sluggish Daze 5",
+    "symbol": "SLUGGISH_DAZE_5"
+  },
+  "396": {
+    "custom": false,
+    "icon_id": 396,
+    "id": 396,
+    "name": "Weakened Daze 1",
+    "symbol": "WEAKENED_DAZE_1"
+  },
+  "397": {
+    "custom": false,
+    "icon_id": 397,
+    "id": 397,
+    "name": "Weakened Daze 2",
+    "symbol": "WEAKENED_DAZE_2"
+  },
+  "398": {
+    "custom": false,
+    "icon_id": 398,
+    "id": 398,
+    "name": "Weakened Daze 3",
+    "symbol": "WEAKENED_DAZE_3"
+  },
+  "399": {
+    "custom": false,
+    "icon_id": 399,
+    "id": 399,
+    "name": "Weakened Daze 4",
+    "symbol": "WEAKENED_DAZE_4"
+  },
+  "400": {
+    "custom": false,
+    "icon_id": 400,
+    "id": 400,
+    "name": "Weakened Daze 5",
+    "symbol": "WEAKENED_DAZE_5"
+  },
+  "401": {
+    "custom": false,
+    "icon_id": 401,
+    "id": 401,
+    "name": "Addendum: White",
+    "symbol": "ADDENDUM_WHITE"
+  },
+  "402": {
+    "custom": false,
+    "icon_id": 402,
+    "id": 402,
+    "name": "Addendum: Black",
+    "symbol": "ADDENDUM_BLACK"
+  },
+  "403": {
+    "custom": false,
+    "icon_id": 403,
+    "id": 403,
+    "name": "Reprisal",
+    "symbol": "REPRISAL"
+  },
+  "404": {
+    "custom": false,
+    "icon_id": 404,
+    "id": 404,
+    "name": "Magic Evasion Down",
+    "symbol": "MAGIC_EVASION_DOWN"
+  },
+  "405": {
+    "custom": false,
+    "icon_id": 405,
+    "id": 405,
+    "name": "Retaliation",
+    "symbol": "RETALIATION"
+  },
+  "406": {
+    "custom": false,
+    "icon_id": 406,
+    "id": 406,
+    "name": "Footwork",
+    "symbol": "FOOTWORK"
+  },
+  "407": {
+    "custom": false,
+    "icon_id": 407,
+    "id": 407,
+    "name": "Klimaform",
+    "symbol": "KLIMAFORM"
+  },
+  "408": {
+    "custom": false,
+    "icon_id": 408,
+    "id": 408,
+    "name": "Sekkanoki",
+    "symbol": "SEKKANOKI"
+  },
+  "409": {
+    "custom": false,
+    "icon_id": 409,
+    "id": 409,
+    "name": "Pianissimo",
+    "symbol": "PIANISSIMO"
+  },
+  "410": {
+    "custom": false,
+    "icon_id": 410,
+    "id": 410,
+    "name": "Saber Dance",
+    "symbol": "SABER_DANCE"
+  },
+  "411": {
+    "custom": false,
+    "icon_id": 411,
+    "id": 411,
+    "name": "Fan Dance",
+    "symbol": "FAN_DANCE"
+  },
+  "412": {
+    "custom": false,
+    "icon_id": 412,
+    "id": 412,
+    "name": "Altruism",
+    "symbol": "ALTRUISM"
+  },
+  "413": {
+    "custom": false,
+    "icon_id": 413,
+    "id": 413,
+    "name": "Focalization",
+    "symbol": "FOCALIZATION"
+  },
+  "414": {
+    "custom": false,
+    "icon_id": 414,
+    "id": 414,
+    "name": "Tranquility",
+    "symbol": "TRANQUILITY"
+  },
+  "415": {
+    "custom": false,
+    "icon_id": 415,
+    "id": 415,
+    "name": "Equanimity",
+    "symbol": "EQUANIMITY"
+  },
+  "416": {
+    "custom": false,
+    "icon_id": 416,
+    "id": 416,
+    "name": "Enlightenment",
+    "symbol": "ENLIGHTENMENT"
+  },
+  "417": {
+    "custom": false,
+    "icon_id": 417,
+    "id": 417,
+    "name": "Afflatus Solace",
+    "symbol": "AFFLATUS_SOLACE"
+  },
+  "418": {
+    "custom": false,
+    "icon_id": 418,
+    "id": 418,
+    "name": "Afflatus Misery",
+    "symbol": "AFFLATUS_MISERY"
+  },
+  "419": {
+    "custom": false,
+    "icon_id": 419,
+    "id": 419,
+    "name": "Composure",
+    "symbol": "COMPOSURE"
+  },
+  "420": {
+    "custom": false,
+    "icon_id": 420,
+    "id": 420,
+    "name": "Yonin",
+    "symbol": "YONIN"
+  },
+  "421": {
+    "custom": false,
+    "icon_id": 421,
+    "id": 421,
+    "name": "Innin",
+    "symbol": "INNIN"
+  },
+  "422": {
+    "custom": false,
+    "icon_id": 422,
+    "id": 422,
+    "name": "Carbuncle's Favor",
+    "symbol": "CARBUNCLES_FAVOR"
+  },
+  "423": {
+    "custom": false,
+    "icon_id": 423,
+    "id": 423,
+    "name": "Ifrit's Favor",
+    "symbol": "IFRITS_FAVOR"
+  },
+  "424": {
+    "custom": false,
+    "icon_id": 424,
+    "id": 424,
+    "name": "Shiva's Favor",
+    "symbol": "SHIVAS_FAVOR"
+  },
+  "425": {
+    "custom": false,
+    "icon_id": 425,
+    "id": 425,
+    "name": "Garuda's Favor",
+    "symbol": "GARUDAS_FAVOR"
+  },
+  "426": {
+    "custom": false,
+    "icon_id": 426,
+    "id": 426,
+    "name": "Titan's Favor",
+    "symbol": "TITANS_FAVOR"
+  },
+  "427": {
+    "custom": false,
+    "icon_id": 427,
+    "id": 427,
+    "name": "Ramuh's Favor",
+    "symbol": "RAMUHS_FAVOR"
+  },
+  "428": {
+    "custom": false,
+    "icon_id": 428,
+    "id": 428,
+    "name": "Leviathan's Favor",
+    "symbol": "LEVIATHANS_FAVOR"
+  },
+  "429": {
+    "custom": false,
+    "icon_id": 429,
+    "id": 429,
+    "name": "Fenrir's Favor",
+    "symbol": "FENRIRS_FAVOR"
+  },
+  "430": {
+    "custom": false,
+    "icon_id": 430,
+    "id": 430,
+    "name": "Diabolos's Favor",
+    "symbol": "DIABOLOSS_FAVOR"
+  },
+  "431": {
+    "custom": false,
+    "icon_id": 431,
+    "id": 431,
+    "name": "Avatar's Favor",
+    "symbol": "AVATARS_FAVOR"
+  },
+  "432": {
+    "custom": false,
+    "icon_id": 432,
+    "id": 432,
+    "name": "Multi Strikes",
+    "symbol": "MULTI_STRIKES"
+  },
+  "433": {
+    "custom": false,
+    "icon_id": 433,
+    "id": 433,
+    "name": "Double Shot",
+    "symbol": "DOUBLE_SHOT"
+  },
+  "434": {
+    "custom": false,
+    "icon_id": 434,
+    "id": 434,
+    "name": "Transcendency",
+    "symbol": "TRANSCENDENCY"
+  },
+  "435": {
+    "custom": false,
+    "icon_id": 435,
+    "id": 435,
+    "name": "Restraint",
+    "symbol": "RESTRAINT"
+  },
+  "436": {
+    "custom": false,
+    "icon_id": 436,
+    "id": 436,
+    "name": "Perfect Counter",
+    "symbol": "PERFECT_COUNTER"
+  },
+  "437": {
+    "custom": false,
+    "icon_id": 437,
+    "id": 437,
+    "name": "Mana Wall",
+    "symbol": "MANA_WALL"
+  },
+  "438": {
+    "custom": false,
+    "icon_id": 438,
+    "id": 438,
+    "name": "Divine Emblem",
+    "symbol": "DIVINE_EMBLEM"
+  },
+  "439": {
+    "custom": false,
+    "icon_id": 439,
+    "id": 439,
+    "name": "Nether Void",
+    "symbol": "NETHER_VOID"
+  },
+  "440": {
+    "custom": false,
+    "icon_id": 440,
+    "id": 440,
+    "name": "Sengikori",
+    "symbol": "SENGIKORI"
+  },
+  "441": {
+    "custom": false,
+    "icon_id": 441,
+    "id": 441,
+    "name": "Futae",
+    "symbol": "FUTAE"
+  },
+  "442": {
+    "custom": false,
+    "icon_id": 442,
+    "id": 442,
+    "name": "Presto",
+    "symbol": "PRESTO"
+  },
+  "443": {
+    "custom": false,
+    "icon_id": 443,
+    "id": 443,
+    "name": "Climactic Flourish",
+    "symbol": "CLIMACTIC_FLOURISH"
+  },
+  "444": {
+    "custom": false,
+    "icon_id": 444,
+    "id": 444,
+    "name": "Copy Image (2)",
+    "symbol": "COPY_IMAGE_2"
+  },
+  "445": {
+    "custom": false,
+    "icon_id": 445,
+    "id": 445,
+    "name": "Copy Image (3)",
+    "symbol": "COPY_IMAGE_3"
+  },
+  "446": {
+    "custom": false,
+    "icon_id": 446,
+    "id": 446,
+    "name": "Copy Image (4+)",
+    "symbol": "COPY_IMAGE_4"
+  },
+  "447": {
+    "custom": false,
+    "icon_id": 447,
+    "id": 447,
+    "name": "Multi Shots",
+    "symbol": "MULTI_SHOTS"
+  },
+  "448": {
+    "custom": false,
+    "icon_id": 448,
+    "id": 448,
+    "name": "Bewildered Daze 1",
+    "symbol": "BEWILDERED_DAZE_1"
+  },
+  "449": {
+    "custom": false,
+    "icon_id": 449,
+    "id": 449,
+    "name": "Bewildered Daze 2",
+    "symbol": "BEWILDERED_DAZE_2"
+  },
+  "450": {
+    "custom": false,
+    "icon_id": 450,
+    "id": 450,
+    "name": "Bewildered Daze 3",
+    "symbol": "BEWILDERED_DAZE_3"
+  },
+  "451": {
+    "custom": false,
+    "icon_id": 451,
+    "id": 451,
+    "name": "Bewildered Daze 4",
+    "symbol": "BEWILDERED_DAZE_4"
+  },
+  "452": {
+    "custom": false,
+    "icon_id": 452,
+    "id": 452,
+    "name": "Bewildered Daze 5",
+    "symbol": "BEWILDERED_DAZE_5"
+  },
+  "453": {
+    "custom": false,
+    "icon_id": 453,
+    "id": 453,
+    "name": "Divine Caress",
+    "symbol": "DIVINE_CARESS_I"
+  },
+  "454": {
+    "custom": false,
+    "icon_id": 454,
+    "id": 454,
+    "name": "Saboteur",
+    "symbol": "SABOTEUR"
+  },
+  "455": {
+    "custom": false,
+    "icon_id": 455,
+    "id": 455,
+    "name": "Tenuto",
+    "symbol": "TENUTO"
+  },
+  "456": {
+    "custom": false,
+    "icon_id": 456,
+    "id": 456,
+    "name": "Spur",
+    "symbol": "SPUR"
+  },
+  "457": {
+    "custom": false,
+    "icon_id": 457,
+    "id": 457,
+    "name": "Efflux",
+    "symbol": "EFFLUX"
+  },
+  "458": {
+    "custom": false,
+    "icon_id": 458,
+    "id": 458,
+    "name": "Earthen Armor",
+    "symbol": "EARTHEN_ARMOR"
+  },
+  "459": {
+    "custom": false,
+    "icon_id": 459,
+    "id": 459,
+    "name": "Divine Caress",
+    "symbol": "DIVINE_CARESS_II"
+  },
+  "460": {
+    "custom": false,
+    "icon_id": 460,
+    "id": 460,
+    "name": "Blood Rage",
+    "symbol": "BLOOD_RAGE"
+  },
+  "461": {
+    "custom": false,
+    "icon_id": 461,
+    "id": 461,
+    "name": "Impetus",
+    "symbol": "IMPETUS"
+  },
+  "462": {
+    "custom": false,
+    "icon_id": 462,
+    "id": 462,
+    "name": "Conspirator",
+    "symbol": "CONSPIRATOR"
+  },
+  "463": {
+    "custom": false,
+    "icon_id": 463,
+    "id": 463,
+    "name": "Sepulcher",
+    "symbol": "SEPULCHER"
+  },
+  "464": {
+    "custom": false,
+    "icon_id": 464,
+    "id": 464,
+    "name": "Arcane Crest",
+    "symbol": "ARCANE_CREST"
+  },
+  "465": {
+    "custom": false,
+    "icon_id": 465,
+    "id": 465,
+    "name": "Hamanoha",
+    "symbol": "HAMANOHA"
+  },
+  "466": {
+    "custom": false,
+    "icon_id": 466,
+    "id": 466,
+    "name": "Dragon Breaker",
+    "symbol": "DRAGON_BREAKER"
+  },
+  "467": {
+    "custom": false,
+    "icon_id": 467,
+    "id": 467,
+    "name": "Triple Shot",
+    "symbol": "TRIPLE_SHOT"
+  },
+  "468": {
+    "custom": false,
+    "icon_id": 468,
+    "id": 468,
+    "name": "Striking Flourish",
+    "symbol": "STRIKING_FLOURISH"
+  },
+  "469": {
+    "custom": false,
+    "icon_id": 469,
+    "id": 469,
+    "name": "Perpetuance",
+    "symbol": "PERPETUANCE"
+  },
+  "470": {
+    "custom": false,
+    "icon_id": 470,
+    "id": 470,
+    "name": "Immanence",
+    "symbol": "IMMANENCE"
+  },
+  "471": {
+    "custom": false,
+    "icon_id": 471,
+    "id": 471,
+    "name": "Migawari",
+    "symbol": "MIGAWARI"
+  },
+  "472": {
+    "custom": false,
+    "icon_id": 472,
+    "id": 472,
+    "name": "Ternary Flourish",
+    "symbol": "TERNARY_FLOURISH"
+  },
+  "473": {
+    "custom": false,
+    "icon_id": 473,
+    "id": 473,
+    "name": "muddle",
+    "symbol": "MUDDLE"
+  },
+  "474": {
+    "custom": false,
+    "icon_id": 474,
+    "id": 474,
+    "name": "Prowess",
+    "symbol": "PROWESS"
+  },
+  "475": {
+    "custom": false,
+    "icon_id": 475,
+    "id": 475,
+    "name": "Voidwatcher",
+    "symbol": "VOIDWATCHER"
+  },
+  "476": {
+    "custom": false,
+    "icon_id": 476,
+    "id": 476,
+    "name": "Ensphere",
+    "symbol": "ENSPHERE"
+  },
+  "477": {
+    "custom": false,
+    "icon_id": 477,
+    "id": 477,
+    "name": "Sacrosanctity",
+    "symbol": "SACROSANCTITY"
+  },
+  "478": {
+    "custom": false,
+    "icon_id": 478,
+    "id": 478,
+    "name": "Palisade",
+    "symbol": "PALISADE"
+  },
+  "479": {
+    "custom": false,
+    "icon_id": 479,
+    "id": 479,
+    "name": "Scarlet Delirium",
+    "symbol": "SCARLET_DELIRIUM"
+  },
+  "480": {
+    "custom": false,
+    "icon_id": 480,
+    "id": 480,
+    "name": "Scarlet Delirium",
+    "symbol": "SCARLET_DELIRIUM_1"
+  },
+  "481": {
+    "custom": false,
+    "icon_id": 481,
+    "id": 481,
+    "name": "Abdhaljs Seal",
+    "symbol": "ABDHALJS_SEAL"
+  },
+  "482": {
+    "custom": false,
+    "icon_id": 482,
+    "id": 482,
+    "name": "Decoy Shot",
+    "symbol": "DECOY_SHOT"
+  },
+  "483": {
+    "custom": false,
+    "icon_id": 483,
+    "id": 483,
+    "name": "Hagakure",
+    "symbol": "HAGAKURE"
+  },
+  "484": {
+    "custom": false,
+    "icon_id": 484,
+    "id": 484,
+    "name": "Issekigan",
+    "symbol": "ISSEKIGAN"
+  },
+  "485": {
+    "custom": false,
+    "icon_id": 485,
+    "id": 485,
+    "name": "Unbridled Learning",
+    "symbol": "UNBRIDLED_LEARNING"
+  },
+  "486": {
+    "custom": false,
+    "icon_id": 486,
+    "id": 486,
+    "name": "Counter Boost",
+    "symbol": "COUNTER_BOOST"
+  },
+  "487": {
+    "custom": false,
+    "icon_id": 487,
+    "id": 487,
+    "name": "Endrain",
+    "symbol": "ENDRAIN"
+  },
+  "488": {
+    "custom": false,
+    "icon_id": 488,
+    "id": 488,
+    "name": "Enaspir",
+    "symbol": "ENASPIR"
+  },
+  "489": {
+    "custom": false,
+    "icon_id": 489,
+    "id": 489,
+    "name": "Afterglow",
+    "symbol": "AFTERGLOW"
+  },
+  "490": {
+    "custom": false,
+    "icon_id": 490,
+    "id": 490,
+    "name": "Brazen Rush",
+    "symbol": "BRAZEN_RUSH"
+  },
+  "491": {
+    "custom": false,
+    "icon_id": 491,
+    "id": 491,
+    "name": "Inner Strength",
+    "symbol": "INNER_STRENGTH"
+  },
+  "492": {
+    "custom": false,
+    "icon_id": 492,
+    "id": 492,
+    "name": "Asylum",
+    "symbol": "ASYLUM"
+  },
+  "493": {
+    "custom": false,
+    "icon_id": 493,
+    "id": 493,
+    "name": "Subtle Sorcery",
+    "symbol": "SUBTLE_SORCERY"
+  },
+  "494": {
+    "custom": false,
+    "icon_id": 494,
+    "id": 494,
+    "name": "Stymie",
+    "symbol": "STYMIE"
+  },
+  "495": {
+    "custom": false,
+    "icon_id": 495,
+    "id": 495,
+    "name": "Macro Test",
+    "symbol": "MACRO_TEST"
+  },
+  "496": {
+    "custom": false,
+    "icon_id": 496,
+    "id": 496,
+    "name": "Intervene",
+    "symbol": "INTERVENE"
+  },
+  "497": {
+    "custom": false,
+    "icon_id": 497,
+    "id": 497,
+    "name": "Soul Enslavement",
+    "symbol": "SOUL_ENSLAVEMENT"
+  },
+  "498": {
+    "custom": false,
+    "icon_id": 498,
+    "id": 498,
+    "name": "Unleash",
+    "symbol": "UNLEASH"
+  },
+  "499": {
+    "custom": false,
+    "icon_id": 499,
+    "id": 499,
+    "name": "Clarion Call",
+    "symbol": "CLARION_CALL"
+  },
+  "500": {
+    "custom": false,
+    "icon_id": 500,
+    "id": 500,
+    "name": "Overkill",
+    "symbol": "OVERKILL"
+  },
+  "501": {
+    "custom": false,
+    "icon_id": 501,
+    "id": 501,
+    "name": "Yaegasumi",
+    "symbol": "YAEGASUMI"
+  },
+  "502": {
+    "custom": false,
+    "icon_id": 502,
+    "id": 502,
+    "name": "Mikage",
+    "symbol": "MIKAGE"
+  },
+  "503": {
+    "custom": false,
+    "icon_id": 503,
+    "id": 503,
+    "name": "Fly High",
+    "symbol": "FLY_HIGH"
+  },
+  "504": {
+    "custom": false,
+    "icon_id": 504,
+    "id": 504,
+    "name": "Astral Conduit",
+    "symbol": "ASTRAL_CONDUIT"
+  },
+  "505": {
+    "custom": false,
+    "icon_id": 505,
+    "id": 505,
+    "name": "Unbridled Wisdom",
+    "symbol": "UNBRIDLED_WISDOM"
+  },
+  "506": {
+    "custom": false,
+    "icon_id": 506,
+    "id": 506,
+    "name": "Grace",
+    "symbol": "GRACE"
+  },
+  "507": {
+    "custom": false,
+    "icon_id": 507,
+    "id": 507,
+    "name": "Grand Pas",
+    "symbol": "GRAND_PAS"
+  },
+  "508": {
+    "custom": false,
+    "icon_id": 508,
+    "id": 508,
+    "name": "Widened Compass",
+    "symbol": "WIDENED_COMPASS"
+  },
+  "509": {
+    "custom": false,
+    "icon_id": 509,
+    "id": 509,
+    "name": "Odyllic Subterfuge",
+    "symbol": "ODYLLIC_SUBTERFUGE"
+  },
+  "510": {
+    "custom": false,
+    "icon_id": 510,
+    "id": 510,
+    "name": "Ergon Might",
+    "symbol": "ERGON_MIGHT"
+  },
+  "511": {
+    "custom": false,
+    "icon_id": 511,
+    "id": 511,
+    "name": "Reive Mark",
+    "symbol": "REIVE_MARK"
+  },
+  "512": {
+    "custom": false,
+    "icon_id": 512,
+    "id": 512,
+    "name": "Ionis",
+    "symbol": "IONIS"
+  },
+  "513": {
+    "custom": false,
+    "icon_id": 513,
+    "id": 513,
+    "name": "Bolster",
+    "symbol": "BOLSTER"
+  },
+  "515": {
+    "custom": false,
+    "icon_id": 515,
+    "id": 515,
+    "name": "Lasting Emanation",
+    "symbol": "LASTING_EMANATION"
+  },
+  "516": {
+    "custom": false,
+    "icon_id": 516,
+    "id": 516,
+    "name": "Ecliptic Attrition",
+    "symbol": "ECLIPTIC_ATTRITION"
+  },
+  "517": {
+    "custom": false,
+    "icon_id": 517,
+    "id": 517,
+    "name": "Collimated Fervor",
+    "symbol": "COLLIMATED_FERVOR"
+  },
+  "518": {
+    "custom": false,
+    "icon_id": 518,
+    "id": 518,
+    "name": "Dematerialize",
+    "symbol": "DEMATERIALIZE"
+  },
+  "519": {
+    "custom": false,
+    "icon_id": 519,
+    "id": 519,
+    "name": "Theurgic Focus",
+    "symbol": "THEURGIC_FOCUS"
+  },
+  "522": {
+    "custom": false,
+    "icon_id": 522,
+    "id": 522,
+    "name": "Elemental Sforzo",
+    "symbol": "ELEMENTAL_SFORZO"
+  },
+  "523": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 523,
+    "id": 523,
+    "name": "Ignis",
+    "symbol": "IGNIS"
+  },
+  "524": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 524,
+    "id": 524,
+    "name": "Gelus",
+    "symbol": "GELUS"
+  },
+  "525": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 525,
+    "id": 525,
+    "name": "Flabra",
+    "symbol": "FLABRA"
+  },
+  "526": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 526,
+    "id": 526,
+    "name": "Tellus",
+    "symbol": "TELLUS"
+  },
+  "527": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 527,
+    "id": 527,
+    "name": "Sulpor",
+    "symbol": "SULPOR"
+  },
+  "528": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 528,
+    "id": 528,
+    "name": "Unda",
+    "symbol": "UNDA"
+  },
+  "529": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 529,
+    "id": 529,
+    "name": "Lux",
+    "symbol": "LUX"
+  },
+  "530": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 530,
+    "id": 530,
+    "name": "Tenebrae",
+    "symbol": "TENEBRAE"
+  },
+  "531": {
+    "custom": false,
+    "icon_id": 531,
+    "id": 531,
+    "name": "Vallation",
+    "symbol": "VALLATION"
+  },
+  "532": {
+    "custom": false,
+    "icon_id": 532,
+    "id": 532,
+    "name": "Swordplay",
+    "symbol": "SWORDPLAY"
+  },
+  "533": {
+    "custom": false,
+    "icon_id": 533,
+    "id": 533,
+    "name": "Pflug",
+    "symbol": "PFLUG"
+  },
+  "534": {
+    "custom": false,
+    "icon_id": 534,
+    "id": 534,
+    "name": "Embolden",
+    "symbol": "EMBOLDEN"
+  },
+  "535": {
+    "custom": false,
+    "icon_id": 535,
+    "id": 535,
+    "name": "Valiance",
+    "symbol": "VALIANCE"
+  },
+  "536": {
+    "custom": false,
+    "icon_id": 536,
+    "id": 536,
+    "name": "Gambit",
+    "symbol": "GAMBIT"
+  },
+  "537": {
+    "custom": false,
+    "icon_id": 537,
+    "id": 537,
+    "name": "Liement",
+    "symbol": "LIEMENT"
+  },
+  "538": {
+    "custom": false,
+    "icon_id": 538,
+    "id": 538,
+    "name": "One for All",
+    "symbol": "ONE_FOR_ALL"
+  },
+  "539": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 539,
+    "id": 539,
+    "name": "Regen",
+    "symbol": "GEO_REGEN"
+  },
+  "540": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 540,
+    "id": 540,
+    "name": "poison",
+    "symbol": "GEO_POISON"
+  },
+  "541": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 541,
+    "id": 541,
+    "name": "Refresh",
+    "symbol": "GEO_REFRESH"
+  },
+  "542": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 542,
+    "id": 542,
+    "name": "STR Boost",
+    "symbol": "GEO_STR_BOOST"
+  },
+  "543": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 543,
+    "id": 543,
+    "name": "DEX Boost",
+    "symbol": "GEO_DEX_BOOST"
+  },
+  "544": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 544,
+    "id": 544,
+    "name": "VIT Boost",
+    "symbol": "GEO_VIT_BOOST"
+  },
+  "545": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 545,
+    "id": 545,
+    "name": "AGI Boost",
+    "symbol": "GEO_AGI_BOOST"
+  },
+  "546": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 546,
+    "id": 546,
+    "name": "INT Boost",
+    "symbol": "GEO_INT_BOOST"
+  },
+  "547": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 547,
+    "id": 547,
+    "name": "MND Boost",
+    "symbol": "GEO_MND_BOOST"
+  },
+  "548": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 548,
+    "id": 548,
+    "name": "CHR Boost",
+    "symbol": "GEO_CHR_BOOST"
+  },
+  "549": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 549,
+    "id": 549,
+    "name": "Attack Boost",
+    "symbol": "GEO_ATTACK_BOOST"
+  },
+  "550": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 550,
+    "id": 550,
+    "name": "Defense Boost",
+    "symbol": "GEO_DEFENSE_BOOST"
+  },
+  "551": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 551,
+    "id": 551,
+    "name": "Magic Atk. Boost",
+    "symbol": "GEO_MAGIC_ATK_BOOST"
+  },
+  "552": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 552,
+    "id": 552,
+    "name": "Magic Def. Boost",
+    "symbol": "GEO_MAGIC_DEF_BOOST"
+  },
+  "553": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 553,
+    "id": 553,
+    "name": "Accuracy Boost",
+    "symbol": "GEO_ACCURACY_BOOST"
+  },
+  "554": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 554,
+    "id": 554,
+    "name": "Evasion Boost",
+    "symbol": "GEO_EVASION_BOOST"
+  },
+  "555": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 555,
+    "id": 555,
+    "name": "Magic Acc. Boost",
+    "symbol": "GEO_MAGIC_ACC_BOOST"
+  },
+  "556": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 556,
+    "id": 556,
+    "name": "Magic Evasion Boost",
+    "symbol": "GEO_MAGIC_EVASION_BOOST"
+  },
+  "557": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 557,
+    "id": 557,
+    "name": "Attack Down",
+    "symbol": "GEO_ATTACK_DOWN"
+  },
+  "558": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 558,
+    "id": 558,
+    "name": "Defense Down",
+    "symbol": "GEO_DEFENSE_DOWN"
+  },
+  "559": {
+    "custom": false,
+    "element": "fire",
+    "icon_id": 559,
+    "id": 559,
+    "name": "Magic Atk. Down",
+    "symbol": "GEO_MAGIC_ATK_DOWN"
+  },
+  "560": {
+    "custom": false,
+    "element": "thunder",
+    "icon_id": 560,
+    "id": 560,
+    "name": "Magic Def. Down",
+    "symbol": "GEO_MAGIC_DEF_DOWN"
+  },
+  "561": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 561,
+    "id": 561,
+    "name": "Accuracy Down",
+    "symbol": "GEO_ACCURACY_DOWN"
+  },
+  "562": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 562,
+    "id": 562,
+    "name": "Evasion Down",
+    "symbol": "GEO_EVASION_DOWN"
+  },
+  "563": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 563,
+    "id": 563,
+    "name": "Magic Acc. Down",
+    "symbol": "GEO_MAGIC_ACC_DOWN"
+  },
+  "564": {
+    "custom": false,
+    "element": "dark",
+    "icon_id": 564,
+    "id": 564,
+    "name": "Magic Evasion Down",
+    "symbol": "GEO_MAGIC_EVASION_DOWN"
+  },
+  "565": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 565,
+    "id": 565,
+    "name": "slow",
+    "symbol": "GEO_SLOW"
+  },
+  "566": {
+    "custom": false,
+    "element": "ice",
+    "icon_id": 566,
+    "id": 566,
+    "name": "paralysis",
+    "symbol": "GEO_PARALYSIS"
+  },
+  "567": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 567,
+    "id": 567,
+    "name": "weight",
+    "symbol": "GEO_WEIGHT"
+  },
+  "568": {
+    "custom": false,
+    "icon_id": 568,
+    "id": 568,
+    "name": "Foil",
+    "symbol": "FOIL"
+  },
+  "569": {
+    "custom": false,
+    "icon_id": 569,
+    "id": 569,
+    "name": "Blaze of Glory",
+    "symbol": "BLAZE_OF_GLORY"
+  },
+  "570": {
+    "custom": false,
+    "icon_id": 570,
+    "id": 570,
+    "name": "Battuta",
+    "symbol": "BATTUTA"
+  },
+  "571": {
+    "custom": false,
+    "icon_id": 571,
+    "id": 571,
+    "name": "Rayke",
+    "symbol": "RAYKE"
+  },
+  "572": {
+    "custom": false,
+    "icon_id": 572,
+    "id": 572,
+    "name": "Avoidance Down",
+    "symbol": "AVOIDANCE_DOWN"
+  },
+  "573": {
+    "custom": false,
+    "element": "water",
+    "icon_id": 573,
+    "id": 573,
+    "name": "Deluge Spikes",
+    "symbol": "DELUGE_SPIKES"
+  },
+  "574": {
+    "custom": false,
+    "icon_id": 574,
+    "id": 574,
+    "name": "Fast Cast",
+    "symbol": "FAST_CAST"
+  },
+  "575": {
+    "custom": false,
+    "icon_id": 575,
+    "id": 575,
+    "name": "gestation",
+    "symbol": "GESTATION"
+  },
+  "576": {
+    "custom": false,
+    "icon_id": 576,
+    "id": 576,
+    "name": "Doubt",
+    "symbol": "DOUBT"
+  },
+  "577": {
+    "custom": false,
+    "icon_id": 577,
+    "id": 577,
+    "name": "Cait Sith's Favor",
+    "symbol": "CAIT_SITHS_FAVOR"
+  },
+  "578": {
+    "custom": false,
+    "icon_id": 578,
+    "id": 578,
+    "name": "Fishy Intuition",
+    "symbol": "FISHY_INTUITION"
+  },
+  "579": {
+    "custom": false,
+    "icon_id": 579,
+    "id": 579,
+    "name": "Commitment",
+    "symbol": "COMMITMENT"
+  },
+  "580": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 580,
+    "id": 580,
+    "name": "Haste",
+    "symbol": "GEO_HASTE"
+  },
+  "581": {
+    "custom": false,
+    "icon_id": 581,
+    "id": 581,
+    "name": "Flurry",
+    "symbol": "FLURRY_II"
+  },
+  "582": {
+    "custom": false,
+    "icon_id": 582,
+    "id": 582,
+    "name": "Contradance",
+    "symbol": "CONTRADANCE"
+  },
+  "583": {
+    "custom": false,
+    "icon_id": 583,
+    "id": 583,
+    "name": "Apogee",
+    "symbol": "APOGEE"
+  },
+  "584": {
+    "custom": false,
+    "icon_id": 584,
+    "id": 584,
+    "name": "Entrust",
+    "symbol": "ENTRUST"
+  },
+  "585": {
+    "custom": false,
+    "icon_id": 585,
+    "id": 585,
+    "name": "Costume",
+    "symbol": "COSTUME_II"
+  },
+  "586": {
+    "custom": false,
+    "icon_id": 586,
+    "id": 586,
+    "name": "Curing Conduit",
+    "symbol": "CURING_CONDUIT"
+  },
+  "587": {
+    "custom": false,
+    "icon_id": 587,
+    "id": 587,
+    "name": "TP Bonus",
+    "symbol": "TP_BONUS"
+  },
+  "588": {
+    "custom": false,
+    "icon_id": 588,
+    "id": 588,
+    "name": "Finishing Move (6+)",
+    "symbol": "FINISHING_MOVE_6"
+  },
+  "589": {
+    "custom": false,
+    "icon_id": 589,
+    "id": 589,
+    "name": "Firestorm",
+    "symbol": "FIRESTORM_II"
+  },
+  "590": {
+    "custom": false,
+    "icon_id": 590,
+    "id": 590,
+    "name": "Hailstorm",
+    "symbol": "HAILSTORM_II"
+  },
+  "591": {
+    "custom": false,
+    "icon_id": 591,
+    "id": 591,
+    "name": "Windstorm",
+    "symbol": "WINDSTORM_II"
+  },
+  "592": {
+    "custom": false,
+    "icon_id": 592,
+    "id": 592,
+    "name": "Sandstorm",
+    "symbol": "SANDSTORM_II"
+  },
+  "593": {
+    "custom": false,
+    "icon_id": 593,
+    "id": 593,
+    "name": "Thunderstorm",
+    "symbol": "THUNDERSTORM_II"
+  },
+  "594": {
+    "custom": false,
+    "icon_id": 594,
+    "id": 594,
+    "name": "Rainstorm",
+    "symbol": "RAINSTORM_II"
+  },
+  "595": {
+    "custom": false,
+    "icon_id": 595,
+    "id": 595,
+    "name": "Aurorastorm",
+    "symbol": "AURORASTORM_II"
+  },
+  "596": {
+    "custom": false,
+    "icon_id": 596,
+    "id": 596,
+    "name": "Voidstorm",
+    "symbol": "VOIDSTORM_II"
+  },
+  "597": {
+    "custom": false,
+    "icon_id": 597,
+    "id": 597,
+    "name": "Inundation",
+    "symbol": "INUNDATION"
+  },
+  "598": {
+    "custom": false,
+    "icon_id": 598,
+    "id": 598,
+    "name": "Cascade",
+    "symbol": "CASCADE"
+  },
+  "599": {
+    "custom": false,
+    "icon_id": 599,
+    "id": 599,
+    "name": "Consume Mana",
+    "symbol": "CONSUME_MANA"
+  },
+  "600": {
+    "custom": false,
+    "icon_id": 600,
+    "id": 600,
+    "name": "Runeist's Roll",
+    "symbol": "RUNEISTS_ROLL"
+  },
+  "601": {
+    "custom": false,
+    "icon_id": 601,
+    "id": 601,
+    "name": "Crooked Cards",
+    "symbol": "CROOKED_CARDS"
+  },
+  "602": {
+    "custom": false,
+    "icon_id": 602,
+    "id": 602,
+    "name": "Vorseal",
+    "symbol": "VORSEAL"
+  },
+  "603": {
+    "custom": false,
+    "icon_id": 603,
+    "id": 603,
+    "name": "Elvorseal",
+    "symbol": "ELVORSEAL"
+  },
+  "604": {
+    "custom": false,
+    "icon_id": 604,
+    "id": 604,
+    "name": "Mighty Guard",
+    "symbol": "MIGHTY_GUARD"
+  },
+  "605": {
+    "custom": false,
+    "element": "wind",
+    "icon_id": 605,
+    "id": 605,
+    "name": "Gale Spikes",
+    "symbol": "GALE_SPIKES"
+  },
+  "606": {
+    "custom": false,
+    "element": "earth",
+    "icon_id": 606,
+    "id": 606,
+    "name": "Clod Spikes",
+    "symbol": "CLOD_SPIKES"
+  },
+  "607": {
+    "custom": false,
+    "element": "light",
+    "icon_id": 607,
+    "id": 607,
+    "name": "Glint Spikes",
+    "symbol": "GLINT_SPIKES"
+  },
+  "608": {
+    "custom": false,
+    "icon_id": 608,
+    "id": 608,
+    "name": "Negate Virus",
+    "symbol": "NEGATE_VIRUS"
+  },
+  "609": {
+    "custom": false,
+    "icon_id": 609,
+    "id": 609,
+    "name": "Negate Curse",
+    "symbol": "NEGATE_CURSE"
+  },
+  "610": {
+    "custom": false,
+    "icon_id": 610,
+    "id": 610,
+    "name": "Negate Charm",
+    "symbol": "NEGATE_CHARM"
+  },
+  "611": {
+    "custom": false,
+    "icon_id": 611,
+    "id": 611,
+    "name": "Magic Evasion Boost",
+    "symbol": "MAGIC_EVASION_BOOST"
+  },
+  "612": {
+    "custom": false,
+    "icon_id": 612,
+    "id": 612,
+    "name": "Colure Active",
+    "symbol": "COLURE_ACTIVE"
+  },
+  "613": {
+    "custom": false,
+    "icon_id": 613,
+    "id": 613,
+    "name": "Mumor's Radiance",
+    "symbol": "MUMORS_RADIANCE"
+  },
+  "614": {
+    "custom": false,
+    "icon_id": 614,
+    "id": 614,
+    "name": "Ullegore's Gloom",
+    "symbol": "ULLEGORES_GLOOM"
+  },
+  "615": {
+    "custom": false,
+    "icon_id": 615,
+    "id": 615,
+    "name": "Boost",
+    "symbol": "BOOST_II"
+  },
+  "616": {
+    "custom": false,
+    "icon_id": 616,
+    "id": 616,
+    "name": "Artisanal Knowledge",
+    "symbol": "ARTISANAL_KNOWLEDGE"
+  },
+  "617": {
+    "custom": false,
+    "icon_id": 617,
+    "id": 617,
+    "name": "Sacrifice",
+    "symbol": "SACRIFICE"
+  },
+  "618": {
+    "custom": false,
+    "icon_id": 618,
+    "id": 618,
+    "name": "Emporox's Gift",
+    "symbol": "EMPOROXS_GIFT"
+  },
+  "619": {
+    "custom": false,
+    "icon_id": 619,
+    "id": 619,
+    "name": "Spirit Bond",
+    "symbol": "SPIRIT_BOND"
+  },
+  "620": {
+    "custom": false,
+    "icon_id": 620,
+    "id": 620,
+    "name": "Awaken",
+    "symbol": "AWAKEN"
+  },
+  "621": {
+    "custom": false,
+    "icon_id": 621,
+    "id": 621,
+    "name": "Majesty",
+    "symbol": "MAJESTY"
+  },
+  "622": {
+    "custom": false,
+    "icon_id": 622,
+    "id": 622,
+    "name": "Guarding Rate Boost",
+    "symbol": "GUARDING_RATE_BOOST"
+  },
+  "623": {
+    "custom": false,
+    "icon_id": 623,
+    "id": 623,
+    "name": "Rampart",
+    "symbol": "RAMPART"
+  },
+  "624": {
+    "custom": false,
+    "icon_id": 624,
+    "id": 624,
+    "name": "Wind's Blessing",
+    "symbol": "WINDS_BLESSING"
+  },
+  "625": {
+    "custom": false,
+    "icon_id": 625,
+    "id": 625,
+    "name": "Siren's Favor",
+    "symbol": "SIRENS_FAVOR"
+  },
+  "626": {
+    "custom": false,
+    "icon_id": 626,
+    "id": 626,
+    "name": "Negate Sleep",
+    "symbol": "NEGATE_SLEEP"
+  },
+  "627": {
+    "custom": false,
+    "icon_id": 627,
+    "id": 627,
+    "name": "Mobilization",
+    "symbol": "MOBILIZATION"
+  },
+  "628": {
+    "custom": false,
+    "icon_id": 628,
+    "id": 628,
+    "name": "Hover Shot",
+    "symbol": "HOVER_SHOT"
+  },
+  "629": {
+    "custom": false,
+    "icon_id": 629,
+    "id": 629,
+    "name": "Moogle Amplifier",
+    "symbol": "MOOGLE_AMPLIFIER"
+  },
+  "630": {
+    "custom": false,
+    "icon_id": 630,
+    "id": 630,
+    "name": "taint",
+    "symbol": "TAINT"
+  },
+  "631": {
+    "custom": false,
+    "icon_id": 631,
+    "id": 631,
+    "name": "haunt",
+    "symbol": "HAUNT"
+  },
+  "632": {
+    "custom": false,
+    "icon_id": 632,
+    "id": 632,
+    "name": "Black Sanctus",
+    "symbol": "BLACK_SANCTUS"
+  },
+  "633": {
+    "custom": false,
+    "icon_id": 633,
+    "id": 633,
+    "name": "Animated",
+    "symbol": "ANIMATED"
+  },
+  "634": {
+    "custom": false,
+    "icon_id": 634,
+    "id": 634,
+    "name": "Serpents Guile",
+    "symbol": "SERPENTS_GUILE"
+  },
+  "635": {
+    "custom": false,
+    "icon_id": 635,
+    "id": 635,
+    "name": "Resolved",
+    "symbol": "RESOLVED"
+  },
+  "768": {
+    "custom": true,
+    "element": "fire",
+    "id": 768,
+    "name": "Abyssea Str",
+    "symbol": "ABYSSEA_STR"
+  },
+  "769": {
+    "custom": true,
+    "element": "thunder",
+    "id": 769,
+    "name": "Abyssea Dex",
+    "symbol": "ABYSSEA_DEX"
+  },
+  "770": {
+    "custom": true,
+    "element": "earth",
+    "id": 770,
+    "name": "Abyssea Vit",
+    "symbol": "ABYSSEA_VIT"
+  },
+  "771": {
+    "custom": true,
+    "element": "wind",
+    "id": 771,
+    "name": "Abyssea Agi",
+    "symbol": "ABYSSEA_AGI"
+  },
+  "772": {
+    "custom": true,
+    "element": "ice",
+    "id": 772,
+    "name": "Abyssea Int",
+    "symbol": "ABYSSEA_INT"
+  },
+  "773": {
+    "custom": true,
+    "element": "water",
+    "id": 773,
+    "name": "Abyssea Mnd",
+    "symbol": "ABYSSEA_MND"
+  },
+  "774": {
+    "custom": true,
+    "element": "light",
+    "id": 774,
+    "name": "Abyssea Chr",
+    "symbol": "ABYSSEA_CHR"
+  },
+  "775": {
+    "custom": true,
+    "element": "light",
+    "id": 775,
+    "name": "Abyssea Hp",
+    "symbol": "ABYSSEA_HP"
+  },
+  "776": {
+    "custom": true,
+    "element": "dark",
+    "id": 776,
+    "name": "Abyssea Mp",
+    "symbol": "ABYSSEA_MP"
+  },
+  "777": {
+    "custom": true,
+    "id": 777,
+    "name": "Prowess Casket Rate",
+    "symbol": "PROWESS_CASKET_RATE"
+  },
+  "778": {
+    "custom": true,
+    "id": 778,
+    "name": "Prowess Skill Rate",
+    "symbol": "PROWESS_SKILL_RATE"
+  },
+  "779": {
+    "custom": true,
+    "id": 779,
+    "name": "Prowess Crystal Yield",
+    "symbol": "PROWESS_CRYSTAL_YIELD"
+  },
+  "780": {
+    "custom": true,
+    "id": 780,
+    "name": "Prowess Th",
+    "symbol": "PROWESS_TH"
+  },
+  "781": {
+    "custom": true,
+    "id": 781,
+    "name": "Prowess Attack Speed",
+    "symbol": "PROWESS_ATTACK_SPEED"
+  },
+  "782": {
+    "custom": true,
+    "id": 782,
+    "name": "Prowess Hp Mp",
+    "symbol": "PROWESS_HP_MP"
+  },
+  "783": {
+    "custom": true,
+    "id": 783,
+    "name": "Prowess Acc Racc",
+    "symbol": "PROWESS_ACC_RACC"
+  },
+  "784": {
+    "custom": true,
+    "id": 784,
+    "name": "Prowess Att Ratt",
+    "symbol": "PROWESS_ATT_RATT"
+  },
+  "785": {
+    "custom": true,
+    "id": 785,
+    "name": "Prowess Macc Matk",
+    "symbol": "PROWESS_MACC_MATK"
+  },
+  "786": {
+    "custom": true,
+    "id": 786,
+    "name": "Prowess Cure Potency",
+    "symbol": "PROWESS_CURE_POTENCY"
+  },
+  "787": {
+    "custom": true,
+    "id": 787,
+    "name": "Prowess Ws Dmg",
+    "symbol": "PROWESS_WS_DMG"
+  },
+  "788": {
+    "custom": true,
+    "id": 788,
+    "name": "Prowess Killer",
+    "symbol": "PROWESS_KILLER"
+  },
+  "790": {
+    "custom": true,
+    "id": 790,
+    "name": "Mark Of Seed",
+    "symbol": "MARK_OF_SEED"
+  },
+  "791": {
+    "custom": true,
+    "id": 791,
+    "name": "All Miss",
+    "symbol": "ALL_MISS"
+  },
+  "792": {
+    "custom": true,
+    "id": 792,
+    "name": "Super Buff",
+    "symbol": "SUPER_BUFF"
+  },
+  "793": {
+    "custom": true,
+    "id": 793,
+    "name": "Ninjutsu Ele Debuff",
+    "symbol": "NINJUTSU_ELE_DEBUFF"
+  },
+  "794": {
+    "custom": true,
+    "id": 794,
+    "name": "Healing",
+    "symbol": "HEALING"
+  },
+  "795": {
+    "custom": true,
+    "id": 795,
+    "name": "Leavegame",
+    "symbol": "LEAVEGAME"
+  },
+  "796": {
+    "custom": true,
+    "id": 796,
+    "name": "Haste Samba Haste",
+    "symbol": "HASTE_SAMBA_HASTE"
+  },
+  "797": {
+    "custom": true,
+    "id": 797,
+    "name": "Teleport",
+    "symbol": "TELEPORT"
+  },
+  "798": {
+    "custom": true,
+    "id": 798,
+    "name": "Chainbound",
+    "symbol": "CHAINBOUND"
+  },
+  "799": {
+    "custom": true,
+    "id": 799,
+    "name": "Skillchain",
+    "symbol": "SKILLCHAIN"
+  },
+  "800": {
+    "custom": true,
+    "id": 800,
+    "name": "Dynamis",
+    "symbol": "DYNAMIS"
+  },
+  "801": {
+    "custom": true,
+    "element": "light",
+    "id": 801,
+    "name": "Meditate",
+    "symbol": "MEDITATE"
+  },
+  "802": {
+    "custom": true,
+    "id": 802,
+    "name": "Elementalres Down",
+    "symbol": "ELEMENTALRES_DOWN"
+  },
+  "803": {
+    "custom": true,
+    "id": 803,
+    "name": "Full Speed Ahead",
+    "symbol": "FULL_SPEED_AHEAD"
+  },
+  "804": {
+    "custom": true,
+    "id": 804,
+    "name": "Hysteria",
+    "symbol": "HYSTERIA"
+  },
+  "805": {
+    "custom": true,
+    "id": 805,
+    "name": "Tomahawk",
+    "symbol": "TOMAHAWK"
+  },
+  "806": {
+    "custom": true,
+    "id": 806,
+    "name": "Nuke Wall",
+    "symbol": "NUKE_WALL"
+  },
+  "807": {
+    "custom": true,
+    "id": 807,
+    "name": "Trust Aura Chr",
+    "symbol": "TRUST_AURA_CHR"
+  },
+  "808": {
+    "custom": true,
+    "id": 808,
+    "name": "Trust Aura Haste",
+    "symbol": "TRUST_AURA_HASTE"
+  },
+  "809": {
+    "custom": true,
+    "id": 809,
+    "name": "Trust Aura Exp",
+    "symbol": "TRUST_AURA_EXP"
+  },
+  "810": {
+    "custom": true,
+    "id": 810,
+    "name": "Trust Aura Acc",
+    "symbol": "TRUST_AURA_ACC"
+  },
+  "811": {
+    "custom": true,
+    "id": 811,
+    "name": "Trust Aura Refresh",
+    "symbol": "TRUST_AURA_REFRESH"
+  },
+  "812": {
+    "custom": true,
+    "id": 812,
+    "name": "Trust Aura Regen",
+    "symbol": "TRUST_AURA_REGEN"
+  },
+  "813": {
+    "custom": true,
+    "id": 813,
+    "name": "Trust Aura Magic Attack",
+    "symbol": "TRUST_AURA_MAGIC_ATTACK"
+  }
+}
