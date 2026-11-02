@@ -94,7 +94,6 @@ Run from the addon directory with Python 3.12+ and an offline upstream checkout:
 
 ```text
 python tools/build_catalogue.py --source PATH_TO_SERVER --revision COMMIT_SHA --client-resources ../metrics/resources
-python tests/test_catalogue_builder.py
 ```
 
 `--client-resources` is optional. The builder uses only Python's standard library,

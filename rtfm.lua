@@ -10,6 +10,7 @@ local names = require('lib.names')
 local storage = require('lib.storage')
 local config = require('config')
 local overlay = require('lib.overlay')
+local center_alert = require('lib.center_alert')
 local config_window = require('lib.config_window')
 local actions = require('lib.actions')
 local affected = require('lib.affected')
@@ -39,6 +40,11 @@ end
 if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
 if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
 if type(preferences.party_enemies_only) == 'boolean' then config.party_enemies_only = preferences.party_enemies_only end
+if type(preferences.log_font_scale) == 'number' and preferences.log_font_scale == preferences.log_font_scale then
+    config.log_font_scale = math.max(0.75, math.min(2, preferences.log_font_scale))
+end
+if type(preferences.single_line_log) == 'boolean' then config.single_line_log = preferences.single_line_log end
+if type(preferences.center_alert_enabled) == 'boolean' then config.center_alert_enabled = preferences.center_alert_enabled end
 
 -- Normalize saved and curated keys at the boundary so all lookups agree.
 local normalized_learned = {}
@@ -73,6 +79,9 @@ local function save()
         move_alert_entries = move_alerts:list(),
         max_recent = config.max_recent,
         party_enemies_only = config.party_enemies_only,
+        log_font_scale = config.log_font_scale,
+        single_line_log = config.single_line_log,
+        center_alert_enabled = config.center_alert_enabled,
     }) then
         preferences_dirty = false
     end
@@ -145,6 +154,10 @@ ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
     if not packet then return end
     local result = affected.resolve(packet, AshitaCore:GetMemoryManager():GetEntity(),
         AshitaCore:GetResourceManager())
+    if result and result.action == 'interrupted' then
+        tracker:interrupt(result)
+        return
+    end
     if config.debug_log_all then
         local messages = {}
         for _, target in ipairs(packet.targets) do
@@ -161,6 +174,10 @@ ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
     if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
     local event = actions.parse(e.message)
+    if event and event.action == 'interrupted' then
+        tracker:interrupt(event)
+        return
+    end
     -- Completion packets already supply the move and its targets. Chat can be
     -- delayed or reformatted by other addons, so it must not create a second row.
     if event and (event.action == 'readies' or event.action == 'casting') then
@@ -178,6 +195,7 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     local was_open = is_open[1]
     local changed = overlay.draw(is_open, tracker, timestamp, config, moves, move_alerts, config_open)
     if config_window.draw(config_open, move_alerts, config) then changed = true end
+    center_alert.draw(tracker, move_alerts, config, timestamp)
     if changed then
         preferences_dirty = true
     end

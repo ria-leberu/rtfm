@@ -77,16 +77,11 @@ play when casting starts, not when the spell completes. Existing blacklist and
 party/alliance engagement filters still apply; player/trust casts are excluded.
 Per-enemy disabled spell rules override an any-enemy spell selection.
 
-The monster move list contains TP moves only. Its **Track spells** button opens
-that enemy's known spells and any spells you previously added. Use **Track /
-Untrack** beside a spell to save an alert for that enemy; King Behemoth's list
-includes **Meteor**. Duplicate spell IDs with the same name share one choice.
-
-Choose **Add another spell** to search the full spell catalogue, then **Add &
-track** to save a missing spell and return to the enemy's spell list. Saved
-additions remain available even when untracked. From a family entry, enter a
-specific enemy name (for example, Moblin Topsman) to see and track its spells.
-These choices apply to that enemy, rather than the whole family.
+The monster move list contains TP moves only. **Track spells** opens the general
+spell menu. Its **Tracked spells** tab shows spells with at least one enabled
+casting rule; **Untracked spells** shows the remaining catalogue. Search either
+list, select a spell, and track it for any enemy or a specific named enemy.
+Saved casting rules can be toggled or removed from that spell's panel.
 
 Monster selections include the template's known aliases. Family selections cover
 the category's standard skill-list variants and apply to their known catalogue member
@@ -99,13 +94,10 @@ choice wins if old preferences disagree. Named NMs, unknown custom moves, and
 spells retain their specific scopes. Individual named-monster rules still take
 precedence over family rules.
 
-Both scopes save immediately and survive reloads/logoffs. Saved family entries
-are marked **Family:** and can be enabled, disabled, or removed there; select
-different family moves through the browser. Existing per-monster entries retain
-their Edit controls.
-Any-enemy spell rules are marked with **Any enemy** and **(spell)**; toggle or
-remove them there, and choose different spells through the catalogue. All spell
-rules save immediately and restore across reloads/logoffs.
+Selections save immediately and survive reloads/logoffs. Settings groups active
+move rules by family or named enemy. **Edit** opens its moves; **Remove** removes
+all move rules in that group without deleting its spell rules. **Track spells**
+opens the separate general spell menu.
 
 Enable **Only enemies engaged with my party/alliance** in Settings to filter new
 log entries, preparations, learning, and alerts. It is off by default and saves
@@ -125,7 +117,7 @@ Only saved Track selections enable move alerts; there are no hardcoded monster
 highlights or completion-sound rules.
 
 Completed monster moves and spells show a smaller line beneath the action:
-`>> Alpha, Zeta <<` Names come from incoming action-result packets
+A yellow arrow icon followed by `Alpha, Zeta`. Names come from incoming action-result packets
 and are deduplicated and sorted. Damage, drains, dispels, and status effects count;
 misses, full resists, healing, pets, and trusts do not. No subtitle appears when there are no confirmed player hits or a result
 cannot be resolved. Confirmed packet results create completed action rows directly,
@@ -181,28 +173,7 @@ remains unverified on custom servers. See `data/README.md` and the readable
 - `data/reference/`: sourced JSON/Markdown catalogue, provenance, and review queue.
 - `data/reviewed_moves.lua`: reviewed descriptions overriding generated data.
 - `data/statuses.lua`: FFXI status ID labels.
-- `tests/regression.lua`: Lua 5.1/LuaJIT regression checks with host stubs.
-- `tests/affected.lua`: multi-target packets, result matching, and subtitle checks.
-- `tests/alerts.lua`: tracking-button interaction and shared selection state.
-- `tests/settings.lua`: alert editing, history retention, and disk save/load checks.
-- `tests/overlay.lua`: log order, pinned preparations, idle state, and scrolling.
-- `tests/engagement.lua`: claims, combat targets, alliance members, and pets.
-- `tests/descriptions.lua`: lookup precedence and inline description placement.
-- `tests/icons.lua`: native resource loading, caching, fallback, and cleanup.
-- `tests/catalogue_lookup.lua`: monster-specific lookup and ambiguous-name handling.
-- `tests/test_catalogue_builder.py`: offline importer and generated-data validation.
-- `tests/browser.lua`: catalogue selection, aliases, family exceptions, and persistence.
-
-Run `lua tests/regression.lua` and `lua tests/affected.lua` from the addon directory. In-game verification
-should cover actual entity classification, ImGui rendering, sound playback,
-multi-target results, hiding/closing the overlay, and reload persistence.
-Verify affected-player subtitles with a damaging AoE, a status move, misses and
-resists, repeated moves, and two different monsters acting at once.
-Run `lua tests/alerts.lua` for tracking-button checks. Verify selected alerts in-game by
-tracking a past Khimaira move, forcing that move again, disabling tracking, and repeating.
-Run `lua tests/settings.lua` for settings and persistence checks. Verify in-game
-that saved rules survive reload, unload/load, and logout/login, and that the history
-scrolls after enough completed moves.
+- `tools/`: offline Python scripts for rebuilding catalogue and effect metadata; not required by Ashita.
 
 ## Versioning
 
@@ -225,3 +196,30 @@ actions remain uncolored, and custom-server changes may differ.
 Harmful spells with known status metadata (including Bio, Blind and Sleepga)
 show the same native status icons as TP moves during casting and in the log.
 Icons describe possible effects, including effects that may be resisted.
+
+## Appearance settings
+
+Use the gear in RTFM Log to set log text size from 75% to 200%; Track buttons,
+status icons, and affected-player text scale with it. Action backgrounds now use
+a much lighter tint. Red denotes offensive actions and light blue denotes
+support actions. These settings save immediately and persist across reloads
+and logoffs.
+
+Enable **Move, description and affected players on one line** in Settings for a
+compact log row. The yellow arrow and player list follows the description, with elapsed
+time last. Long rows can be scrolled horizontally. Single-line mode is the default for new settings; disable it to place affected
+players beneath the move. This preference survives reloads and logoffs.
+
+Damage icons appear in square brackets and status icons in parentheses. Known
+elemental damage spells such as Fire III also display their element icon.
+
+Enemy spells stay in Readying / Casting until their completion packet or a
+confirmed casting interruption, with a 15-second timeout. TP preparations retain
+their separate 10-second timeout. Timed-out or interrupted casts do not create
+completed log entries.
+
+Tracked preparations also show large, pulsing yellow text at the screen center,
+including tracked spells while casting. Disable **Flashing center-screen alerts
+for tracked moves / spells** in Settings to turn this off. The preference is
+saved, and the alert stops when the pending action clears. It remains available
+when the main log is hidden and does not intercept mouse or keyboard input.

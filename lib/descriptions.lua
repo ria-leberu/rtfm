@@ -4,6 +4,7 @@ local icons = require('lib.icons')
 local catalogue = require('data.catalogue')
 local statuses = require('data.statuses')
 local spell_statuses = require('data.spell_statuses')
+local spell_damage = require('data.generated.spell_damage')
 local monster_index = require('data.generated.monsters')
 local descriptions = {}
 local by_name = {}
@@ -53,8 +54,9 @@ function descriptions.lookup(event, overrides)
         return id and { statuses = { id } } or { note = override }
     end
     if event.action == 'casts' or event.action == 'casting' or event.kind == 'spell' then
-        local effects = spell_statuses[names.trim(event.move):lower()]
-        return effects and { statuses = effects, automated = true } or nil
+        local key = names.trim(event.move):lower()
+        local effects, damage = spell_statuses[key], spell_damage[key]
+        return (effects or damage) and { statuses = effects, damage = damage, automated = true } or nil
     end
     -- Only TP-move IDs belong to this catalogue, not spell/JA IDs.
     if event.category == 11 and catalogue[event.action_id] then return catalogue[event.action_id] end
@@ -72,15 +74,24 @@ end
 function descriptions.draw(event, overrides)
     local entry = descriptions.lookup(event, overrides)
     if not entry then return end
-    local size = 16
+    local size = imgui.GetFontSize()
     if entry.damage then
         imgui.SameLine(0, 4)
+        imgui.Text('[')
+        imgui.SameLine(0, 2)
         local label = damage_labels[entry.damage] or entry.damage
         icons.draw(entry.damage, nil, label, size, label .. (entry.automated and ' (upstream; unverified)' or ''))
+        imgui.SameLine(0, 2)
+        imgui.Text(']')
     end
     if entry.area then
         imgui.SameLine(0, 4)
         imgui.Text(entry.area)
+    end
+    local has_statuses = #(entry.statuses or {}) > 0 or #(entry.self_statuses or {}) > 0
+    if has_statuses then
+        imgui.SameLine(0, 4)
+        imgui.Text('(')
     end
     for _, id in ipairs(entry.statuses or {}) do
         imgui.SameLine(0, 4)
@@ -91,6 +102,10 @@ function descriptions.draw(event, overrides)
         imgui.SameLine(0, 4)
         local label = statuses[id] or ('Status ' .. id)
         icons.draw('status', id, label, size, 'Self: ' .. label .. ' (possible effect; upstream)')
+    end
+    if has_statuses then
+        imgui.SameLine(0, 2)
+        imgui.Text(')')
     end
     if entry.note then
         imgui.SameLine(0, 4)

@@ -75,10 +75,14 @@ local guaranteed_mobs   = {
 
 return {
     pending_timeout = 10.0,
+    casting_timeout = 15.0,
     save_interval = 10.0,
     duplicate_window = 0.5,
     affected_match_window = 1.0,
     affected_font_scale = 0.85,
+    log_font_scale = 1.0,
+    single_line_log = true,
+    center_alert_enabled = true,
     selected_alert_sound = 'alert.wav',
     max_recent = 25,
     max_pending = 100,

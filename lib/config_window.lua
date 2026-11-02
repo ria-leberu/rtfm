@@ -1,8 +1,26 @@
 local imgui = require('imgui')
 local browser_window = require('lib.browser_window')
 local window = {}
-local editing, error_message
-local enemy_input, move_input, enabled_input = { '' }, { '' }, { true }
+local names = require('lib.names')
+
+local function tracked_groups(alerts)
+    local groups, result = {}, {}
+    for _, rule in ipairs(alerts:list()) do
+        if rule.kind ~= 'spell' and rule.scope ~= 'spell' then
+            local key = (rule.scope or 'monster') .. ':' .. names.normalize(rule.monster)
+            local group = groups[key]
+            if not group then
+                group = { name = rule.monster, scope = rule.scope, rules = {}, active = false }
+                groups[key] = group
+            end
+            group.rules[#group.rules + 1] = rule
+            group.active = group.active or rule.enabled
+        end
+    end
+    for _, group in pairs(groups) do if group.active then result[#result + 1] = group end end
+    table.sort(result, function(a,b) return a.name:lower() < b.name:lower() end)
+    return result
+end
 
 function window.draw(is_open, alerts, config)
     if not is_open[1] then return browser_window.draw(alerts) end
@@ -10,6 +28,21 @@ function window.draw(is_open, alerts, config)
     imgui.SetNextWindowSize({ 580, 450 }, ImGuiCond_FirstUseEver)
     if imgui.Begin('RTFM Settings', is_open, ImGuiWindowFlags_NoCollapse) then
         local limit = { config.max_recent }
+        local center_alert = { config.center_alert_enabled }
+        if imgui.Checkbox('Flashing center-screen alerts for tracked moves / spells', center_alert) then
+            config.center_alert_enabled = center_alert[1]
+            changed = true
+        end
+        local single_line = { config.single_line_log }
+        if imgui.Checkbox('Move, description and affected players on one line', single_line) then
+            config.single_line_log = single_line[1]
+            changed = true
+        end
+        local scale = { math.floor(config.log_font_scale * 100 + 0.5) }
+        if imgui.SliderInt('Log text size (%)', scale, 75, 200) then
+            config.log_font_scale = scale[1] / 100
+            changed = true
+        end
         if imgui.InputInt('Moves in log', limit) then
             config.max_recent = math.max(1, math.min(250, limit[1]))
             changed = true
@@ -20,52 +53,25 @@ function window.draw(is_open, alerts, config)
             changed = true
         end
         if imgui.Button('Browse families / notorious monsters') then browser_window.open() end
-        imgui.Text('Saved move alerts')
-        imgui.TextWrapped('Enable, edit, or remove alerts saved from the move log.')
-        if imgui.BeginChild('##saved_move_alerts', { 0, 230 }, 1, 0) then
-            local entries = alerts:list()
-            if #entries == 0 then imgui.Text('No saved move alerts.') end
-            for i, entry in ipairs(entries) do
-                local enabled = { entry.enabled }
-                if imgui.Checkbox('##enabled_' .. i, enabled) then
-                    alerts:set(entry, enabled[1])
-                    if editing == entry then enabled_input[1] = enabled[1] end
-                    changed = true
-                end
+        imgui.SameLine()
+        if imgui.Button('Track spells') then browser_window.open_spells() end
+        imgui.Text('Tracked families / named enemies')
+        if imgui.BeginChild('##tracked_families', { 0, 230 }, 1, 0) then
+            local groups = tracked_groups(alerts)
+            if #groups == 0 then imgui.Text('No tracked families or enemies.') end
+            for i, group in ipairs(groups) do
+                imgui.Text((group.scope == 'family' and 'Family: ' or 'Enemy: ') .. group.name)
                 imgui.SameLine()
-                imgui.Text((entry.scope == 'family' and 'Family: ' or '') .. entry.monster .. ': ' .. entry.move
-                    .. (entry.kind == 'spell' and ' (spell)' or ''))
-                if entry.scope == nil and imgui.Button('Edit##' .. i) then
-                    editing, error_message = entry, nil
-                    enemy_input[1], move_input[1], enabled_input[1] = entry.monster, entry.move, entry.enabled
-                end
+                if imgui.Button('Edit##group_' .. i) then browser_window.open_group(group) end
                 imgui.SameLine()
-                if imgui.Button('Remove##' .. i) then
-                    alerts:remove(entry)
-                    if editing == entry then editing, error_message = nil, nil end
+                if imgui.Button('Remove##group_' .. i) then
+                    for _, rule in ipairs(group.rules) do alerts:remove(rule) end
                     changed = true
                 end
                 imgui.Separator()
             end
         end
         imgui.EndChild()
-        if editing then
-            imgui.InputText('Enemy', enemy_input, 128)
-            imgui.InputText('Move', move_input, 128)
-            imgui.Checkbox('Alert enabled', enabled_input)
-            if imgui.Button('Save entry') then
-                local ok, err = alerts:replace(editing,
-                    { monster = enemy_input[1], move = move_input[1] }, enabled_input[1])
-                if ok then
-                    editing, error_message, changed = nil, nil, true
-                else
-                    error_message = err
-                end
-            end
-            imgui.SameLine()
-            if imgui.Button('Cancel') then editing, error_message = nil, nil end
-            if error_message then imgui.TextWrapped(error_message) end
-        end
     end
     imgui.End()
     if browser_window.draw(alerts) then changed = true end
