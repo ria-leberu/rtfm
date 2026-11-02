@@ -2,6 +2,7 @@ local imgui = require('imgui')
 local browser = require('lib.catalogue_browser')
 local descriptions = require('lib.descriptions')
 local overrides = require('data.moves')
+local spell_picker = require('lib.spell_picker')
 local window = {}
 local is_open = { false }
 local scope = 'family'
@@ -41,10 +42,11 @@ end
 
 function window.open()
     is_open[1] = true
+    cached_moves = nil
 end
 
 function window.draw(alerts)
-    if not is_open[1] then return false end
+    if not is_open[1] then return spell_picker.draw(alerts) end
     local changed = false
     imgui.SetNextWindowSize({ 820, 520 }, ImGuiCond_FirstUseEver)
     if imgui.Begin('RTFM Move Catalogue', is_open, ImGuiWindowFlags_NoCollapse) then
@@ -91,6 +93,7 @@ function window.draw(alerts)
                 end
             elseif selected then
                 imgui.Text(selected.name)
+                if imgui.Button('Track spells') then spell_picker.open(selected, scope) end
                 if scope == 'family' then
                     imgui.Text(string.format('Applies to %d known catalogue names.', #selected.members))
                 end
@@ -135,6 +138,7 @@ function window.draw(alerts)
         imgui.TextWrapped('Family lists and named NMs use upstream data plus reviewed additions. Spell alerts can target any enemy or one enemy. Individual rules and engagement filters take priority.')
     end
     imgui.End()
+    if spell_picker.draw(alerts) then changed, cached_moves = true, nil end
     return changed
 end
 

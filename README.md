@@ -77,10 +77,16 @@ play when casting starts, not when the spell completes. Existing blacklist and
 party/alliance engagement filters still apply; player/trust casts are excluded.
 Per-enemy disabled spell rules override an any-enemy spell selection.
 
-Known spells are also listed alongside a named monster's TP moves where source
-data provides them. King Behemoth includes **Spell: Meteor**, which can be tracked
-directly from its NM entry. Duplicate spell IDs with the same name share one
-name-based tracking choice. Spell and TP-move ID namespaces remain separate.
+The monster move list contains TP moves only. Its **Track spells** button opens
+that enemy's known spells and any spells you previously added. Use **Track /
+Untrack** beside a spell to save an alert for that enemy; King Behemoth's list
+includes **Meteor**. Duplicate spell IDs with the same name share one choice.
+
+Choose **Add another spell** to search the full spell catalogue, then **Add &
+track** to save a missing spell and return to the enemy's spell list. Saved
+additions remain available even when untracked. From a family entry, enter a
+specific enemy name (for example, Moblin Topsman) to see and track its spells.
+These choices apply to that enemy, rather than the whole family.
 
 Monster selections include the template's known aliases. Family selections cover
 the category's standard skill-list variants and apply to their known catalogue member

@@ -149,15 +149,47 @@ function browser.moves_for(target, query)
             end
         end
     end
-    for _, id in ipairs(target.spells or {}) do
+    table.sort(result, function(a, b)
+        if a.name == b.name then return tostring(a.id) < tostring(b.id) end
+        return a.name:lower() < b.name:lower()
+    end)
+    return result
+end
+
+function browser.spells_for(target, alerts)
+    local result, seen = {}, {}
+    local source = target
+    if not source.spells then
+        for _, monster in ipairs(data.monsters) do
+            local matches = names.normalize(monster.name) == names.normalize(target.name)
+            for _, alias in ipairs(monster.aliases or {}) do
+                if names.normalize(alias) == names.normalize(target.name) then matches = true end
+            end
+            if matches then source = monster; break end
+        end
+    end
+    for _, id in ipairs(source.spells or {}) do
         local name = spell_names[id]
-        if name and name:lower():find(query, 1, true) and not seen['spell:' .. names.normalize(name)] then
-            seen['spell:' .. names.normalize(name)] = true
-            result[#result + 1] = { id = id, name = name, kind = 'spell', variant_ids = { id } }
+        if name and not seen[names.normalize(name)] then
+            seen[names.normalize(name)] = true
+            result[#result + 1] = { spell_id = id, name = name, kind = 'spell' }
+        end
+    end
+    if alerts then
+        local aliases = { [names.normalize(target.name)] = true }
+        for _, alias in ipairs(target.aliases or {}) do aliases[names.normalize(alias)] = true end
+        for _, rule in ipairs(alerts:list()) do
+            local key = names.normalize(rule.move)
+            if rule.kind == 'spell' and rule.scope == nil and aliases[names.normalize(rule.monster)]
+                and not seen[key] then
+                local spell = known_spells[key]
+                result[#result + 1] = { spell_id = spell and spell.spell_id or ('saved_' .. key),
+                    name = rule.move, kind = 'spell' }
+                seen[key] = true
+            end
         end
     end
     table.sort(result, function(a, b)
-        if a.name == b.name then return a.id < b.id end
         return a.name:lower() < b.name:lower()
     end)
     return result

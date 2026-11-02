@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Keep TP moves separate from spells, with a Track spells button showing the
+  selected enemy's known and saved spells.
+- Add a searchable Add another spell option for missing enemy-specific spells.
+
 - Map Moblin Topsman to the Moblin family and share known common-monster move
   selections between the log and family catalogue, including Frypan.
 - Migrate legacy per-common-monster selections while preserving existing explicit
