@@ -100,7 +100,18 @@ function actions:record(event, now)
             break
         end
     end
-    if pending and matched then return false end
+    if pending and matched then
+        -- Packet preparation enriches an existing chat row without restarting
+        -- its timer or playing its selected alert sound a second time.
+        local previous = self.pending[matched]
+        if event.actor_id then
+            for _, key in ipairs({ 'actor_id', 'action_id', 'category', 'preparation_target',
+                'preparation_target_id', 'target_ids' }) do
+                if event[key] ~= nil then previous[key] = event[key] end
+            end
+        end
+        return false
+    end
     if not pending then
         if matched then table.remove(self.pending, matched) end
         -- Collapse short bursts of result lines, not the entire display lifetime.

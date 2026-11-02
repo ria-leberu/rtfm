@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Show packet-confirmed primary targets for readied moves and spells in the
+  pending log and center alerts; merge chat/packet preparations without replaying alerts.
+
 - Replace the center-alert background panel with a black text outline.
 
 - Expire log entries after a configurable 3 minutes by default, capped at 15.

@@ -107,6 +107,12 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         imgui.Text(text)
         imgui.PopStyleColor()
         descriptions.draw(event, moves)
+        if pending and event.preparation_target then
+            imgui.SameLine(0, 6)
+            imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, 1 })
+            imgui.Text('-> ' .. event.preparation_target)
+            imgui.PopStyleColor()
+        end
         local has_players = not pending and event.affected_players and #event.affected_players > 0
         if has_players and config.single_line_log then draw_affected(event, config) end
         imgui.SameLine()

@@ -22,6 +22,7 @@ function alert.draw(tracker, alerts, config, now)
     for _, event in ipairs(tracker.pending) do
         if alerts:is_selected(event) then
             lines[#lines + 1] = event.monster .. (event.action == 'casting' and ' casting ' or ' readying ') .. event.move
+                .. (event.preparation_target and (' -> ' .. event.preparation_target) or '')
         end
     end
     if #lines == 0 then return end

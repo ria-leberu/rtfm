@@ -168,7 +168,7 @@ ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
         end
         print(string.format('[RTFM][result] category=%d action=%d move=%s targets=%s players=%s',
             packet.category, packet.action_id, result and result.move or '(unresolved)',
-            table.concat(messages, ','), result and table.concat(result.affected_players, ',') or '(unresolved)'))
+            table.concat(messages, ','), result and table.concat(result.affected_players or {}, ',') or '(unresolved)'))
     end
     if result then record_event(result, now(), true) end
 end)

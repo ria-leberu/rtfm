@@ -231,3 +231,9 @@ until 2 minutes, then minutes and seconds, such as `2m 00.00s`. Readying and cas
 
 Center-screen alerts use a black text outline instead of a background panel,
 while retaining their yellow wave and pulse animation.
+
+Preparing moves and spells show `-> TargetName` when an incoming preparation
+packet identifies a target that the client can resolve. This appears in both
+Readying/Casting and center alerts. It is the primary intended target, not a
+prediction of everyone an AoE will hit. Unknown targets are omitted; completed
+affected-player lists continue to use actual action results.
