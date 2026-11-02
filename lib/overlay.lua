@@ -3,6 +3,7 @@ local appearance = require('lib.appearance')
 local names = require('lib.names')
 local descriptions = require('lib.descriptions')
 local action_roles = require('lib.action_roles')
+local timing = require('lib.timing')
 local overlay = {}
 local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
 local last_history_row
@@ -110,7 +111,7 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         if has_players and config.single_line_log then draw_affected(event, config) end
         imgui.SameLine()
         imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha })
-        imgui.Text(string.format('%.1fs', age))
+        imgui.Text(timing.elapsed(age))
         if has_players and not config.single_line_log then draw_affected(event, config) end
         imgui.PopStyleColor()
         if row < #rows then imgui.Separator() end

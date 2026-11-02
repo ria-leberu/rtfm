@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Expire log entries after a configurable 3 minutes by default, capped at 15.
+- Show explicit timer units: 119.99s, switching to 2m 00.00s at 2 minutes.
+
 - Remove color vision presets and Attack/Support labels. Group Settings move
   rules by tracked family or enemy, with Edit and Remove actions.
 - Route Track spells to the general spell menu with Tracked and Untracked tabs

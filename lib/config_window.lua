@@ -47,6 +47,12 @@ function window.draw(is_open, alerts, config)
             config.max_recent = math.max(1, math.min(250, limit[1]))
             changed = true
         end
+        local retention = { config.log_retention_minutes }
+        if imgui.SliderInt('Log retention (minutes)', retention, 1, 15) then
+            config.log_retention_minutes = math.max(1, math.min(15, retention[1]))
+            changed = true
+        end
+        imgui.Text('Timers: 119.99s, then 2m 00.00s after 2 minutes.')
         local party_only = { config.party_enemies_only }
         if imgui.Checkbox('Only enemies engaged with my party/alliance', party_only) then
             config.party_enemies_only = party_only[1]

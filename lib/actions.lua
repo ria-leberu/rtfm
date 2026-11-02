@@ -1,4 +1,5 @@
 local names = require('lib.names')
+local timing = require('lib.timing')
 local actions = {}
 actions.__index = actions
 
@@ -53,6 +54,10 @@ function actions:attach_affected(result, now)
 end
 
 function actions:update(now)
+    local retention = timing.retention_minutes(self.config.log_retention_minutes) * 60
+    for i = #self.recent, 1, -1 do
+        if now - self.recent[i].timestamp >= retention then table.remove(self.recent, i) end
+    end
     for i = #self.pending, 1, -1 do
         local timeout = self.pending[i].action == 'casting' and (self.config.casting_timeout or 15)
             or self.config.pending_timeout
