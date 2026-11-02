@@ -2,6 +2,7 @@ local imgui = require('imgui')
 local icons = {}
 local textures = {}
 local backend
+local status_variants = { [11] = 'bind', [28] = 'terror' }
 
 local function get_texture(kind, id)
     local key = kind .. ':' .. tostring(id or '')
@@ -11,7 +12,8 @@ local function get_texture(kind, id)
         local ffi, d3d8 = backend.ffi, backend.d3d8
         local output = ffi.new('IDirect3DTexture8*[1]')
         local result
-        if kind == 'status' then
+        local variant = kind == 'status' and status_variants[id]
+        if kind == 'status' and not variant then
             local resource = AshitaCore:GetResourceManager():GetStatusIconByIndex(id)
             if not resource or not resource.Bitmap or resource.ImageSize <= 0 then return end
             result = ffi.C.D3DXCreateTextureFromFileInMemoryEx(d3d8.get_device(), resource.Bitmap,
@@ -20,7 +22,7 @@ local function get_texture(kind, id)
                 nil, nil, output)
         else
             local path = (addon.path or (AshitaCore:GetInstallPath() .. 'addons\\rtfm\\'))
-                .. 'assets\\icons\\' .. kind .. '.png'
+                .. 'assets\\icons\\' .. (variant or kind) .. '.png'
             result = ffi.C.D3DXCreateTextureFromFileA(d3d8.get_device(), path, output)
         end
         if result == ffi.C.S_OK then return ffi.cast('IDirect3DTexture8*', output[0]) end

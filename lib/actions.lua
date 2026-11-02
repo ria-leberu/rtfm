@@ -26,6 +26,8 @@ function actions.parse(message)
     -- byte behind makes visually identical chat/resource names compare unequal.
     message = message:gsub('[\30\31].', ''):gsub('\127.', '\n')
     message = names.trim(message:gsub('[%z\1-\8\11\12\14-\31\127]', ''))
+    local interrupted = message:match("^(.-)'s casting is interrupted[%.!]?$")
+    if interrupted then return { monster = names.trim(interrupted), action = 'interrupted' } end
     local patterns = {
         { 'readies', 'readies' },
         { 'starts casting', 'casting' },
@@ -52,11 +54,28 @@ end
 
 function actions:update(now)
     for i = #self.pending, 1, -1 do
-        if now - self.pending[i].timestamp >= self.config.pending_timeout then
+        local timeout = self.pending[i].action == 'casting' and (self.config.casting_timeout or 15)
+            or self.config.pending_timeout
+        if now - self.pending[i].timestamp >= timeout then
             table.remove(self.pending, i)
         end
     end
     while #self.recent > self.config.max_recent do table.remove(self.recent, 1) end
+end
+
+function actions:interrupt(event)
+    local removed = false
+    for i = #self.pending, 1, -1 do
+        local previous = self.pending[i]
+        local same_actor = previous.actor_id and event.actor_id and previous.actor_id == event.actor_id
+            or (not (previous.actor_id and event.actor_id)
+                and names.normalize(previous.monster) == names.normalize(event.monster))
+        if previous.action == 'casting' and same_actor then
+            table.remove(self.pending, i)
+            removed = true
+        end
+    end
+    return removed
 end
 
 function actions:record(event, now)
@@ -68,7 +87,10 @@ function actions:record(event, now)
     local pending = event.action == 'readies' or event.action == 'casting'
     local matched
     for i = #self.pending, 1, -1 do
-        if self.pending[i].id == event.id then
+        local previous = self.pending[i]
+        local spell = event.action == 'casting' or event.action == 'casts'
+        if previous.id == event.id and (previous.action == 'casting') == spell
+            and (not previous.actor_id or not event.actor_id or previous.actor_id == event.actor_id) then
             matched = i
             break
         end

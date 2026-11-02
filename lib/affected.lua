@@ -36,6 +36,11 @@ function affected.parse(e)
         result.action_id = read(16)
         read(16)
         read(32)
+        -- Category 8's interruption marker is not a spell ID.
+        if result.category == 8 and result.action_id == 28787 then
+            result.interrupted = true
+            return result
+        end
         if result.category ~= 4 and result.category ~= 6 and result.category ~= 11 then return end
         for _ = 1, count do
             local target = { id = read(32), hit = false }
@@ -91,6 +96,10 @@ function affected.resolve(packet, entities, resources)
     end
     local actor = resolved[packet.actor_id]
     if not actor or not actor.monster then return end
+    if packet.interrupted then
+        return { actor_id = packet.actor_id, monster = actor.name, action = 'interrupted',
+            category = packet.category }
+    end
     local move
     if packet.category == 11 then
         if packet.action_id < 256 then return end

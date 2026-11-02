@@ -7,6 +7,28 @@ local overlay = {}
 local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
 local last_history_row
 
+local function draw_affected(event, config)
+    local players = table.concat(event.affected_players, ', ')
+    imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * config.affected_font_scale)
+    imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, 1 })
+    if config.single_line_log then imgui.SameLine(0, 6) end
+    local size = imgui.GetFontSize()
+    local x, y = imgui.GetCursorScreenPos()
+    local draw = imgui.GetWindowDrawList()
+    local color = imgui.GetColorU32({ 1, 0.9, 0.2, 1 })
+    local center, tip = y + size * 0.5, x + size * 0.85
+    local thickness = math.max(1, size * 0.09)
+    -- Draw an arrow directly, independent of font glyph coverage.
+    draw:AddLine({ x + size * 0.1, center }, { tip, center }, color, thickness)
+    draw:AddLine({ tip - size * 0.3, center - size * 0.28 }, { tip, center }, color, thickness)
+    draw:AddLine({ tip - size * 0.3, center + size * 0.28 }, { tip, center }, color, thickness)
+    imgui.Dummy({ size, size })
+    imgui.SameLine(0, 3)
+    if config.single_line_log then imgui.Text(players) else imgui.TextWrapped(players) end
+    imgui.PopStyleColor()
+    imgui.PopFont()
+end
+
 local function settings_button()
     local size = imgui.GetTextLineHeightWithSpacing()
     local x, y = imgui.GetCursorScreenPos()
@@ -50,9 +72,6 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         local text = string.format('%s %s %s',
             event.monster, verbs[event.action], event.move)
         local role = action_roles.lookup(event, moves)
-        if role and (config.action_labels or config.color_mode ~= 0) then
-            text = (role == 'offensive' and '[Attack] ' or '[Support] ') .. text
-        end
         if not pending and move_alerts then
             local selected = move_alerts:is_selected(event)
             local label = selected and 'Untrack' or 'Track'
@@ -87,17 +106,12 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         imgui.Text(text)
         imgui.PopStyleColor()
         descriptions.draw(event, moves)
+        local has_players = not pending and event.affected_players and #event.affected_players > 0
+        if has_players and config.single_line_log then draw_affected(event, config) end
         imgui.SameLine()
         imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha })
         imgui.Text(string.format('%.1fs', age))
-        if not pending and event.affected_players and #event.affected_players > 0 then
-            local players = table.concat(event.affected_players, ', ')
-            imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * config.affected_font_scale)
-            imgui.PushStyleColor(ImGuiCol_Text, { 1, 0.9, 0.2, 1 })
-            imgui.TextWrapped('HIT>> ' .. players)
-            imgui.PopStyleColor()
-            imgui.PopFont()
-        end
+        if has_players and not config.single_line_log then draw_affected(event, config) end
         imgui.PopStyleColor()
         if row < #rows then imgui.Separator() end
     end
@@ -119,7 +133,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         imgui.SameLine()
         imgui.Text('RTFM Log')
         local line_height = imgui.GetTextLineHeightWithSpacing()
-        local available_height = math.max(120, imgui.GetWindowHeight() - imgui.GetCursorPosY() - 20)
+        local available_height = math.max(120, imgui.GetWindowHeight() - imgui.GetCursorPosY() - line_height - 20)
         local pending_height = math.min(math.max(1, math.min(#tracker.pending, 3)) * line_height * 3 + 12,
             available_height * 0.55)
         local history_height = available_height - pending_height
@@ -132,8 +146,8 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         end
         imgui.EndChild()
         imgui.Separator()
-        if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 0, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
-            imgui.Text('Readying / Casting')
+        imgui.Text('Readying/Casting')
+        if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 1, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             if #tracker.pending == 0 then imgui.Text('No moves or spells being prepared.') end
             draw_rows(tracker.pending, true, now, config, moves, move_alerts)
             -- Keep the newest preparation visible if several enemies act.

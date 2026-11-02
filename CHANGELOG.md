@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- Remove color vision presets and Attack/Support labels. Group Settings move
+  rules by tracked family or enemy, with Edit and Remove actions.
+- Route Track spells to the general spell menu with Tracked and Untracked tabs
+  and editable saved casting rules.
+
+- Animate center alerts with a per-character wave over a dark translucent panel.
+
+- Add configurable, persistent center-screen flashing alerts for tracked
+  readied moves and spells, following pending-action completion and timeouts.
+
+- Use bundled blue Bind and green Terror status icon variants.
+
+- Replace the affected-player HIT>> prefix with a scalable drawn arrow icon.
+
+- Keep casts pending for up to 15 seconds, clearing on confirmed completion or
+  interruption packets/messages without creating false completed entries.
+
+- Default to single-line rows, add elemental damage spell icons, and group
+  damage icons in brackets and status icons in parentheses.
+
+- Add a persistent single-line log option for moves, descriptions and yellow
+  affected-player lists, with horizontal scrolling for longer entries.
+
 - Show affected party members as a yellow `HIT>> Name, Name` line.
 
 - Lighten action backgrounds and add persistent log text scaling with proportional
