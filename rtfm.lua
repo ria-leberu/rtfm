@@ -198,5 +198,8 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
     if changed or is_open[1] ~= was_open then save() end
 end)
 
-ashita.events.register('unload', 'rtfm_unload', save)
+ashita.events.register('unload', 'rtfm_unload', function()
+    save()
+    require('lib.icons').clear()
+end)
 print('[RTFM] Addon loaded.')

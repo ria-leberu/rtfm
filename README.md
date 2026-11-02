@@ -78,7 +78,7 @@ Selected moves skip their existing completion sound to avoid alerting twice;
 unselected moves retain the existing configured completion-sound rules.
 
 Completed monster moves and spells show a smaller line beneath the action:
-`Hit: Alpha, Zeta.` Names come from incoming action-result packets
+`>> Alpha, Zeta <<` Names come from incoming action-result packets
 and are deduplicated and sorted. Damage, drains, dispels, and status effects count;
 misses, full resists, healing, pets, and trusts do not. No subtitle appears when there are no confirmed player hits or a result
 cannot be resolved. Confirmed packet results create completed action rows directly,
@@ -95,6 +95,16 @@ combining their hit lists. A new preparation starts a separate execution.
 custom move names are omitted. Moves with identical names from identically named
 enemies retain the text tracker's existing ambiguity.
 
+Known move descriptions appear on the action line: a sword for physical damage,
+an elemental icon for its damage element, a short area label, and native FFXI
+status icons. Hover icons for their names. Missing icons fall back to readable
+labels. Status icons come from the installed game; elemental/sword assets are
+bundled with RTFM. There is no dependency on another addon and no runtime network
+lookup. Texture resources are cached and released on unload.
+
+Initial coverage is 20 moves across Khimaira, Greater Manticore, and Aw'ghrah.
+See `data/README.md` for catalogue fields and sources. Damage estimates are deferred.
+
 ## Code layout
 
 - `rtfm.lua`: initialization, commands, and event wiring.
@@ -106,15 +116,21 @@ enemies retain the text tracker's existing ambiguity.
 - `lib/alerts.lua`: saved monster/move alert selections.
 - `lib/names.lua`: shared name normalization.
 - `lib/overlay.lua`: ImGui presentation and curated effect descriptions.
+- `lib/descriptions.lua`: ID/name lookup and inline move metadata.
+- `lib/icons.lua`: native status and bundled damage icon textures.
 - `lib/config_window.lua`: history limit and editable saved alert rules.
 - `lib/storage.lua`: deterministic serialization and recoverable saves.
 - `data/moves.lua`: curated monster move descriptions.
+- `data/catalogue.lua`: shared monster-move descriptions keyed by action ID.
+- `data/statuses.lua`: FFXI status ID labels.
 - `tests/regression.lua`: Lua 5.1/LuaJIT regression checks with host stubs.
 - `tests/affected.lua`: multi-target packets, result matching, and subtitle checks.
 - `tests/alerts.lua`: tracking-button interaction and shared selection state.
 - `tests/settings.lua`: alert editing, history retention, and disk save/load checks.
 - `tests/overlay.lua`: log order, pinned preparations, idle state, and scrolling.
 - `tests/engagement.lua`: claims, combat targets, alliance members, and pets.
+- `tests/descriptions.lua`: lookup precedence and inline description placement.
+- `tests/icons.lua`: native resource loading, caching, fallback, and cleanup.
 
 Run `lua tests/regression.lua` and `lua tests/affected.lua` from the addon directory. In-game verification
 should cover actual entity classification, ImGui rendering, sound playback,

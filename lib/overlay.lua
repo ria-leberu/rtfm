@@ -1,5 +1,6 @@
 local imgui = require('imgui')
 local names = require('lib.names')
+local descriptions = require('lib.descriptions')
 local overlay = {}
 local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
 local last_history_row
@@ -71,18 +72,16 @@ local function draw_rows(rows, pending, now, config, moves, move_alerts)
         imgui.PushStyleColor(ImGuiCol_Text, color)
         imgui.Text(text)
         imgui.PopStyleColor()
+        descriptions.draw(event, moves)
         imgui.SameLine()
         imgui.PushStyleColor(ImGuiCol_Text, { 0.7, 0.7, 0.7, alpha })
-        imgui.Text(string.format('(%.1fs ago)', age))
+        imgui.Text(string.format('%.1fs', age))
         if not pending and event.affected_players and #event.affected_players > 0 then
             local players = table.concat(event.affected_players, ', ')
             imgui.PushFont(imgui.GetFont(), imgui.GetFontSize() * config.affected_font_scale)
-            imgui.TextWrapped('Hit: ' .. players .. '.')
+            imgui.TextWrapped('>> ' .. players .. ' <<')
             imgui.PopFont()
         end
-        local mob_moves = moves[names.normalize(event.monster)]
-        local description = mob_moves and mob_moves[names.normalize(event.move)]
-        if description and description ~= '' then imgui.Text('Effect: ' .. description) end
         imgui.PopStyleColor()
         if row < #rows then imgui.Separator() end
     end
@@ -106,7 +105,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         local pending_height = math.min(math.max(1, math.min(#tracker.pending, 3)) * line_height * 3 + 12,
             available_height * 0.55)
         local history_height = available_height - pending_height
-        if imgui.BeginChild('##rtfm_history', { 0, history_height }, 1, 0) then
+        if imgui.BeginChild('##rtfm_history', { 0, history_height }, 1, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             if #tracker.recent == 0 then imgui.Text('No recent actions.') end
             changed = draw_rows(tracker.recent, false, now, config, moves, move_alerts)
             local newest = tracker.recent[#tracker.recent]
@@ -115,7 +114,7 @@ function overlay.draw(is_open, tracker, now, config, moves, move_alerts, config_
         end
         imgui.EndChild()
         imgui.Separator()
-        if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 0, 0) then
+        if imgui.BeginChild('##rtfm_pending', { 0, pending_height }, 0, ImGuiWindowFlags_HorizontalScrollbar or 0x800) then
             imgui.Text('Readying / Casting')
             if #tracker.pending == 0 then imgui.Text('No moves or spells being prepared.') end
             draw_rows(tracker.pending, true, now, config, moves)

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Show compact move descriptions inline with completed and preparing actions,
+  using sword/element damage icons and native FFXI status icons with tooltips.
+- Seed an ID-based Khimaira catalogue and expand Manticore/Aw'ghrah metadata
+  against upstream sources; omit unknown effects and defer damage estimates.
+- Replace the affected-player label with `>> names <<`, shorten elapsed-time
+  labels, and allow horizontal scrolling for longer action lines.
+
 - Use green Untrack buttons and green move text for selected alerts.
 
 - Replace log alert checkboxes with Track/Tracked toggle buttons.

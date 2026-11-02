@@ -212,7 +212,7 @@ require('lib.overlay').draw({ true }, { recent = { {
     affected_players = { 'Alpha', 'Zeta' },
 } }, pending = {} }, 2, config, {})
 local found_hit = false
-for _, text in ipairs(texts) do if text == 'Hit: Alpha, Zeta.' then found_hit = true end end
+for _, text in ipairs(texts) do if text == '>> Alpha, Zeta <<' then found_hit = true end end
 assert(found_hit and font_depth == 0)
 texts = {}
 require('lib.overlay').draw({ true }, { recent = { {

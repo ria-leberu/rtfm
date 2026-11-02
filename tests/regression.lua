@@ -8,7 +8,7 @@ local config = require('config')
 assert(names.normalize("The Aw'ghrah") == 'awghrah')
 assert(names.normalize('Fire II') ~= names.normalize('Fire III'))
 assert(names.map({ ['Wild Baelfyr'] = true }).wildbaelfyr)
-assert(require('data.moves').greatermanticore.greatwhirlwind == 'Choke')
+assert(require('data.moves').greatermanticore.greatwhirlwind.statuses[1] == 130)
 local function event(text)
     return assert(actions.parse(text, 51, config.casting_modes))
 end
