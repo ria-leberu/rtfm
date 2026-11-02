@@ -1,2 +1,7 @@
 # Local Lua editor configuration
 .luarc.json
+
+# Local runtime preferences and save recovery files
+data/preferences.lua
+data/*.tmp
+data/*.bak

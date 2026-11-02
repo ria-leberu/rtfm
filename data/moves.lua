@@ -1,5 +1,5 @@
 return {
-    ["thegreatermanticore"] = {
+    ["greatermanticore"] = {
         ["greatwhirlwind"] = "Choke",
         ["greatsandstorm"] = "Blind",
         ["heatbreath"]     = "",
@@ -8,13 +8,12 @@ return {
         ["riddle"]         = "MPDown",
         ["deadlyhold"]     = "Paralyze",
     },
-    ["theaw'ghrah"] = {
+    ["awghrah"] = {
         ["actinicburst"]      = "Flash",
         ["coremeltdown"]      = "",
-        ["hexidiscs"]         = "",
-        ["damnationdive"]      = "",
+        ["hexidiscs"]        = "",
+        ["damnationdive"]    = "",
         ["sickleslash"]      = "",
-        ["vorpalblade"]      = ""
-
+        ["vorpalblade"]      = "",
     },
 }
