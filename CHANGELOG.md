@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Replace the center-alert background panel with a black text outline.
+
 - Expire log entries after a configurable 3 minutes by default, capped at 15.
 - Show explicit timer units: 119.99s, switching to 2m 00.00s at 2 minutes.
 

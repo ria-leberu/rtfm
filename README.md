@@ -228,3 +228,6 @@ Log entries expire after 3 minutes by default. Adjust **Log retention (minutes)*
 in Settings from 1 to 15 minutes; the 15-minute ceiling also applies to manually
 edited preferences. The move-count limit still applies. Timers show seconds with hundredths, such as `119.99s`,
 until 2 minutes, then minutes and seconds, such as `2m 00.00s`. Readying and casting timeouts are unchanged.
+
+Center-screen alerts use a black text outline instead of a background panel,
+while retaining their yellow wave and pulse animation.
