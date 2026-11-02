@@ -4,6 +4,8 @@ local browser = require('lib.catalogue_browser')
 local descriptions = require('lib.descriptions')
 local overrides = require('data.moves')
 local names = require('lib.names')
+local sound_window = require('lib.sound_window')
+local icon_buttons = require('lib.icon_buttons')
 local window = {}
 local is_open = { false }
 local scope = 'family'
@@ -36,9 +38,11 @@ local function track_button(alerts, rule, id)
         imgui.PushStyleColor(ImGuiCol_ButtonHovered, appearance.button('hover'))
         imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
     end
-    local changed = imgui.Button((tracked and 'Untrack' or 'Track') .. '##' .. id)
+    local changed = icon_buttons.track(id, tracked)
     if changed then alerts:set(rule, not tracked) end
     if tracked then imgui.PopStyleColor(3) end
+    imgui.SameLine(0, 2)
+    if icon_buttons.sound('sound_' .. id) then sound_window.open(rule) end
     return changed
 end
 
@@ -201,11 +205,13 @@ function window.draw(alerts)
                         imgui.PushStyleColor(ImGuiCol_ButtonActive, appearance.button('active'))
                     end
                     local suffix = move.kind == 'spell' and 'catalogue_spell_' or 'catalogue_move_'
-                    if imgui.Button((tracked and 'Untrack' or 'Track') .. '##' .. suffix .. move.id) then
+                    if icon_buttons.track(suffix .. move.id, tracked) then
                         alerts:set(rule, not tracked)
                         changed = true
                     end
                     if tracked then imgui.PopStyleColor(3) end
+                    imgui.SameLine(0, 2)
+                    if icon_buttons.sound('catalogue_sound_' .. move.id) then sound_window.open(rule) end
                     imgui.SameLine()
                     if tracked then imgui.PushStyleColor(ImGuiCol_Text, appearance.palette().tracked) end
                     imgui.Text((move.kind == 'spell' and 'Spell: ' or '') .. move.name)

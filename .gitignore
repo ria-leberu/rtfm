@@ -9,3 +9,8 @@ data/*.bak
 # Upstream source snapshot used by the offline catalogue builder
 .catalogue-cache/
 tools/__pycache__/
+
+# User-provided alert audio
+sounds/*.wav
+!sounds/alert.wav
+sounds/custom/

@@ -2,6 +2,7 @@ local imgui = require('imgui')
 local browser_window = require('lib.browser_window')
 local window = {}
 local names = require('lib.names')
+local sound_window = require('lib.sound_window')
 
 local function tracked_groups(alerts)
     local groups, result = {}, {}
@@ -28,6 +29,12 @@ function window.draw(is_open, alerts, config)
     imgui.SetNextWindowSize({ 580, 450 }, ImGuiCond_FirstUseEver)
     if imgui.Begin('RTFM Settings', is_open, ImGuiWindowFlags_NoCollapse) then
         local limit = { config.max_recent }
+        local sound_enabled = { config.sound_alerts_enabled }
+        if imgui.Checkbox('Enable sound alerts', sound_enabled) then
+            config.sound_alerts_enabled = sound_enabled[1]
+            changed = true
+        end
+        if imgui.Button('Manage sounds') then sound_window.open() end
         local center_alert = { config.center_alert_enabled }
         if imgui.Checkbox('Flashing center-screen alerts for tracked moves / spells', center_alert) then
             config.center_alert_enabled = center_alert[1]
@@ -39,6 +46,14 @@ function window.draw(is_open, alerts, config)
             changed = true
         end
         local scale = { math.floor(config.log_font_scale * 100 + 0.5) }
+        local compact = { config.compact_log_text }
+        if imgui.Checkbox('Compact log text (abbreviations / symbols)', compact) then
+            config.compact_log_text = compact[1]
+            changed = true
+        end
+        if imgui.IsItemHovered() then
+            imgui.SetTooltip('~ means readying; cast~ means casting. Mob names are abbreviated unless they collide. Hover for full text. Player names stay unchanged.')
+        end
         if imgui.SliderInt('Log text size (%)', scale, 75, 200) then
             config.log_font_scale = scale[1] / 100
             changed = true

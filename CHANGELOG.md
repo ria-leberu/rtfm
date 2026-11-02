@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Abbreviate mob names consistently in compact mode, retaining original names
+  in tooltips and expanding collisions across pending and recent log entries.
+
+- Add `/rtfm reload` to save pending settings and reload through the addon manager.
+
+- Replace per-action Track/Untrack and Sound labels with scalable star and
+  speaker icons, preserving green tracked states and hover tooltips.
+
+- Add optional persistent compact log text with abbreviations, preparation
+  symbols, shortened spell tiers and full-text hover tooltips.
+
+- Add persistent per-move/spell sound selection with alert.wav fallback and a
+  master sound toggle independent of visual alerts.
+- Add a fixed-folder WAV list with previews, Refresh and manual folder-path
+  instructions; remove the unused benediction.wav.
+
 - Show packet-confirmed primary targets for readied moves and spells in the
   pending log and center alerts; merge chat/packet preparations without replaying alerts.
 
