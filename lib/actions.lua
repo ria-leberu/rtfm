@@ -21,7 +21,7 @@ function actions.new(config)
     return setmetatable({ config = config, pending = {}, recent = {} }, actions)
 end
 
-function actions.parse(message, mode, casting_modes)
+function actions.parse(message)
     -- Color controls contain a marker AND a palette byte. Leaving the palette
     -- byte behind makes visually identical chat/resource names compare unequal.
     message = message:gsub('[\30\31].', ''):gsub('\127.', '\n')
@@ -34,7 +34,7 @@ function actions.parse(message, mode, casting_modes)
     }
     for _, pattern in ipairs(patterns) do
         local monster, move = message:match('^(.-)%s+' .. pattern[1] .. '%s+([^%.]+)')
-        if monster and (pattern[2] ~= 'casting' or casting_modes[mode]) then
+        if monster then
             -- Target suffixes occur on both spell and ability messages.
             move = move:match('^(.-)%s+on%s+') or move
             monster, move = names.trim(monster), names.trim(move)
@@ -51,14 +51,12 @@ function actions:attach_affected(result, now)
 end
 
 function actions:update(now)
-    for _, group in ipairs({ { self.pending, self.config.pending_timeout },
-        { self.recent, self.config.display_time } }) do
-        for i = #group[1], 1, -1 do
-            if now - group[1][i].timestamp >= group[2] then
-                table.remove(group[1], i)
-            end
+    for i = #self.pending, 1, -1 do
+        if now - self.pending[i].timestamp >= self.config.pending_timeout then
+            table.remove(self.pending, i)
         end
     end
+    while #self.recent > self.config.max_recent do table.remove(self.recent, 1) end
 end
 
 function actions:record(event, now)

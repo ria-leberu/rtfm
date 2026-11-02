@@ -182,8 +182,21 @@ assert(tracker.recent[#tracker.recent].affected_players == nil)
 -- Verify the subtitle uses a smaller font and restores it before subsequent rows.
 local texts, font_depth, current_size = {}, 0, 16
 package.loaded.imgui = {
+    SetNextWindowSizeConstraints = function() end,
+    GetTextLineHeightWithSpacing = function() return 20 end,
+    GetCursorScreenPos = function() return 0, 0 end,
+    InvisibleButton = function() return false end,
+    IsItemHovered = function() return false end,
+    GetColorU32 = function() return 0 end,
+    GetWindowDrawList = function() return { AddLine = function() end, AddCircle = function() end } end,
+    GetWindowHeight = function() return 380 end, GetCursorPosY = function() return 30 end,
+    SetScrollHereY = function() end,
     SetNextWindowBgAlpha = function() end, SetNextWindowSize = function() end,
     Begin = function() return true end, End = function() end,
+    BeginChild = function(_, _, child_flags, window_flags)
+        assert(type(child_flags) == 'number' and type(window_flags) == 'number')
+        return true
+    end, EndChild = function() end,
     PushStyleColor = function() end, PopStyleColor = function() end,
     SameLine = function() end, Separator = function() end,
     Text = function(text) assert(font_depth == 0); texts[#texts + 1] = text end,
@@ -198,11 +211,13 @@ require('lib.overlay').draw({ true }, { recent = { {
     monster = 'Kirin', move = 'Mortal Ray', action = 'uses', timestamp = 1,
     affected_players = { 'Alpha', 'Zeta' },
 } }, pending = {} }, 2, config, {})
-assert(texts[3] == 'Hit: Alpha, Zeta.' and font_depth == 0)
+local found_hit = false
+for _, text in ipairs(texts) do if text == 'Hit: Alpha, Zeta.' then found_hit = true end end
+assert(found_hit and font_depth == 0)
 texts = {}
 require('lib.overlay').draw({ true }, { recent = { {
     monster = 'Kirin', move = 'Mortal Ray', action = 'uses', timestamp = 1,
     affected_players = {},
 } }, pending = {} }, 2, config, {})
-assert(#texts == 2 and font_depth == 0)
+assert(#texts == 5 and font_depth == 0)
 print('RTFM affected-player checks passed.')

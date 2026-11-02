@@ -96,20 +96,20 @@ local sound_moves = {
     ['fulmination'] = 'alert.wav',
 }
 return {
-    display_time = 120.0,
     pending_timeout = 10.0,
     save_interval = 10.0,
     duplicate_window = 0.5,
     affected_match_window = 1.0,
     affected_font_scale = 0.85,
-    max_recent = 100,
+    selected_alert_sound = 'alert.wav',
+    max_recent = 25,
     max_pending = 100,
     debug_log_all = false,
     auto_learn = false,
     blacklist_enabled = true,
+    party_enemies_only = false,
     blacklist_mobs = {},
     guaranteed_mobs = guaranteed_mobs,
     highlight_mobs = highlight_mobs,
     sound_moves = sound_moves,
-    casting_modes = { [51] = true, [52] = true },
 }

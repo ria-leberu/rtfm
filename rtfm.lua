@@ -10,20 +10,27 @@ local names = require('lib.names')
 local storage = require('lib.storage')
 local config = require('config')
 local overlay = require('lib.overlay')
+local config_window = require('lib.config_window')
 local actions = require('lib.actions')
 local affected = require('lib.affected')
+local engagement = require('lib.engagement')
 local moves = require('data.moves')
 local base_path = addon.path or (AshitaCore:GetInstallPath() .. 'addons\\rtfm\\')
 local data_dir = base_path .. 'data\\'
 local learned_path = data_dir .. 'mobs_learned.lua'
 local preferences_path = data_dir .. 'preferences.lua'
 local is_open = { true }
+local config_open = { false }
 local learned_dirty = false
 local preferences_dirty = false
 local now = imgui.GetTime
 local last_save = now()
 local learned_moves = storage.load(learned_path)
 local preferences = storage.load(preferences_path)
+local move_alerts = require('lib.alerts').new(preferences.move_alerts, preferences.move_alert_entries)
+if type(preferences.max_recent) == 'number' and preferences.max_recent == preferences.max_recent then
+    config.max_recent = math.max(1, math.min(250, math.floor(preferences.max_recent)))
+end
 
 for _, key in ipairs({ 'guaranteed_mobs', 'blacklist_mobs', 'highlight_mobs', 'sound_moves' }) do
     config[key] = names.map(config[key])
@@ -37,6 +44,7 @@ if type(preferences.highlight_mobs) == 'table' then
 end
 if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
 if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
+if type(preferences.party_enemies_only) == 'boolean' then config.party_enemies_only = preferences.party_enemies_only end
 
 -- Normalize saved and curated keys at the boundary so all lookups agree.
 local normalized_learned = {}
@@ -68,13 +76,17 @@ local function save()
         highlight_mobs = config.highlight_mobs,
         auto_learn = config.auto_learn,
         is_open = is_open[1],
+        move_alerts = move_alerts.selected,
+        move_alert_entries = move_alerts:list(),
+        max_recent = config.max_recent,
+        party_enemies_only = config.party_enemies_only,
     }) then
         preferences_dirty = false
     end
 end
 
 local function help()
-    print('[RTFM] /rtfm [show|hide|toggle|highlight <mob>|unhighlight <mob>|learn on|learn off|debug on|debug off|help]')
+    print('[RTFM] /rtfm [show|hide|toggle|config|highlight <mob>|unhighlight <mob>|learn on|learn off|debug on|debug off|help]')
 end
 
 ashita.events.register('command', 'rtfm_command', function(e)
@@ -86,6 +98,8 @@ ashita.events.register('command', 'rtfm_command', function(e)
         if command == 'toggle' then is_open[1] = not is_open[1]
         else is_open[1] = command == 'show' end
         preferences_dirty = true
+    elseif command == 'config' or command == 'settings' then
+        config_open[1] = not config_open[1]
     elseif (command == 'highlight' or command == 'unhighlight') and args[3] then
         local monster = table.concat(args, ' ', 3)
         config.highlight_mobs[names.normalize(monster)] = command == 'highlight' or nil
@@ -101,11 +115,16 @@ ashita.events.register('command', 'rtfm_command', function(e)
     else
         help()
     end
+    if preferences_dirty then save() end
 end)
 
 local function record_event(event, timestamp, verified_monster)
     if config.blacklist_enabled and config.blacklist_mobs[names.normalize(event.monster)] then return end
     if not verified_monster and actors:is_excluded(event.monster, timestamp) then return end
+    if config.party_enemies_only then
+        local memory = AshitaCore:GetMemoryManager()
+        if not engagement.matches(event, memory:GetEntity(), memory:GetParty()) then return end
+    end
     local added = tracker:record(event, timestamp)
     if config.debug_log_all then
         print(string.format('[RTFM][row] %s %s %s: %s (recent=%d, pending=%d)',
@@ -113,9 +132,12 @@ local function record_event(event, timestamp, verified_monster)
             #tracker.recent, #tracker.pending))
     end
     if not added then return end
+    if (event.action == 'readies' or event.action == 'casting') and move_alerts:is_selected(event) then
+        ashita.misc.play_sound(base_path .. 'sounds\\' .. config.selected_alert_sound)
+    end
     if event.action == 'uses' then
         local monster, move = names.normalize(event.monster), names.normalize(event.move)
-        if config.highlight_mobs[monster] and config.sound_moves[move] then
+        if config.highlight_mobs[monster] and config.sound_moves[move] and not move_alerts:is_selected(event) then
             ashita.misc.play_sound(base_path .. 'sounds\\' .. config.sound_moves[move])
         end
         if config.auto_learn then
@@ -130,6 +152,7 @@ local function record_event(event, timestamp, verified_monster)
 end
 
 ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
+    if e.id == 0x00B then save() end -- leaving the zone, including logout
     local packet, err = affected.parse(e)
     if err and config.debug_log_all then print('[RTFM][result] Decode failed: ' .. tostring(err)) end
     if not packet then return end
@@ -150,7 +173,7 @@ end)
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
     if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
-    local event = actions.parse(e.message, e.mode, config.casting_modes)
+    local event = actions.parse(e.message)
     -- Completion packets already supply the move and its targets. Chat can be
     -- delayed or reformatted by other addons, so it must not create a second row.
     if event and (event.action == 'readies' or event.action == 'casting') then
@@ -166,8 +189,13 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
         last_save = timestamp
     end
     local was_open = is_open[1]
-    overlay.draw(is_open, tracker, timestamp, config, moves)
+    local changed = overlay.draw(is_open, tracker, timestamp, config, moves, move_alerts, config_open)
+    if config_window.draw(config_open, move_alerts, config) then changed = true end
+    if changed then
+        preferences_dirty = true
+    end
     if is_open[1] ~= was_open then preferences_dirty = true end
+    if changed or is_open[1] ~= was_open then save() end
 end)
 
 ashita.events.register('unload', 'rtfm_unload', save)

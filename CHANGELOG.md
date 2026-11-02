@@ -2,6 +2,34 @@
 
 ## Unreleased
 
+- Use green Untrack buttons and green move text for selected alerts.
+
+- Replace log alert checkboxes with Track/Tracked toggle buttons.
+
+- Keep the Readying / Casting panel visible while idle and accept monster spell
+  preparation messages independently of chat mode numbers.
+- Add a saved, optional party/alliance engagement filter using claim ownership,
+  combat targets, and packet recipients; include member pets and trusts.
+
+- Use an RTFM Log header with a gear settings button and remove the move counter.
+- Append new moves at the bottom with automatic scrolling, and reserve a separate
+  visible area for current preparations while browsing the completed log.
+
+- Use numeric child/window flags for the installed ImGui scrolling-window API.
+
+- Save preference changes immediately and flush pending data on unload and zone
+  departure; retain saved alerts through reloads, unloads, and logoffs.
+- Show a scrollable, resizable log with the last 25 moves by default, newest first,
+  retaining rows by count rather than expiring them with time.
+- Add a Settings button and `/rtfm config` window with a saved history limit and
+  editable enemy/move alert rules, including disabled entries and permanent removal.
+- Preserve readable alert labels and migrate existing saved selections.
+
+- Add checkboxes beside completed moves to select persistent monster/move alerts
+  that play when a TP move is readied or a spell starts casting.
+- Share selections across repeated rows, save them in local preferences, and
+  suppress the existing completion sound for selected moves.
+
 - Merge repeated/split completion packets for the same monster and move within
   the result window, combining hit-player names without duplicate rows or alerts.
 - Preserve separate executions after a new preparation and distinguish packet

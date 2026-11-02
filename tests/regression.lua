@@ -28,7 +28,7 @@ assert(tracker:record(event('Kirin readies Mortal Ray.'), 2.1))
 assert(tracker:record(event('Kirin uses Mortal Ray.'), 2.2))
 assert(#tracker.recent == 3)
 tracker:update(200)
-assert(#tracker.pending == 0 and #tracker.recent == 0)
+assert(#tracker.pending == 0 and #tracker.recent == 3)
 for i = 1, 150 do tracker:record(event('Kirin uses Fire II.'), 200 + i) end
 assert(#tracker.recent == config.max_recent)
 
@@ -100,9 +100,15 @@ bit = { band = function(a, b) return a == b and b or 0 end }
 package.loaded.common = {}
 package.loaded.imgui = { GetTime = function() return clock end }
 local displayed_tracker
-package.loaded['lib.overlay'] = { draw = function(open, tracker)
+local alert_change
+package.loaded['lib.overlay'] = { draw = function(open, tracker, _, _, _, move_alerts)
     assert(not open[1])
     displayed_tracker = tracker
+    if alert_change then
+        move_alerts:set(alert_change.event, alert_change.enabled)
+        alert_change = nil
+        return true
+    end
 end }
 package.loaded['lib.affected'] = {
     parse = function(e) return e.fixture end,
@@ -190,6 +196,72 @@ callbacks.packet_in({ fixture = {
 callbacks.d3d_present()
 assert(#displayed_tracker.recent == completed_count + 1)
 
+-- Selecting a past move persists and alerts once per preparation, even hidden.
+local selected_breath = { monster = 'Khimaira', move = 'Fossilizing Breath' }
+clock = 30
+alert_change = { event = selected_breath, enabled = true }
+callbacks.d3d_present()
+assert(saves['mock/data\\preferences.lua'].move_alerts.khimaira.fossilizingbreath)
+assert(saves['mock/data\\preferences.lua'].move_alert_entries[1].monster == 'Khimaira')
+clock = 41
+callbacks.d3d_present()
+local restored_alerts = require('lib.alerts').new(saves['mock/data\\preferences.lua'].move_alerts)
+assert(restored_alerts:is_selected(selected_breath))
+local sounds_before = sounds
+clock = 42
+callbacks.text_in({ message = 'Khimaira readies Fossilizing Breath.', mode = 185 })
+callbacks.text_in({ message = 'Khimaira readies Fossilizing Breath.', mode = 185 })
+assert(sounds == sounds_before + 1)
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Fossilizing Breath', action = 'uses', affected_players = { 'Rialia' },
+} })
+assert(sounds == sounds_before + 1)
+clock = 42.2
+callbacks.text_in({ message = 'Khimaira readies Fossilizing Breath.', mode = 185 })
+assert(sounds == sounds_before + 2)
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Fossilizing Breath', action = 'uses', affected_players = { 'Rialia' },
+} })
+clock = 43
+alert_change = { event = selected_breath, enabled = false }
+callbacks.d3d_present()
+clock = 44
+callbacks.text_in({ message = 'Khimaira readies Fossilizing Breath.', mode = 185 })
+assert(sounds == sounds_before + 2)
+callbacks.unload()
+assert(not require('lib.alerts').new(saves['mock/data\\preferences.lua'].move_alerts):is_selected(selected_breath))
+-- An existing configured completion alert must not replay after a selected ready alert.
+clock = 45
+alert_change = { event = { monster = 'Kirin', move = 'Mortal Ray' }, enabled = true }
+callbacks.d3d_present()
+local selected_sounds = sounds
+clock = 46
+callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 185 })
+assert(sounds == selected_sounds + 1)
+
+callbacks.packet_in({ fixture = {
+    monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
+} })
+assert(sounds == selected_sounds + 1)
+
+-- Reload the actual entry point from saved preferences and check the alert
+-- without selecting it again. Logout and unload must also flush dirty learning.
+local saved_preferences = saves['mock/data\\preferences.lua']
+package.loaded['lib.storage'].load = function(path)
+    return path:match('preferences.lua$') and saved_preferences or {}
+end
+clock = 60
+dofile('rtfm.lua')
+local reload_sounds = sounds
+callbacks.text_in({ message = 'Kirin readies Mortal Ray.', mode = 185 })
+assert(sounds == reload_sounds + 1)
+callbacks.packet_in({ fixture = {
+    monster = 'Kirin', move = 'Mortal Ray', action = 'uses', affected_players = { 'Rialia' },
+} })
+callbacks.packet_in({ id = 0x00B })
+assert(saves['mock/data\\mobs_learned.lua'].kirin.mortalray)
+callbacks.unload()
+
 -- Known entities take precedence over name heuristics and configured exceptions.
 local actor_filter = require('lib.actors').new({
     blacklist_enabled = true, blacklist_mobs = {}, guaranteed_mobs = { outsider = true },
@@ -205,4 +277,23 @@ assert(actor_filter:is_excluded('Outsider', 20))
 assert(actor_filter:is_excluded('Rialia', 20))
 assert(actor_filter:is_excluded('Pet', 20))
 assert(not actor_filter:is_excluded('Dragon', 20))
+-- The optional filter gates both preparations and packet completions before
+-- they can add rows, learn moves, or trigger sounds.
+local engagement = require('lib.engagement')
+local real_matches = engagement.matches
+engagement.matches = function(event) return event.monster == 'Kirin' end
+local config = require('config')
+config.party_enemies_only = true
+callbacks.d3d_present()
+local rows_before, pending_before, alerts_before = #displayed_tracker.recent, #displayed_tracker.pending, sounds
+callbacks.packet_in({ fixture = {
+    monster = 'Khimaira', move = 'Dreadstorm', action = 'uses', affected_players = { 'Rialia' },
+} })
+callbacks.text_in({ message = 'Khimaira readies Dreadstorm.', mode = 185 })
+assert(#displayed_tracker.recent == rows_before and #displayed_tracker.pending == pending_before)
+assert(sounds == alerts_before)
+command({ '/rtfm', 'hide' })
+assert(saves['mock/data\\preferences.lua'].party_enemies_only == true)
+config.party_enemies_only = false
+engagement.matches = real_matches
 print('RTFM regression checks passed.')

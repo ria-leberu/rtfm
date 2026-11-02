@@ -102,8 +102,9 @@ function affected.resolve(packet, entities, resources)
         move = resource and resource.Name[1]
     end
     if type(move) ~= 'string' or move == '' then return end
-    local players, seen = {}, {}
+    local players, seen, target_ids = {}, {}, {}
     for _, target in ipairs(packet.targets) do
+        target_ids[#target_ids + 1] = target.id
         local entity = resolved[target.id]
         if target.hit and entity and entity.player and not seen[target.id] then
             seen[target.id] = true
@@ -116,6 +117,7 @@ function affected.resolve(packet, entities, resources)
         monster = actor.name, move = move:gsub('%z+$', ''),
         action = packet.category == 4 and 'casts' or 'uses',
         affected_players = players,
+        target_ids = target_ids,
     }
 end
 
