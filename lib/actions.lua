@@ -106,14 +106,17 @@ function actions:record(event, now)
         local previous = self.pending[matched]
         if event.actor_id then
             for _, key in ipairs({ 'actor_id', 'action_id', 'category', 'preparation_target',
-                'preparation_target_id', 'target_ids' }) do
+                'preparation_target_id', 'target_ids', 'estimated_duration' }) do
                 if event[key] ~= nil then previous[key] = event[key] end
             end
         end
         return false
     end
     if not pending then
-        if matched then table.remove(self.pending, matched) end
+        if matched then
+            event.preparation_row = self.pending[matched]
+            table.remove(self.pending, matched)
+        end
         -- Collapse short bursts of result lines, not the entire display lifetime.
         if not matched then
             for i = #self.recent, 1, -1 do

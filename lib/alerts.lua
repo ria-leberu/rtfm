@@ -5,6 +5,9 @@ local function is_spell(event)
     return event.kind == 'spell' or event.action == 'casting' or event.action == 'casts'
         or event.category == 4 or event.category == 8
 end
+local function family_key(event)
+    return (is_spell(event) and 'spell:' or '') .. names.normalize(event.move)
+end
 
 function alerts.new(saved, entries)
     local self = setmetatable({ selected = {}, entries = {}, family_entries = {}, spell_entries = {} }, alerts)
@@ -45,11 +48,12 @@ function alerts:is_selected(event)
         return self.spell_entries[move] ~= nil and self.spell_entries[move].enabled
     end
     if event.scope == 'family' then
+        local key = family_key(event)
         local ids = event.family_ids or { event.family_id }
         if #ids == 0 then return false end
         for _, id in ipairs(ids) do
             local group = self.family_entries[id]
-            if not group or not group[move] or not group[move].enabled then return false end
+            if not group or not group[key] or not group[key].enabled then return false end
         end
         return true
     end
@@ -70,7 +74,7 @@ function alerts:is_selected(event)
     if alias_enabled then return true end
     if next(self.family_entries) then
         for id in pairs(require('lib.catalogue_browser').groups_for(event.monster)) do
-            local entry = self.family_entries[id] and self.family_entries[id][move]
+            local entry = self.family_entries[id] and self.family_entries[id][family_key(event)]
             if entry and entry.enabled then return true end
         end
     end
@@ -93,12 +97,14 @@ function alerts:set(event, enabled)
         return
     end
     if event.scope == 'family' then
+        local key = family_key(event)
         for _, id in ipairs(event.family_ids or { event.family_id }) do
             if type(id) == 'number' and id >= 1 and id % 1 == 0 then
                 self.family_entries[id] = self.family_entries[id] or {}
-                self.family_entries[id][move] = {
+                self.family_entries[id][key] = {
                     monster = names.trim(event.monster), move = names.trim(event.move),
                     scope = 'family', family_id = id, enabled = enabled == true,
+                    kind = is_spell(event) and 'spell' or nil,
                 }
             end
         end
@@ -150,10 +156,12 @@ end
 function alerts:remove(event)
     if event.scope == 'spell' then self.spell_entries[names.normalize(event.move)] = nil; return end
     if event.scope == 'family' then
-        local moves = self.family_entries[event.family_id]
-        if moves then
-            moves[names.normalize(event.move)] = nil
-            if next(moves) == nil then self.family_entries[event.family_id] = nil end
+        for _, id in ipairs(event.family_ids or { event.family_id }) do
+            local moves = self.family_entries[id]
+            if moves then
+                moves[family_key(event)] = nil
+                if next(moves) == nil then self.family_entries[id] = nil end
+            end
         end
         return
     end

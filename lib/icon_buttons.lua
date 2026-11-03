@@ -4,8 +4,8 @@ local buttons = {}
 
 local function draw_button(id, kind, selected, tooltip)
     local size = imgui.GetFontSize() * 1.4
-    local x, y = imgui.GetCursorScreenPos()
     local clicked = imgui.Button('##' .. id, { size, size })
+    local x, y = imgui.GetItemRectMin()
     local draw = imgui.GetWindowDrawList()
     local color = imgui.GetColorU32(selected and appearance.palette().tracked or { 0.9, 0.9, 0.9, 1 })
     local thickness = math.max(1, size * 0.06)

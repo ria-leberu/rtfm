@@ -5,8 +5,7 @@ local catalogue = require('data.catalogue')
 local statuses = require('data.statuses')
 local spell_statuses = require('data.spell_statuses')
 local spell_damage = require('data.generated.spell_damage')
-local display_text = require('lib.display_text')
-local monster_index = require('data.generated.monsters')
+local monster_index = require('data.monster_index')
 local descriptions = {}
 local by_name = {}
 local damage_labels = {
@@ -72,48 +71,69 @@ function descriptions.lookup(event, overrides)
     return unambiguous(by_name[move_key] or {})
 end
 
-function descriptions.draw(event, overrides, compact)
+function descriptions.tooltip(event, overrides)
+    local entry = descriptions.lookup(event, overrides)
+    if not entry then return '' end
+    local lines = {}
+    if entry.area then lines[#lines + 1] = 'Area: ' .. entry.area end
+    if entry.note then lines[#lines + 1] = entry.note end
+    if entry.reference_note then lines[#lines + 1] = entry.reference_note end
+    return table.concat(lines, '\n')
+end
+
+function descriptions.draw(event, overrides, compact, alignment)
     local entry = descriptions.lookup(event, overrides)
     if not entry then return end
     local size = imgui.GetFontSize()
+    local details = descriptions.tooltip(event, overrides)
+    local reference_note = details ~= '' and ('\n' .. details) or ''
     local gap = compact and 2 or 4
-    if entry.damage then
-        imgui.SameLine(0, gap)
-        imgui.Text('[')
-        imgui.SameLine(0, 2)
-        local label = damage_labels[entry.damage] or entry.damage
-        icons.draw(entry.damage, nil, label, size, label .. (entry.automated and ' (upstream; unverified)' or ''))
-        imgui.SameLine(0, 2)
-        imgui.Text(']')
+    local grouped = false
+    local function same_line(spacing)
+        if alignment then
+            if grouped then imgui.EndGroup() end
+            alignment:same_line(spacing, size)
+            imgui.BeginGroup()
+            grouped = true
+        else imgui.SameLine(0, spacing) end
     end
-    if entry.area then
-        imgui.SameLine(0, gap)
-        imgui.Text(entry.area)
+    if entry.damage then
+        same_line(gap)
+        imgui.Text('[')
+        same_line(2)
+        if entry.damage == 'magical' or entry.damage == 'unknown' then
+            imgui.Text('?')
+            if imgui.IsItemHovered() then
+                imgui.SetTooltip((entry.damage == 'magical' and 'Magical damage; element unconfirmed.'
+                    or 'Damage element/type unconfirmed.') .. reference_note)
+            end
+        else
+            local label = damage_labels[entry.damage] or entry.damage
+            icons.draw(entry.damage, nil, label, size, label .. (entry.automated and ' (upstream; unverified)' or '') .. reference_note)
+        end
+        same_line(2)
+        imgui.Text(']')
     end
     local has_statuses = #(entry.statuses or {}) > 0 or #(entry.self_statuses or {}) > 0
     if has_statuses then
-        imgui.SameLine(0, gap)
+        same_line(gap)
         imgui.Text('(')
     end
     for _, id in ipairs(entry.statuses or {}) do
-        imgui.SameLine(0, gap)
+        same_line(gap)
         local label = statuses[id] or ('Status ' .. id)
-        icons.draw('status', id, label, size, label .. (entry.automated and ' (possible target effect; upstream)' or ''))
+        icons.draw('status', id, label, size, label .. (entry.automated and ' (possible target effect; upstream)' or '') .. reference_note)
     end
     for _, id in ipairs(entry.self_statuses or {}) do
-        imgui.SameLine(0, gap)
+        same_line(gap)
         local label = statuses[id] or ('Status ' .. id)
-        icons.draw('status', id, label, size, 'Self: ' .. label .. ' (possible effect; upstream)')
+        icons.draw('status', id, label, size, 'Self: ' .. label .. ' (possible effect)' .. reference_note)
     end
     if has_statuses then
-        imgui.SameLine(0, 2)
+        same_line(2)
         imgui.Text(')')
     end
-    if entry.note then
-        imgui.SameLine(0, gap)
-        imgui.Text(compact and display_text.shorten(entry.note) or entry.note)
-        if compact and imgui.IsItemHovered() then imgui.SetTooltip(entry.note) end
-    end
+    if grouped then imgui.EndGroup() end
 end
 
 return descriptions
