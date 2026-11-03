@@ -266,6 +266,9 @@ def build(source, revision, output, client_resources=None):
     for id, entry in moves.items():
         runtime_moves[id] = {key: entry[key] for key in runtime_fields if key in entry}
     write_lua(output / 'generated/moves.lua', runtime_moves)
+    write_lua(output / 'generated/preparation_times.lua',
+              {id: entry['prepare_ms'] / 1000 for id, entry in moves.items()
+               if isinstance(entry.get('prepare_ms'), (int, float)) and entry['prepare_ms'] >= 0})
     write_lua(output / 'generated/monsters.lua', {k: sorted(v) for k, v in monster_index.items() if v})
     write_lua(output / 'generated/statuses.lua', {id: entry['name'] for id, entry in statuses.items()})
     write_lua(output / 'generated/spells.lua', spell_names)

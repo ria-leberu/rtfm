@@ -1,6 +1,7 @@
 local data = require('data.generated.browser')
 local catalogue = require('data.catalogue')
 local names = require('lib.names')
+local overrides = require('data.moves')
 local browser = {}
 local spell_names = require('data.generated.spells')
 local spell_targets = {}
@@ -15,6 +16,7 @@ for id, name in pairs(spell_names) do
 end
 local groups = {}
 local raw_groups = {}
+local reviewed_moves = require('data.notorious_moves')
 for _, group in ipairs(data.families) do
     raw_groups[group.family_id] = group
     for _, member in ipairs(group.members) do
@@ -28,18 +30,29 @@ for _, addition in ipairs(require('data.notorious_additions')) do
     for _, monster in ipairs(data.monsters) do
         if names.normalize(monster.name) == names.normalize(addition.name) then existing = monster; break end
     end
-    local group = raw_groups[addition.skill_list_id]
-    if group then
+    local moves = reviewed_moves(addition)
+    if #moves > 0 then
         if existing then
             existing.notorious = true
+            existing.moves = moves
+            existing.spells = addition.spells or existing.spells
+            local aliases = {}
+            for _, alias in ipairs(existing.aliases or {}) do aliases[names.normalize(alias)] = true end
+            existing.aliases = existing.aliases or {}
+            for _, alias in ipairs(addition.aliases) do
+                if not aliases[names.normalize(alias)] then
+                    existing.aliases[#existing.aliases + 1] = alias
+                    aliases[names.normalize(alias)] = true
+                end
+            end
         else
             data.monsters[#data.monsters + 1] = { name = addition.name, aliases = addition.aliases,
-                moves = group.moves, spells = addition.spells or {}, notorious = true, reviewed_addition = true }
+                moves = moves, spells = addition.spells or {}, notorious = true, reviewed_addition = true }
         end
         for _, alias in ipairs(addition.aliases) do
             local key = names.normalize(alias)
             groups[key] = groups[key] or {}
-            groups[key][addition.skill_list_id] = true
+            for _, id in ipairs(addition.skill_list_ids or { addition.skill_list_id }) do groups[key][id] = true end
         end
     end
 end
@@ -138,12 +151,14 @@ function browser.moves_for(target, query)
         local entry = catalogue[id]
         if entry and entry.name:lower():find(query, 1, true) then
             local key = names.normalize(entry.name)
+            local monster_overrides = overrides[names.normalize(target.name)]
+            local description = monster_overrides and monster_overrides[key] or entry
             local move = seen[key]
             if move then
                 move.variant_ids[#move.variant_ids + 1] = id
-                if signature(move.description) ~= signature(entry) then move.varies = true end
+                if signature(move.description) ~= signature(description) then move.varies = true end
             else
-                move = { id = id, name = entry.name, description = entry, variant_ids = { id } }
+                move = { id = id, name = entry.name, description = description, variant_ids = { id } }
                 result[#result + 1] = move
                 seen[key] = move
             end
@@ -152,6 +167,78 @@ function browser.moves_for(target, query)
     table.sort(result, function(a, b)
         if a.name == b.name then return tostring(a.id) < tostring(b.id) end
         return a.name:lower() < b.name:lower()
+    end)
+    return result
+end
+
+-- Build once; queries search all scopes regardless of the active browse tab.
+-- A move hit retains its owner so selecting it opens the correct tracking rule.
+local search_records
+function browser.search_all(query)
+    if not search_records then
+        search_records = {}
+        local function add(target, scope)
+            search_records[#search_records + 1] = { target = target, scope = scope }
+            if target.moves then
+                local seen = {}
+                for _, id in ipairs(target.moves) do
+                    local move = catalogue[id]
+                    if move and not seen[names.normalize(move.name)] then
+                        seen[names.normalize(move.name)] = true
+                        search_records[#search_records + 1] = { target = target, scope = scope, move = move.name }
+                    end
+                end
+            end
+        end
+        for _, target in ipairs(common_families) do add(target, 'family') end
+        local known, additional = {}, {}
+        for _, target in ipairs(data.monsters) do
+            known[names.normalize(target.name)] = true
+            for _, alias in ipairs(target.aliases or {}) do known[names.normalize(alias)] = true end
+            add(target, target.notorious and 'notorious' or 'monster')
+        end
+        -- Reviewed family members can be absent from imported mob pools.
+        for _, family in ipairs(common_families) do
+            for _, member in ipairs(family.members) do
+                local key = names.normalize(member)
+                if not known[key] then
+                    local target = additional[key] or { name = member, moves = {}, seen = {} }
+                    additional[key] = target
+                    for _, id in ipairs(family.moves) do
+                        if not target.seen[id] then target.moves[#target.moves + 1], target.seen[id] = id, true end
+                    end
+                end
+            end
+        end
+        for _, target in pairs(additional) do target.seen = nil; add(target, 'monster') end
+        for _, target in ipairs(spell_targets) do add(target, 'spell') end
+    end
+    local result = {}
+    local key = names.normalize(query)
+    if key == '' then return result end
+    for _, record in ipairs(search_records) do
+        local target = record.target
+        local matches = names.normalize(record.move or target.name):find(key, 1, true) ~= nil
+        if not record.move and not matches then
+            for _, alias in ipairs(target.aliases or {}) do
+                if names.normalize(alias):find(key, 1, true) then matches = true; break end
+            end
+        end
+        if matches then
+            local copy = {}
+            for field, value in pairs(target) do copy[field] = value end
+            copy.catalogue_scope, copy.focus_move = record.scope, record.move
+            copy.exact_match = names.normalize(record.move or target.name) == key
+            local label = record.scope == 'family' and 'Family' or (record.scope == 'notorious' and 'NM'
+                or (record.scope == 'spell' and 'Spell' or 'Enemy'))
+            copy.result_label = record.move and ('[Move] ' .. record.move .. ' - ' .. target.name)
+                or ('[' .. label .. '] ' .. target.name)
+            result[#result + 1] = copy
+        end
+    end
+    table.sort(result, function(a,b)
+        if a.exact_match ~= b.exact_match then return a.exact_match end
+        return a.result_label:lower() < b.result_label:lower()
     end)
     return result
 end
@@ -202,6 +289,36 @@ function browser.rule(target, move, scope)
         family_ids = scope == 'family' and target.family_ids or nil,
         kind = move.kind,
         aliases = scope ~= 'family' and target.aliases or nil }
+end
+
+function browser.tracked_filter(alerts)
+    local enemies, families, spells = {}, {}, {}
+    for _, rule in ipairs(alerts:list()) do
+        if rule.enabled then
+            if rule.kind == 'spell' or rule.scope == 'spell' then spells[names.normalize(rule.move)] = true end
+            if rule.scope == 'family' then
+                families[rule.family_id] = true
+            elseif rule.scope ~= 'spell' then
+                enemies[names.normalize(rule.monster)] = true
+                for _, alias in ipairs(rule.aliases or {}) do enemies[names.normalize(alias)] = true end
+            end
+        end
+    end
+    return function(target, scope)
+        scope = target.catalogue_scope or scope
+        if scope == 'spell' then return spells[names.normalize(target.name)] == true end
+        if target.focus_move then
+            return alerts:is_selected(browser.rule(target, { name = target.focus_move }, scope))
+        end
+        if scope == 'family' then
+            for _, id in ipairs(target.family_ids or { target.family_id }) do if families[id] then return true end end
+            return false
+        end
+        if enemies[names.normalize(target.name)] then return true end
+        for _, alias in ipairs(target.aliases or {}) do if enemies[names.normalize(alias)] then return true end end
+        for id in pairs(browser.groups_for(target.name)) do if families[id] then return true end end
+        return false
+    end
 end
 
 return browser

@@ -52,6 +52,46 @@ function display.shorten(text)
     return (text:gsub('%a+', function(word) return words[word] or word end))
 end
 
+local function player_prefix(name)
+    local characters = {}
+    for character in name:gmatch('[%z\1-\127\194-\244][\128-\191]*') do
+        characters[#characters + 1] = character
+        if #characters == 3 then break end
+    end
+    return table.concat(characters)
+end
+
+function display.players(players, abbreviate, party_order)
+    if not abbreviate then return table.concat(players, ', ') end
+    if not party_order then
+        local labels = {}
+        for _, name in ipairs(players) do labels[#labels + 1] = player_prefix(name) end
+        return table.concat(labels, ', '), table.concat(players, '\n')
+    end
+    local groups = { {}, {}, {}, {} }
+    for _, name in ipairs(players) do
+        local member = party_order[name:lower()]
+        local group = member and member.party or 4
+        groups[group][#groups[group] + 1] = { name = name, slot = member and member.slot or 99 }
+    end
+    local labels, full = {}, {}
+    for i, members in ipairs(groups) do
+        if #members > 0 then
+            table.sort(members, function(a,b)
+                if a.slot ~= b.slot then return a.slot < b.slot end
+                return a.name:lower() < b.name:lower()
+            end)
+            local short, names = {}, {}
+            for _, member in ipairs(members) do
+                short[#short + 1], names[#names + 1] = player_prefix(member.name), member.name
+            end
+            labels[#labels + 1] = (i == 4 and 'Other' or ('P' .. i)) .. '(' .. table.concat(short, ', ') .. ')'
+            full[#full + 1] = (i == 4 and 'Other players' or ('Party ' .. i)) .. '\n' .. table.concat(names, '\n')
+        end
+    end
+    return table.concat(labels, ' | '), table.concat(full, '\n\n')
+end
+
 function display.action(event, compact, mob_names)
     local verbs = { readies = 'readies', casting = 'starts casting', uses = 'used', casts = 'cast' }
     if not compact then return event.monster .. ' ' .. verbs[event.action] .. ' ' .. event.move end

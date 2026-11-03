@@ -1,283 +1,175 @@
 # RTFM
 
-An Ashita addon for displaying monster TP moves and spells, with selectable
-sound alerts, and optional move learning.
+An Ashita addon that displays enemy TP moves and spells, their known effects,
+and selected visual and sound alerts.
 
-## Development status
+## Quick start
 
-Version `0.1.0` is the initial baseline. Unreleased development separates action
-tracking, actor filtering, rendering, and persistence into modules and fixes
-several tracking issues. Detection currently uses English chat text; simultaneous
-enemies with identical names cannot be distinguished reliably.
+1. Place the `rtfm` folder in `ashita/addons/`.
+2. Run `/addon load rtfm`.
+3. Click the gear beside **RTFM Log** to open Settings.
+4. Click an outlined star beside a move to track it. A green filled star means tracked.
 
-Development takes place directly in `ashita/addons/rtfm`.
+Tracking alerts when a move is readied or a spell starts casting. Click a green
+star to untrack. Use the speaker icon to choose its sound.
 
-## Usage
+## Reading the log
 
-Load with `/addon load rtfm`.
+Completed actions appear newest at the bottom. **Readying/Casting** stays visible
+below the history. The upper-right minimize button shows only Readying/Casting;
+click the restore button to bring history back. **X** hides the overlay, and
+`/rtfm` toggles it back on or off. The minimized state survives reloads.
 
-- `/rtfm`, `/rtfm toggle`, `/rtfm show`, `/rtfm hide`: control the overlay.
-- `/rtfm learn on` and `/rtfm learn off`: control observed TP-move learning.
-- `/rtfm help`: list commands.
-- `/rtfm config` or `/rtfm settings`: open or close the configuration window.
-- `/rtfm debug on` and `/rtfm debug off`: log chat and decoded action results
-  when troubleshooting missing affected-player subtitles.
+Readying/Casting stays visible
+below the history, including when idle. Completed rows use fixed columns: timer, star, speaker, then action text. Timers, text
+and effect icons share a horizontal centerline, including smaller player names.
 
-Edit `config.lua` for durations, history limits, filters,
-and sound rules. Reload the addon after editing it. Alerts fire when selected monster moves are readied. Repeated result lines within 0.5 seconds are
-collapsed unless a new preparation was observed. Unknown single-word names still
-use a player-name fallback; add exceptions to `guaranteed_mobs` when necessary.
+| Display | Meaning |
+|---|---|
+| Light red background | Offensive action |
+| Light blue background | Defensive buff or healing |
+| Green action text | Tracked move or spell |
+| Icons in `[ ]` | Physical or elemental damage |
+| Icons in `( )` | Possible status effects; hover for names |
+| Yellow arrow and names | Players confirmed affected by completed results |
+| `-> Name` while preparing | Packet-confirmed primary target, not everyone an AoE may hit |
+| `00:00.0` | Elapsed minutes, seconds and tenths; hover for the format |
 
-Window visibility, alert rules, history limit, and learning preference
-persist locally in `data/preferences.lua` and override their defaults. Preference
-changes save immediately; pending data also saves on unload and zone departure
-(including logout). Learned moves are stored in `data/mobs_learned.lua` and save
-every ten seconds when needed. Saving works while the overlay is hidden.
-The previous save is retained as `.bak`.
-Learning records observations, not inferred move effects.
+The default layout keeps the move, description and affected players on one line.
+Long rows scroll horizontally. Disable the single-line setting to put affected
+players on a full-width second line, starting beneath the timer. No affected-player list appears when none is confirmed.
 
-Click **Track** beside a completed move to play an alert when that monster readies
-the move again. Spell entries alert when casting starts. The button changes to a green **Untrack** and the move text turns green; click it to disable
-that selected alert. Selections apply to the monster name and move name, so
-repeated log entries share the same tracking state and identically named monsters
-share the rule. Selections persist after the log entry leaves the history and
-across reloads, unloads, and logoffs. Selecting a move does not play a sound immediately.
+Preparing rows show a progress bar immediately after the move/spell text. Spell resource
+cast times and upstream TP preparation times provide base estimates. Server
+changes, Fast Cast and latency can alter them. Unknown durations use a moving
+indicator; a full bar waits for a confirmed result or the existing timeout.
+Hover the bar for details. Confirmed completions use a brief upward text glide
+and a fading highlight on the new log row; interruptions and timeouts do not.
 
-The scrollable log retains the last 25 completed moves by default, oldest first.
-New moves appear at the bottom and scroll older moves upward. You can browse the
-history between new moves. The **Readying / Casting** area always remains visible
-beneath the history, shows both TP preparations and spell casts, and displays an
-idle message when empty. Entries do not fade while pending.
-Rows remain readable until replaced by newer moves; the session log starts empty
-when the addon loads. Resize the overlay as needed.
+Tracked preparations also show large, waving yellow text with a black outline
+at screen center, with the same preparation progress bar beneath each active
+alert. The bar disappears once preparation ends. Banners remain for 5 extra seconds after a preparation clears;
+adjust **Keep banner after preparation (seconds)** from 0–30 in Settings. During
+that extension they show the action name without claiming it is still preparing.
+Disable center alerts independently of sound. Pending spells
+clear on completion, interruption or a 15-second timeout; TP moves time out after
+10 seconds.
 
-Use the gear to the left of **RTFM Log** or `/rtfm config` to review all previously selected
-enemy/move pairs, including disabled ones. Enable or disable each rule, use
-**Edit** to change its enemy or move name, or **Remove** to delete it permanently.
-Edit fields apply with **Save entry**; **Cancel** discards the form changes.
-**Moves in log** changes the saved history limit (1–250).
+## Settings
 
-Choose **Browse families / notorious monsters** in Settings to open the catalogue.
-**Common families** shows 148 reviewed generic categories, combining variants
-such as the three Crab base lists. **Notorious monsters** includes source-flagged
-NM entries and reviewed additions for omissions such as King Behemoth. Pet, trust, quest-NPC, and named-boss
-skill lists are not mixed into the common-family menu.
+| Setting | Default / range |
+|---|---|
+| Enable sound alerts | On; also controls previews |
+| Flashing center-screen alerts | On |
+| Keep banner after preparation | 5 seconds; adjustable from 0–30 |
+| Single-line log | On |
+| Compact log text | Off |
+| Show all affected names as 3 letters | Off; hover shows full names |
+| Log text size | 100%; adjustable from 75–200% |
+| Moves in log | 25; adjustable from 1–250 |
+| Log retention | 3 minutes; adjustable from 1–15 minutes |
+| Only enemies engaged with my party/alliance | Off |
 
-Search for an entry and select it on the left. Lists show 25 entries per page
-with **Previous / Next** controls. The right side shows its known moves and inline effect icons;
-use **Track / Untrack** beside each move to change its alert. All moves for the selected entry are shown without a separate move search.
-Each move name appears once, even when multiple underlying move IDs share it.
-When those versions have different effect data, the row says **varies by version**.
-The active catalogue tab is highlighted green.
+Both the move-count and time limits apply. Settings and selections save locally
+and survive reloads and logoffs; the displayed history starts empty after reload.
 
-Use the **Spells** tab to search for a spell such as **Breakga**, **Sleepga**, or
-**Meteor**. Select it, then choose **Track** under **Any enemy casting this spell**,
-or enter a name under **Specific enemy** and track only that caster. Spell alerts
-play when casting starts, not when the spell completes. Existing blacklist and
-party/alliance engagement filters still apply; player/trust casts are excluded.
-Per-enemy disabled spell rules override an any-enemy spell selection.
+**Compact text** shortens repeated wording and mob names: `Moblin Topsman readies
+Frypan` becomes `M. Topsman ~ Frypan`; `Boss starts casting Fire III` becomes
+`Boss cast~ Fire3`. Hover for full text and effect notes. Area labels, enmity changes and other
+written descriptions appear only on hover. Colliding mob abbreviations expand to
+full names. Player names, tracking rules and center alerts retain their full text.
 
-The monster move list contains TP moves only. **Track spells** opens the general
-spell menu. Its **Tracked spells** tab shows spells with at least one enabled
-casting rule; **Untracked spells** shows the remaining catalogue. Search either
-list, select a spell, and track it for any enemy or a specific named enemy.
-Saved casting rules can be toggled or removed from that spell's panel.
+**Show all affected names as 3 letters** keeps every confirmed player in the
+list while shortening names, for example `Rialia, PartyMember1` -> `Ria, Par`.
+Names group as `P1(Ria, Par) | P2(Gam) | P3(Del)` in the client's current
+party/alliance slot order. Non-alliance players appear under `Other`. Hover for
+full names grouped the same way and the affected count. Matching prefixes stay separate;
+this option changes display only and works with either row layout.
 
-Monster selections include the template's known aliases. Family selections cover
-the category's standard skill-list variants and apply to their known catalogue member
-names; this is not a guarantee of every biological family member or custom-server
-spawn. Common-monster log controls use the same rule as their family catalogue
-when membership and move are known. **Moblin Topsman → Frypan** and **Moblin →
-Frypan** are one saved family selection, and either control toggles it. Legacy
-common-monster selections migrate to family rules; an existing explicit family
-choice wins if old preferences disagree. Named NMs, unknown custom moves, and
-spells retain their specific scopes. Individual named-monster rules still take
-precedence over family rules.
+The engagement filter uses party/alliance claims, enemy combat targets and action
+recipients. It is an estimate, not the server's full enmity list.
 
-Selections save immediately and survive reloads/logoffs. Settings groups active
-move rules by family or named enemy. **Edit** opens its moves; **Remove** removes
-all move rules in that group without deleting its spell rules. **Track spells**
-opens the separate general spell menu.
+## Track families, NMs and spells
 
-Enable **Only enemies engaged with my party/alliance** in Settings to filter new
-log entries, preparations, learning, and alerts. It is off by default and saves
-with your preferences. An enemy qualifies when it is claimed by a party/alliance
-member, currently in combat targeting a member or their pet, or its result packet
-targets one of them. This includes all three alliance parties and trusts in those
-parties. Existing history is kept when the filter changes.
+Open **Browse families / notorious monsters** in Settings. Search and select a
+family or named NM, then use the stars beside its moves. Family rules cover known
+catalogue members; named rules can override them. Known common-mob selections in
+the log share their family's rule—for example, Moblin Topsman and Moblin Frypan.
 
-This is a client-side engagement estimate, not the server's full enmity list.
-Unclaimed enemies whose current target or action recipients are unknown can be
-missed. Disable the filter when testing unrelated monsters with GM commands.
+Browse and Track spells controls sit at the top of Settings, followed by global
+search and tracked groups. Other options are grouped into collapsible sections.
+Type a query and press Enter or Search. Catalogue search also searches all
+enemies, families, NMs, moves and spells, regardless of the active tab. Results
+show their type; move matches open the owning enemy/family and matching moves.
+Enable **Tracked only** to limit results and move lists to enabled tracking rules.
+It also includes spells tracked for an NM or family. Selecting Untracked spells
+turns this filter off.
 
-Selected preparation alerts use `alert.wav` unless a custom sound is assigned
-to that move or spell, and work while the overlay is hidden.
-Repeated preparation lines do not replay the alert while the action is pending.
-Only saved Track selections enable move alerts; there are no hardcoded monster
-highlights or completion-sound rules.
+Settings groups tracked moves by family or named enemy. **Edit** opens its moves;
+**Remove** deletes the group's move rules without deleting spell rules.
 
-Completed monster moves and spells show a smaller line beneath the action:
-A yellow arrow icon followed by `Alpha, Zeta`. Names come from incoming action-result packets
-and are deduplicated and sorted. Damage, drains, dispels, and status effects count;
-misses, full resists, healing, pets, and trusts do not. No subtitle appears when there are no confirmed player hits or a result
-cannot be resolved. Confirmed packet results create completed action rows directly,
-including when the corresponding chat is filtered or injected by another addon.
-Chat supplies preparation entries only; completed actions come exclusively from
-packets to prevent duplicate packet/chat rows.
-Repeated or split result packets within the result window merge into one row,
-combining their hit lists. A new preparation starts a separate execution.
+**Track spells** opens the general spell menu:
 
-`affected_font_scale` controls subtitle size (default `0.85`), and
-`affected_match_window` controls merging of repeated completion packets
-(default one second). The subtitle requires an ImGui build supporting sized
-`PushFont`. Unresolved entities, unknown result message IDs, and unavailable
-custom move names are omitted. Moves with identical names from identically named
-enemies retain the text tracker's existing ambiguity.
+- **Tracked spells:** spells with at least one enabled casting rule.
+- **Untracked spells:** the remaining spells.
 
-Known move descriptions appear on the action line: a sword for physical damage,
-an elemental icon for its damage element, a short area label, and native FFXI
-status icons. Hover icons for their names. Missing icons fall back to readable
-labels. Status icons come from the installed game; elemental/sword assets are
-bundled with RTFM. There is no dependency on another addon and no runtime network
-lookup. Texture resources are cached and released on unload.
+Select a spell, then choose **All enemies**, **Specific NM**, or **Family**.
+NM and family scopes have searchable selectors. Family spell rules cover known
+catalogue members and remain separate from TP moves. Saved casting rules can be
+toggled or removed there. A disabled specific-enemy rule overrides an all-enemies
+selection. Catalogue results use 25-entry pages.
 
-The catalogue now includes 2,454 upstream move records and base mappings for
-1,291 monster templates, with possible effects and damage types where directly
-extractable. Reviewed Khimaira/Manticore/Aw'ghrah entries and local monster
-overrides take precedence. Generated data is identified in icon tooltips and
-remains unverified on custom servers. See `data/README.md` and the readable
-`data/reference/MONSTERS.md` / `MOVES.md` indexes. Damage estimates remain deferred.
+## Choose alert sounds
 
-## Code layout
+Click a speaker beside a move or spell. The choice applies to that action name
+across enemies; TP moves and spells have separate choices. Sound selection does
+not enable tracking.
 
-- `rtfm.lua`: initialization, commands, and event wiring.
-- `config.lua`: configuration defaults and encounter rules.
-- `lib/actions.lua`: chat parsing, duplicate suppression, and action lifetimes.
-- `lib/actors.lua`: player/pet filtering and cached entity classification.
-- `lib/engagement.lua`: optional party/alliance engagement filtering.
-- `lib/affected.lua`: action-result packets and confirmed affected players.
-- `lib/alerts.lua`: saved monster/move alert selections.
-- `lib/names.lua`: shared name normalization.
-- `lib/overlay.lua`: ImGui presentation and curated effect descriptions.
-- `lib/descriptions.lua`: ID/name lookup and inline move metadata.
-- `lib/icons.lua`: native status and bundled damage icon textures.
-- `lib/config_window.lua`: history limit and editable saved alert rules.
-- `lib/catalogue_browser.lua`: searchable monster/family/move catalogue model.
-- `lib/browser_window.lua`: catalogue selection and scoped alert controls.
-- `lib/storage.lua`: deterministic serialization and recoverable saves.
-- `data/moves.lua`: curated monster move descriptions.
-- `data/catalogue.lua`: shared monster-move descriptions keyed by action ID.
-- `data/generated/`: compact imported move, monster, and status indexes.
-- `data/family_categories.lua`: reviewed common-family grouping and variant IDs.
-- `data/notorious_additions.lua`: reviewed named NM additions with source references.
-- `data/reference/`: sourced JSON/Markdown catalogue, provenance, and review queue.
-- `data/reviewed_moves.lua`: reviewed descriptions overriding generated data.
-- `data/statuses.lua`: FFXI status ID labels.
-- `tools/`: offline Python scripts for rebuilding catalogue and effect metadata; not required by Ashita.
+1. Copy Windows-playable WAV files into `rtfm/sounds/` (PCM recommended, up to 32 MB).
+2. Open **Manage sounds** or a speaker icon; the window shows the full folder path.
+3. Click **Refresh**, select a file, and optionally **Preview** it.
+4. For a move or spell, click **Use selected sound**.
 
-## Versioning
+**Use default alert.wav** clears a custom choice. Missing custom files fall back
+to `alert.wav`. Open the displayed folder path manually in Windows Explorer;
+RTFM does not launch folders or browse your drives. User WAV files are ignored
+by Git. Turn off **Enable sound alerts** to mute audio while keeping visual alerts.
 
-RTFM uses semantic versioning (`MAJOR.MINOR.PATCH`). The version in `rtfm.lua`
-is the authoritative addon version.
+## Commands
 
-- During `0.x` development, increment MINOR for features or breaking changes.
-- Increment PATCH for backward-compatible fixes within a minor release.
-- Release `1.0.0` when the core behavior and configuration are stable.
-- From `1.0.0`, increment MAJOR for breaking changes, MINOR for compatible
-  features, and PATCH for compatible fixes.
-- Record changes in `CHANGELOG.md` and tag releases as `vMAJOR.MINOR.PATCH`.
-- Keep unreleased changes under `Unreleased` until the next release is ready.
+| Command | Action |
+|---|---|
+| `/rtfm` or `/rtfm toggle` | Toggle the log |
+| `/rtfm show` / `/rtfm hide` | Show or hide the log |
+| `/rtfm config` or `/rtfm settings` | Toggle Settings |
+| `/rtfm reload` | Save pending settings and reload |
+| `/rtfm learn on` / `/rtfm learn off` | Record observed TP-move names |
+| `/rtfm debug on` / `/rtfm debug off` | Save and print move diagnostics; setting survives reloads |
+| `/rtfm help` | List commands |
 
-Offensive actions in the log and Readying / Casting area have a red text
-background; defensive buffs and healing use light blue. Tracked actions keep
-their green text. Classification uses local target/effect metadata; unknown
-actions remain uncolored, and custom-server changes may differ.
+## Limits and troubleshooting
 
-Harmful spells with known status metadata (including Bio, Blind and Sleepga)
-show the same native status icons as TP moves during casting and in the log.
-Icons describe possible effects, including effects that may be resisted.
+- Descriptions are sourced metadata, not proof an effect landed. Custom servers
+  may change moves, spell lists and effects. No damage estimates are provided.
+- Unknown targets, effects or result messages may be omitted. A primary target
+  does not predict an AoE's affected players.
+- Preparation packets and English chat feed pending rows; completion packets feed
+  history. Chat-only events can be ambiguous for identically named enemies.
+- Alerts continue while the log is hidden. Disable sound and center alerts in
+  Settings if you want both off.
+- For missing actions, temporarily disable the engagement filter and use
+  `/rtfm debug on`. Logs are saved in `rtfm/logs/rtfm-debug.txt`, with timestamps,
+  move packets, target IDs, affected names, filter decisions, interruptions and
+  preparation timeouts. Only move-related chat is included. At 5 MB, the file
+  rotates to `rtfm-debug-previous.txt`. Share both files when reporting an issue.
+  Turn diagnostics off with `/rtfm debug off` when finished.
 
-## Appearance settings
+RTFM reads incoming game data, draws locally, plays local audio and saves local
+files. It does not inject game packets or perform gameplay actions.
 
-Use the gear in RTFM Log to set log text size from 75% to 200%; Track buttons,
-status icons, and affected-player text scale with it. Action backgrounds now use
-a much lighter tint. Red denotes offensive actions and light blue denotes
-support actions. These settings save immediately and persist across reloads
-and logoffs.
+## More documentation
 
-Enable **Move, description and affected players on one line** in Settings for a
-compact log row. The yellow arrow and player list follows the description, with elapsed
-time last. Long rows can be scrolled horizontally. Single-line mode is the default for new settings; disable it to place affected
-players beneath the move. This preference survives reloads and logoffs.
-
-Damage icons appear in square brackets and status icons in parentheses. Known
-elemental damage spells such as Fire III also display their element icon.
-
-Enemy spells stay in Readying / Casting until their completion packet or a
-confirmed casting interruption, with a 15-second timeout. TP preparations retain
-their separate 10-second timeout. Timed-out or interrupted casts do not create
-completed log entries.
-
-Tracked preparations also show large, pulsing yellow text at the screen center,
-including tracked spells while casting. Disable **Flashing center-screen alerts
-for tracked moves / spells** in Settings to turn this off. The preference is
-saved, and the alert stops when the pending action clears. It remains available
-when the main log is hidden and does not intercept mouse or keyboard input.
-
-Log entries expire after 3 minutes by default. Adjust **Log retention (minutes)**
-in Settings from 1 to 15 minutes; the 15-minute ceiling also applies to manually
-edited preferences. The move-count limit still applies. Timers show seconds with hundredths, such as `119.99s`,
-until 2 minutes, then minutes and seconds, such as `2m 00.00s`. Readying and casting timeouts are unchanged.
-
-Center-screen alerts use a black text outline instead of a background panel,
-while retaining their yellow wave and pulse animation.
-
-Preparing moves and spells show `-> TargetName` when an incoming preparation
-packet identifies a target that the client can resolve. This appears in both
-Readying/Casting and center alerts. It is the primary intended target, not a
-prediction of everyone an AoE will hit. Unknown targets are omitted; completed
-affected-player lists continue to use actual action results.
-
-## Custom alert sounds
-
-Use **Sound** beside a move or spell in the log or catalogue to choose its audio.
-Selections apply by move/spell name across enemies; TP moves and spells have
-separate choices. Leaving a choice unset uses the bundled **alert.wav**. Missing
-custom files fall back to alert.wav. Selecting audio does not enable tracking.
-
-Settings has **Enable sound alerts** to mute all audio, including previews,
-without disabling visual alerts. **Manage sounds** displays the full sound-folder
-path and its current WAV files. Copy your sounds into the addon's `sounds/`
-folder, then click **Refresh**. Open the displayed path manually in Windows
-Explorer. There is no folder-launch button, in-addon file browser, copying or
-external-path linking.
-
-Select a file and click **Use selected sound** from a move/spell's Sound window.
-**Preview** plays the chosen audio; **Use default alert.wav** clears an assignment.
-Use Windows-playable WAV files (PCM recommended), up to 32 MB. Assignments and
-the master toggle save immediately and survive reloads/logoffs. User WAV files
-are ignored by Git. The unused benediction.wav file has been removed.
-
-Enable **Compact log text (abbreviations / symbols)** in Settings to shorten log
-rows. For example, `Khimaira readies Fossilizing Breath` becomes
-`Khimaira ~ Foss. Br.`, and `Boss starts casting Fire III` becomes
-`Boss cast~ Fire3`. Completed actions use `Boss: Move`; common description words
-such as Attack Boost become `ATK +`. Hover the action or note for its full text.
-Player names, tracking, sound assignments and centre-alert text retain
-their original names. The setting defaults off and saves across reloads.
-
-Per-action controls use drawn icons: an outlined star enables tracking, and a
-filled green star disables it when clicked. The speaker opens sound selection.
-Hover either icon for its tooltip. Icons scale with log text size and appear
-in both the log and catalogue without requiring an icon font.
-
-Use `/rtfm reload` to save pending settings and reload the addon through the
-local addon manager, equivalent to `/addon reload rtfm`.
-
-Compact mode also abbreviates all mob names using the same rules: omit leading
-The and trailing "the ..." epithets, shorten common titles (King -> K.,
-Greater -> Gr.), and initial earlier words while keeping the last word intact.
-Examples: Moblin Topsman -> M. Topsman; Gurfurlur the Menacing -> Gurfurlur.
-Single-word names remain intact. Names that would collide among the current
-history and pending rows expand to full names. Hover shows the original name;
-tracking continues to use it internally.
+- [Catalogue data and sources](data/README.md)
+- [Development and versioning](docs/DEVELOPMENT.md)
+- [Screenshot checklist](docs/SCREENSHOTS.md)
+- [Changelog](CHANGELOG.md)

@@ -1,0 +1,26 @@
+-- Shared Proto-Omega / Neo-Omega overrides from the supplied retail reference.
+-- See OMEGA.md for sources, unresolved elements and upstream differences.
+return {
+    hyperpulse = { damage = 'physical', area = 'AoE', statuses = { 12, 11 }, source = 'hyper_pulse',
+        reference_note = 'Retail reference: physical damage, Gravity and short Bind. Pinned upstream instead uses magical damage with an unresolved element.' },
+    rearlasers = { damage = 'unknown', area = 'Rear', statuses = { 7 }, note = 'Rear hate only', source = 'rear_lasers',
+        reference_note = 'Damage is reported in the supplied reference; damage type/element is unconfirmed. Pinned upstream applies Petrification without damage.' },
+    ionefflux = { damage = 'magical', area = 'Cone', statuses = { 4 }, source = 'ion_efflux',
+        reference_note = 'Paralysis is confirmed in the reference; its magical damage element is unresolved. Pinned upstream applies the status only.' },
+    stuncannon = { damage = 'lightning', area = 'Cone', statuses = { 4 }, source = 'stun_cannon',
+        reference_note = 'Thunder damage follows the pinned upstream implementation, which marks the element as needing verification.' },
+    targetanalysis = { area = 'AoE', statuses = { 136, 137, 138, 139, 140, 141, 142 },
+        note = 'Absorb stats; shadows absorb', source = 'target_analysis' },
+    floodlight = { damage = 'light', area = 'AoE', statuses = { 5, 6 }, note = 'Ignores shadows', source = 'floodlight',
+        reference_note = 'Supplied retail reference specifies Blind and Silence. Pinned upstream applies Flash and Silence instead.' },
+    podejection = { note = 'Summons Gunpod', source = 'pod_ejection' },
+    colossalblow = { damage = 'physical', note = 'HP cut; knockback; enmity reset; ignores shadows', source = 'colossal_blow' },
+    lasershower = { damage = 'light', area = 'Cone', statuses = { 149 }, source = 'laser_shower',
+        reference_note = 'Light element follows pinned upstream. Off-center positioning can reduce breath damage.' },
+    guidedmissile = { damage = 'physical', area = 'Target AoE', note = 'Shadows absorb; Bind?', source = 'guided_missile',
+        reference_note = 'Bind is uncertain in the supplied reference and is not treated as a confirmed status.' },
+    guidedmissileii = { damage = 'magical', area = 'Target AoE', note = 'Ignores shadows; Bind?', source = 'guided_missile_ii',
+        reference_note = 'Upstream magical damage has no confirmed element. Bind is uncertain and is not treated as a confirmed status.' },
+    pilepitch = { damage = 'physical', statuses = { 11 }, note = 'HP to 10%; enmity loss; ignores shadows', source = 'pile_pitch' },
+    discharger = { self_statuses = { 38, 152 }, source = 'discharger' },
+}
