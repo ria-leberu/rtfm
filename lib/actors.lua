@@ -42,6 +42,26 @@ function actors:is_excluded(name, now)
     end
     if self.cache[key] then return self.cache[key] == 'excluded' end
     if self.config.guaranteed_mobs[key] then return false end
+    -- A monster can enter the entity table after this second's shared scan.
+    -- Recheck an unknown actor before the player-name fallback rejects its
+    -- readying line (notably single-word NM names such as Tchakka).
+    local entities = memory:GetEntity()
+    local found_mob = false
+    for i = 0, 2303 do
+        local entity_name = entities:GetName(i)
+        if entity_name and names.normalize(entity_name) == key then
+            local flags = entities:GetSpawnFlags(i)
+            if bit.band(flags, 0x01) ~= 0 or entities:GetTrustOwnerTargetIndex(i) ~= 0 then
+                self.cache[key] = 'excluded'
+                return true
+            end
+            if bit.band(flags, 0x10) ~= 0 then found_mob = true end
+        end
+    end
+    if found_mob then
+        self.cache[key] = 'mob'
+        return false
+    end
     -- Text-only fallback for actors absent from the entity table.
     return name:match('^[A-Z][a-z]+$') ~= nil
 end

@@ -5,6 +5,7 @@
 data/preferences.lua
 data/*.tmp
 data/*.bak
+logs/
 
 # Upstream source snapshot used by the offline catalogue builder
 .catalogue-cache/

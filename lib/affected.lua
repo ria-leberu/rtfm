@@ -42,7 +42,9 @@ function affected.parse(e)
             return result
         end
         result.preparing = result.category == 7 or result.category == 8
-        if result.category == 8 and result.action_id ~= 24931 then return end
+        if result.category == 8 and result.action_id ~= 24931 then
+            error('Unsupported casting marker: ' .. tostring(result.action_id) .. ' actor=' .. tostring(result.actor_id))
+        end
         if not result.preparing and result.category ~= 4 and result.category ~= 6 and result.category ~= 11 then return end
         for _ = 1, count do
             local target = { id = read(32), hit = false }
@@ -75,7 +77,9 @@ function affected.parse(e)
         if result.preparing then
             result.preparation_marker = result.action_id
             result.action_id = result.targets[1] and result.targets[1].action_id
-            if not result.action_id or result.action_id == 0 then return end
+            if not result.action_id or result.action_id == 0 then
+                error('Missing preparation ID: actor=' .. tostring(result.actor_id) .. ' category=' .. tostring(result.category))
+            end
         end
         return result
     end)
@@ -103,22 +107,26 @@ function affected.resolve(packet, entities, resources)
         end
     end
     local actor = resolved[packet.actor_id]
-    if not actor or not actor.monster then return end
+    if not actor then return nil, 'actor absent from entity table' end
+    if not actor.monster then return nil, 'actor is not a monster: ' .. actor.name end
     if packet.interrupted then
         return { actor_id = packet.actor_id, monster = actor.name, action = 'interrupted',
             category = packet.category }
     end
-    local move
+    local move, cast_time
     if packet.category == 11 or packet.category == 7 then
-        if packet.action_id < 256 then return end
+        if packet.action_id < 256 then return nil, 'monster ability ID below 256' end
         move = resources:GetString('monsters.abilities', packet.action_id - 256, 2)
     else
         local resource
         if packet.category == 4 or packet.category == 8 then resource = resources:GetSpellById(packet.action_id)
         else resource = resources:GetAbilityById(packet.action_id + 512) end
         move = resource and resource.Name[1]
+        if packet.category == 8 and resource and type(resource.CastTime) == 'number' then
+            cast_time = resource.CastTime * 0.25 -- Ashita resource units are quarter-seconds.
+        end
     end
-    if type(move) ~= 'string' or move == '' then return end
+    if type(move) ~= 'string' or move == '' then return nil, 'action resource name unavailable' end
     local players, seen, target_ids = {}, {}, {}
     for _, target in ipairs(packet.targets) do
         target_ids[#target_ids + 1] = target.id
@@ -138,6 +146,7 @@ function affected.resolve(packet, entities, resources)
             action = packet.category == 8 and 'casting' or 'readies',
             preparation_target = target and target.name or nil,
             preparation_target_id = primary and primary.id or nil,
+            estimated_duration = cast_time,
             target_ids = target_ids,
         }
     end

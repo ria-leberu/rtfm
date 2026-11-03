@@ -36,4 +36,5 @@ return {
     Yovra = { 271 }, Zdei = { 272 }, Twitherym = { 338 }, Chapuli = { 339 }, Mantis = { 340 },
     Velkk = { 342 }, Heartwing = { 343 }, Cracklaw = { 344 }, Marolith = { 347 }, Matamata = { 348 },
     ['Iron Giant'] = { 350 },
+    Wyrm = { 259, 260, 261, 262, 263, 391, 392, 393 }, Zilant = { 470 },
 }

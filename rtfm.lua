@@ -31,6 +31,14 @@ local now = imgui.GetTime
 local last_save = now()
 local learned_moves = storage.load(learned_path)
 local preferences = storage.load(preferences_path)
+local debug_log = require('lib.debug_log').new(base_path .. 'logs\\')
+if type(preferences.debug_log_all) == 'boolean' then config.debug_log_all = preferences.debug_log_all end
+local function debug_print(message)
+    if not config.debug_log_all then return end
+    debug_log:write(string.format('[+%.3fs] %s', now(), message))
+    print(message)
+end
+
 sounds.init(config, base_path, preferences)
 if type(preferences.sound_alerts_enabled) == 'boolean' then config.sound_alerts_enabled = preferences.sound_alerts_enabled end
 config.log_retention_minutes = timing.retention_minutes(preferences.log_retention_minutes)
@@ -45,13 +53,16 @@ for _, key in ipairs({ 'guaranteed_mobs', 'blacklist_mobs' }) do
 end
 if type(preferences.auto_learn) == 'boolean' then config.auto_learn = preferences.auto_learn end
 if type(preferences.is_open) == 'boolean' then is_open[1] = preferences.is_open end
+config.overlay_minimized = preferences.overlay_minimized == true
 if type(preferences.party_enemies_only) == 'boolean' then config.party_enemies_only = preferences.party_enemies_only end
 if type(preferences.log_font_scale) == 'number' and preferences.log_font_scale == preferences.log_font_scale then
     config.log_font_scale = math.max(0.75, math.min(2, preferences.log_font_scale))
 end
 if type(preferences.single_line_log) == 'boolean' then config.single_line_log = preferences.single_line_log end
 if type(preferences.compact_log_text) == 'boolean' then config.compact_log_text = preferences.compact_log_text end
+if type(preferences.abbreviate_player_names) == 'boolean' then config.abbreviate_player_names = preferences.abbreviate_player_names end
 if type(preferences.center_alert_enabled) == 'boolean' then config.center_alert_enabled = preferences.center_alert_enabled end
+config.center_alert_extra_seconds = timing.banner_extra(preferences.center_alert_extra_seconds)
 
 -- Normalize saved and curated keys at the boundary so all lookups agree.
 local normalized_learned = {}
@@ -81,7 +92,9 @@ local function save()
     if learned_dirty and storage.save(learned_path, learned_moves) then learned_dirty = false end
     if preferences_dirty and storage.save(preferences_path, {
         auto_learn = config.auto_learn,
+        debug_log_all = config.debug_log_all,
         is_open = is_open[1],
+        overlay_minimized = config.overlay_minimized,
         move_alerts = move_alerts.selected,
         move_alert_entries = move_alerts:list(),
         max_recent = config.max_recent,
@@ -90,7 +103,9 @@ local function save()
         log_font_scale = config.log_font_scale,
         single_line_log = config.single_line_log,
         compact_log_text = config.compact_log_text,
+        abbreviate_player_names = config.abbreviate_player_names,
         center_alert_enabled = config.center_alert_enabled,
+        center_alert_extra_seconds = config.center_alert_extra_seconds,
         sound_alerts_enabled = config.sound_alerts_enabled,
         sound_overrides = sounds.overrides,
     }) then
@@ -120,8 +135,17 @@ ashita.events.register('command', 'rtfm_command', function(e)
         AshitaCore:GetChatManager():QueueCommand(1, '/addon reload rtfm')
         return
     elseif command == 'debug' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
-        config.debug_log_all = args[3]:lower() == 'on'
-        print('[RTFM] Debug logging ' .. (config.debug_log_all and 'enabled.' or 'disabled.'))
+        local enabled = args[3]:lower() == 'on'
+        if not enabled then debug_print('[RTFM][session] Debug logging disabled.') end
+        config.debug_log_all = enabled
+        preferences_dirty = true
+        if enabled then
+            debug_print(string.format('[RTFM][session] Debug enabled; version=%s party_enemies_only=%s pending_timeout=%s casting_timeout=%s',
+                addon.version, tostring(config.party_enemies_only), tostring(config.pending_timeout), tostring(config.casting_timeout)))
+            print('[RTFM] Debug file: ' .. debug_log.path)
+        else
+            print('[RTFM] Debug logging disabled.')
+        end
     elseif command == 'learn' and args[3] and (args[3]:lower() == 'on' or args[3]:lower() == 'off') then
         config.auto_learn = args[3]:lower() == 'on'
         preferences_dirty = true
@@ -134,14 +158,26 @@ end)
 
 local function record_event(event, timestamp, verified_monster)
     if config.blacklist_enabled and config.blacklist_mobs[names.normalize(event.monster)] then return end
-    if not verified_monster and actors:is_excluded(event.monster, timestamp) then return end
+    if not verified_monster and actors:is_excluded(event.monster, timestamp) then
+        if config.debug_log_all then
+            debug_print(string.format('[RTFM][filter] %s %s: actor excluded or not identified as a monster',
+                event.monster, event.action))
+        end
+        return
+    end
     if config.party_enemies_only then
         local memory = AshitaCore:GetMemoryManager()
-        if not engagement.matches(event, memory:GetEntity(), memory:GetParty()) then return end
+        if not engagement.matches(event, memory:GetEntity(), memory:GetParty()) then
+            if config.debug_log_all then
+                debug_print(string.format('[RTFM][filter] %s %s: party engagement not confirmed',
+                    event.monster, event.action))
+            end
+            return
+        end
     end
     local added = tracker:record(event, timestamp)
     if config.debug_log_all then
-        print(string.format('[RTFM][row] %s %s %s: %s (recent=%d, pending=%d)',
+        debug_print(string.format('[RTFM][row] %s %s %s: %s (recent=%d, pending=%d)',
             event.monster, event.action, event.move, added and 'added' or 'merged/ignored',
             #tracker.recent, #tracker.pending))
     end
@@ -165,21 +201,23 @@ end
 ashita.events.register('packet_in', 'rtfm_affected_players', function(e)
     if e.id == 0x00B then save() end -- leaving the zone, including logout
     local packet, err = affected.parse(e)
-    if err and config.debug_log_all then print('[RTFM][result] Decode failed: ' .. tostring(err)) end
+    if err and config.debug_log_all then debug_print('[RTFM][result] Decode failed: ' .. tostring(err)) end
     if not packet then return end
-    local result = affected.resolve(packet, AshitaCore:GetMemoryManager():GetEntity(),
+    local result, unresolved = affected.resolve(packet, AshitaCore:GetMemoryManager():GetEntity(),
         AshitaCore:GetResourceManager())
     if result and result.action == 'interrupted' then
+        debug_print(string.format('[RTFM][interrupt] actor=%s monster=%s category=%s', tostring(result.actor_id), result.monster, tostring(result.category)))
         tracker:interrupt(result)
         return
     end
     if config.debug_log_all then
+        if unresolved then debug_print('[RTFM][resolve] ' .. unresolved) end
         local messages = {}
         for _, target in ipairs(packet.targets) do
-            messages[#messages + 1] = string.format('%u:%s', target.id, tostring(target.message))
+            messages[#messages + 1] = string.format('%u:message=%s:param=%s:hit=%s', target.id, tostring(target.message), tostring(target.action_id), tostring(target.hit))
         end
-        print(string.format('[RTFM][result] category=%d action=%d move=%s targets=%s players=%s',
-            packet.category, packet.action_id, result and result.move or '(unresolved)',
+        debug_print(string.format('[RTFM][result] actor=%s monster=%s category=%d marker=%s action=%d preparing=%s move=%s targets=%s players=%s',
+            tostring(packet.actor_id), result and result.monster or '(unresolved)', packet.category, tostring(packet.preparation_marker), packet.action_id, tostring(packet.preparing), result and result.move or '(unresolved)',
             table.concat(messages, ','), result and table.concat(result.affected_players or {}, ',') or '(unresolved)'))
     end
     if result then record_event(result, now(), true) end
@@ -187,8 +225,8 @@ end)
 
 ashita.events.register('text_in', 'rtfm_text_in', function(e)
     if not e or e.injected or not e.message then return end
-    if config.debug_log_all then print(string.format('[RTFM][%s] %s', tostring(e.mode), e.message)) end
     local event = actions.parse(e.message)
+    if event then debug_print(string.format('[RTFM][chat] mode=%s %s', tostring(e.mode), e.message)) end
     if event and event.action == 'interrupted' then
         tracker:interrupt(event)
         return
@@ -202,7 +240,17 @@ end)
 
 ashita.events.register('d3d_present', 'rtfm_present', function()
     local timestamp = now()
+    local pending = {}
+    if config.debug_log_all then
+        for _, event in ipairs(tracker.pending) do pending[event] = true end
+    end
     tracker:update(timestamp)
+    if config.debug_log_all then
+        for _, event in ipairs(tracker.pending) do pending[event] = nil end
+        for event in pairs(pending) do
+            debug_print(string.format('[RTFM][timeout] %s %s %s', event.monster, event.action, event.move))
+        end
+    end
     if timestamp - last_save >= config.save_interval then
         save()
         last_save = timestamp
@@ -220,7 +268,9 @@ ashita.events.register('d3d_present', 'rtfm_present', function()
 end)
 
 ashita.events.register('unload', 'rtfm_unload', function()
+    debug_print('[RTFM][session] Addon unloading.')
     save()
     require('lib.icons').clear()
 end)
+debug_print(string.format('[RTFM][session] Addon loaded; version=%s party_enemies_only=%s pending_timeout=%s casting_timeout=%s', addon.version, tostring(config.party_enemies_only), tostring(config.pending_timeout), tostring(config.casting_timeout)))
 print('[RTFM] Addon loaded.')
